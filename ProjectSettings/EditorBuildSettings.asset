@@ -8,4 +8,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Member/kondo/Scene/Title.unity
+    guid: 5016ab52666c1224cb89c30d36abe41d
+  - enabled: 1
+    path: Assets/Member/kondo/Scene/Tutorial.unity
+    guid: 76cbf2d5c072df9498129ef98b97541b
+  - enabled: 1
+    path: Assets/Member/kondo/Scene/Rule.unity
+    guid: 7481c28d8b098994f9bc6584ee469ca5
+  - enabled: 1
+    path: Assets/Member/kondo/Scene/Explanation.unity
+    guid: dac0aea505ea7cf4cba73246d2386425
+  - enabled: 1
+    path: Assets/Member/kondo/Scene/GameScene.unity
+    guid: b212baf6e3971f845a498fe7989b1426
   m_configObjects: {}
