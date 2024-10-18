@@ -6,12 +6,12 @@ public class ObjStatus : MonoBehaviour
 {
     [SerializeField] public int _bounce;
     public bool moveflag;
-    Rigidbody __rb;
+    Rigidbody _rb;
 
     // Start is called before the first frame update
     void Start()
     {
-        __rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -20,7 +20,7 @@ public class ObjStatus : MonoBehaviour
         if(_bounce <= 0)
         {
             Vector2 objGravity = new Vector2(0, -10f * 2);
-            __rb.AddForce(objGravity);
+            _rb.AddForce(objGravity);
         }
     }
 
