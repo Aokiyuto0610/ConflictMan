@@ -9,29 +9,42 @@ public class EnemyState : MonoBehaviour
     [Serializable]
     public class SetDamageClass
     {
-        [Label("タグ名"), Tag]
+        //対象タグ
+        [Tag]
         public string _tag;
 
-        [Label("ダメージ"), Min(0)]
-        public int _damage;
-
-        public string GetTag()
-        {
-            return _tag;
-        }
-
-        public int GetDamage()
-        {
-            return _damage;
-        }
-
+        //与えるダメージ
+        [Min(1)]
+        public int _damage = 1;
     }
 
-    [SerializeField, Label("敵のHP")] public int _enemyHp;
+    [Serializable]
+    public class StageEnemyDate
+    {
+        [Label("Stage番号")]
+        public int _stageNum = 1;
 
-    [SerializeField, Label("移動速度"),Range(0.1f,100f)] public float _enemySpeed;
+        [Label("タグ指定"),Tag]
+        public string _enemyTag;
+
+        [Label("HP"),Min(1)]
+        public int _enemyHp = 1;
+
+        [Label("攻撃力")]
+        public int _enemyPower = 1;
+
+        [Label("移動スピード"), Range(0.1f, 100f)] 
+        public float _enemySpeed = 1;
+
+        [Label("弱点倍率")]
+        public float _weekPointDamage=1;
+
+        public float _attackSpan=1;
+    }
 
     [SerializeField, Label("ダメージ無効化タグ一覧"), Tag]public string[] _invalidTag;
 
-    [Label("ダメージ設定")]public SetDamageClass[] _setDamageClasses;
+    [Label("オブジェクトダメージ設定")]public SetDamageClass[] _setDamageClasses;
+
+    [Label("エネミーステータス設定")]public StageEnemyDate[] _stageEnemyDate;
 }
