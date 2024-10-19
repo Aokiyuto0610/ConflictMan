@@ -7,6 +7,10 @@ TagManager:
   - BossEnemy
   - Ground
   - WeakPoint
+  - Floor
+  - Wall
+  - Enemy
+  - Conflict
   layers:
   - Default
   - TransparentFX

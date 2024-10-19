@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ObjSelect : MonoBehaviour
+public class ObjSelect : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private ConfliObjMove move;
 
@@ -22,6 +22,7 @@ public class ObjSelect : MonoBehaviour
     public void OnPointerClick(PointerEventData eventData)
     {
         StartCoroutine(Click());
+        Debug.Log("nye");
     }
 
     private IEnumerator Click()
