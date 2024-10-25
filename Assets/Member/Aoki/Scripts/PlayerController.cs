@@ -4,58 +4,59 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    Vector2 startPos;
-    private float speed;
-    private Vector2 endPos;
-
+    private float speed = 0.3f;
+    public float invincibleDuration = 1.5f;
+    private bool isInvincible = false;
+    private SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
-        this.rb = GetComponent<Rigidbody2D>();
-        this.speed = 3;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        Vector2 position = transform.position;
+
+        if (Input.GetKey(KeyCode.A))
         {
-            this.startPos = Input.mousePosition;
+            position.x -= speed;
         }
-        else if(Input.GetMouseButtonUp(0))
+        else if (Input.GetKey(KeyCode.D))
         {
-            Vector2 pos = Input.mousePosition;
-            Vector2 startDirection = -1 * (endPos - startPos).normalized;
-            this.rb.AddForce(startDirection * speed);
+            position.x += speed;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            this.rb.velocity *= 0;
-        }
+        transform.position = position;
     }
 
-    void FixedUpdate()
+    //–³“Gˆ—
+    public void TakeDamage(int damage)
     {
-
-        this.rb.velocity *= 0.995f;
-
-        float horizontalKey = Input.GetAxis("Horizontal");
-
-        if (horizontalKey > 0)
+        if (!isInvincible)
         {
-            rb.velocity = new Vector2(speed, rb.velocity.y);
+            StartCoroutine(ActivateInvincibility());
         }
-        else if (horizontalKey < 0)
-        {
-            rb.velocity = new Vector2(-speed, rb.velocity.y);
-        }
-        else
-        {
-            rb.velocity = Vector2.zero;
-        }
-
     }
+
+    private IEnumerator ActivateInvincibility()
+    {
+        isInvincible = true;
+
+        float blinkInterval = 0.2f;
+        for (float i = 0; i < invincibleDuration; i += blinkInterval)
+        {
+            spriteRenderer.enabled = !spriteRenderer.enabled;
+            yield return new WaitForSeconds(blinkInterval);
+        }
+        spriteRenderer.enabled = true;
+
+        isInvincible = false;
+    }
+
 }
+
+

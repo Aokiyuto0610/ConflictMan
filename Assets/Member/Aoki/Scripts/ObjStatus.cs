@@ -32,7 +32,7 @@ public class ObjStatus : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Floor")) ;
+        if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Floor"))
         {
             _bounce--;
         }
@@ -44,10 +44,11 @@ public class ObjStatus : MonoBehaviour
                 _rb.velocity = Vector2.zero;
                 _rb.GetComponent<Rigidbody2D>().gravityScale = 0;
                 _isGravity = false;
-
+                //this.transform.rotation = Quaternion.Euler(0, 0, 0);
+                _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                DefaultRotation();
             }
 
-            //_rb.velocity = Vector2.zero;
         }
         if (other.gameObject.CompareTag("Enemy"))
         {
@@ -64,5 +65,11 @@ public class ObjStatus : MonoBehaviour
 
             }
         }
+    }
+
+    public void DefaultRotation()
+    {
+        _rb.constraints = RigidbodyConstraints2D.None;
+        Debug.Log("aaa");
     }
 }
