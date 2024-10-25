@@ -6,6 +6,8 @@ using System;
 
 public class EnemyState : MonoBehaviour
 {
+
+    //ダメージ情報
     [Serializable]
     public class SetDamageClass
     {
@@ -18,6 +20,7 @@ public class EnemyState : MonoBehaviour
         public int _damage = 1;
     }
 
+    //敵情報
     [Serializable]
     public class StageEnemyDate
     {
@@ -39,12 +42,18 @@ public class EnemyState : MonoBehaviour
         [Label("弱点倍率")]
         public float _weekPointDamage=1;
 
+        [Label("攻撃間隔")]
         public float _attackSpan=1;
     }
 
-    [SerializeField, Label("ダメージ無効化タグ一覧"), Tag]public string[] _invalidTag;
+
+    [Label("敵の攻撃が当たらないオブジェクトタグ"), Tag] public string[] _notEnemyAttackTag;
+
+    [Label("敵へのダメージを無効化するプレイヤーのタグ"), Tag]public string[] _notPlayerAttackTag;
 
     [Label("オブジェクトダメージ設定")]public SetDamageClass[] _setDamageClasses;
 
     [Label("エネミーステータス設定")]public StageEnemyDate[] _stageEnemyDate;
+
+    [Label("反射した回数に応じた変化数値")] public int _reflectionMagnification = 20;
 }

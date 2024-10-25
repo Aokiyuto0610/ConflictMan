@@ -7,7 +7,7 @@ public class BossEnemy : MonoBehaviour
 {
     [SerializeField, Label("EnemyState")] EnemyState _enemyState;
 
-    [SerializeField, Label("何ステージ目のオブジェクトか")] private int _enemyAssignment;
+    [SerializeField, Label("何ステージ目のオブジェクトか")] private int _enemyAssignment=1;
 
     [SerializeField,Label("HP")] private int _enemyHp;
 
@@ -15,20 +15,59 @@ public class BossEnemy : MonoBehaviour
 
     [SerializeField, Label("移動スピード")] private float _enemyMoveSpeed;
 
-    [SerializeField, Label("弱点倍率")] private float _enemyWeekPointDamage;
+    [SerializeField, Label("弱点倍率")] private float _enemyWeekPointDamage=1.5f;
 
     [SerializeField, Label("攻撃間隔")] private float _enemyAttackSpan;
 
 
-
-    private void Start()
+    void Awake()
     {
-        
+        //データ格納
+        for(int i=0;i<_enemyState._stageEnemyDate.Length;i++)
+        {
+            if (_enemyState._stageEnemyDate[i]._stageNum == _enemyAssignment)
+            {
+                if (_enemyState._stageEnemyDate[i]._enemyTag == this.gameObject.tag)
+                {
+                    _enemyHp = _enemyState._stageEnemyDate[i]._enemyHp;
+                    _enemyPower = _enemyState._stageEnemyDate[i]._enemyPower;
+                    _enemyMoveSpeed= _enemyState._stageEnemyDate[i]._enemySpeed;
+                    _enemyWeekPointDamage= _enemyState._stageEnemyDate[i]._weekPointDamage;
+                    _enemyAttackSpan= _enemyState._stageEnemyDate[i]._attackSpan;
+                    break;
+                }
+            }
+        }
     }
+
+
 
     //衝突したオブジェクトの判定
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //Debug.Log("衝突");
+
+        PlayerTest _objSt;
+
+        //オブジェクト情報格納クラス取得ないなら終了
+        if (collision.gameObject.GetComponent<PlayerTest>())
+        {
+            //Debug.Log("取得");
+            _objSt = collision.gameObject.GetComponent<PlayerTest>();
+        }
+        else
+        {
+            //Debug.Log("取得できなかった");
+            return;
+        }
+
+        //攻撃済みか、済なら終了
+        if (_objSt._afterDamage)
+        {
+            //Debug.Log("攻撃済");
+            return;
+        }
+
         //衝突オブジェクトのタグ取得
         string ColTag = collision.gameObject.tag;
 
@@ -39,30 +78,56 @@ public class BossEnemy : MonoBehaviour
             if (ColTag == _enemyState._setDamageClasses[j]._tag)
             {
                 //アタックオブジェクトの場合、無効化されたタグが設定されていないか
-                for (int i = 0; i < _enemyState._invalidTag.Length; i++)
+                for (int i = 0; i < _enemyState._notPlayerAttackTag.Length; i++)
                 {
-                    if (ColTag == _enemyState._invalidTag[i])
+                    if (ColTag == _enemyState._notPlayerAttackTag[i])
                     {
                         Debug.Log("ダメージ無効化オブジェクトです");
                         return;
                     }
                 }
-                Debug.Log("無効化オブジェクトじゃないよ～");
+                //Debug.Log("無効化オブジェクトじゃないよ～");
+
+                //ダメージ計算
+                int ColDamage = _enemyState._setDamageClasses[j]._damage;
+                ColDamage = (_enemyState._reflectionMagnification * _objSt._reflection) + ColDamage;
+                Debug.Log("反射回数" + _objSt._reflection);
 
                 //弱点判定がオンになっているか
-                if (collision.gameObject.GetComponent<AttackObj>()._weakPoint)
+                if (_objSt._weakness)
                 {
-                    /*
-                     ここに弱点ダメージ処理を入れる
-                     */
-                    Debug.Log("弱点攻撃！！");
+                    //弱点ダメージ処理
+                    _objSt._afterDamage = true;
+                    WeekPointDamage(ColDamage);
                     return ;
                 }
-
-                /*
-                 ここに通常ダメージ処理を入れる
-                 */
+                //通常ダメージ処理
+                _objSt._afterDamage = true;
+                UsuallyDamage(ColDamage);
+                return ;
             }
         }
+        //Debug.Log("抜けた");
+    }
+
+    /// <summary>
+    /// 弱点ダメージ処理
+    /// </summary>
+    /// <param name="_colDamage">通常ダメージ数値</param>
+    void WeekPointDamage(int _colDamage)
+    {
+        int _weekDamage= Mathf.CeilToInt(_colDamage * 1.5f);
+        Debug.Log("弱点ダメージ：" + _weekDamage);
+        _enemyHp -= _weekDamage;
+    }
+
+    /// <summary>
+    /// 通常ダメージ処理
+    /// </summary>
+    /// <param name="_colDamage">ダメージ数値</param>
+    void UsuallyDamage(int _colDamage)
+    {
+        Debug.Log("通常ダメージ："+_colDamage);
+        _enemyHp -= _colDamage;
     }
 }
