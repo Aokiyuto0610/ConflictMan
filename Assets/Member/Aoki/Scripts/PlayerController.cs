@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float speed = 0.3f;
+    public HpManager _hpmg;
     public float invincibleDuration = 1.5f;
+    private float speed = 0.3f;
     private bool isInvincible = false;
     private SpriteRenderer spriteRenderer;
 
@@ -34,11 +35,12 @@ public class PlayerController : MonoBehaviour
     }
 
     //ñ≥ìGèàóù
-    public void TakeDamage(int damage)
+    public void PlayerTakeDamage(int damage)
     {
         if (!isInvincible)
         {
             StartCoroutine(ActivateInvincibility());
+            _hpmg.TakeDamage();
         }
     }
 
