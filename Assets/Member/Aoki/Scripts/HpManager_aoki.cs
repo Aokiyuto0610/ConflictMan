@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HpManager : MonoBehaviour
+public class HpManager_aoki : MonoBehaviour
 {
     [Tooltip("Hp�̉摜")]
     [SerializeField]

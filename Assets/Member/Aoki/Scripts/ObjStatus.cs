@@ -70,6 +70,6 @@ public class ObjStatus : MonoBehaviour
     public void DefaultRotation()
     {
         _rb.constraints = RigidbodyConstraints2D.None;
-        Debug.Log("aaa");
+        Debug.Log("Œü‚«‚ª...");
     }
 }

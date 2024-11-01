@@ -5,7 +5,7 @@ public class Aoki_EnemyAttack : MonoBehaviour
     [SerializeField]
     private int damage = 1;
     [SerializeField]
-    HpManager hpManager;
+    HpManager_aoki hpManager;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -15,7 +15,7 @@ public class Aoki_EnemyAttack : MonoBehaviour
             if (player != null)
             {
                 player.PlayerTakeDamage(damage);
-                Debug.Log("itai");
+                Debug.Log("í…Ç¢");
             }
         }
 
@@ -23,10 +23,12 @@ public class Aoki_EnemyAttack : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             hpManager.TakeDamage();
+            Debug.Log("ÉvÉåÉCÉÑÅ[Ç…çUåÇ");
         }
         else if (collision.CompareTag("Hp"))
         {
             hpManager.TakeDamageIfFarFromPlayer();
+            Debug.Log("HpÇ…çUåÇ");
         }
     }
 }
