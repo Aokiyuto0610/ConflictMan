@@ -9,14 +9,22 @@ public class PlayerTest : MonoBehaviour
 
     [SerializeField, Label("盾範囲に入ったのか")] public bool _shield = false;
 
+    //連続衝突回避用
     //攻撃開始時にfalseに初期化して！！！
-    [SerializeField, Label("ダメージを与えた後か")] public bool _afterDamage=false;
+    [SerializeField, Label("敵ダメージを与えた後か")] public bool _afterDamage=false;
 
     //反射回数、停止時に初期化！
     public int _reflection = 0;
 
     //デバック用
-    [SerializeField] public int _playerHp = 9999;
+    [SerializeField, OnValueChanged(nameof(OnValueChanged))] private int _playerHp = 9999;
+
+
+    //デバック用
+    private void OnValueChanged()
+    {
+        //Debug.Log("テストプレイヤーHP"+_playerHp);
+    }
 
     /// <summary>
     /// プレイヤーのHPを削る
@@ -24,12 +32,13 @@ public class PlayerTest : MonoBehaviour
     /// <param name="Damage"></param>
     public void ReceivedDamage(int Damage)
     {
+
         /*
             プレイヤーのHPを削る処理
          */
 
-        //デバッグ用
+        //デバッグ用、上を書いたらコメントアウト
         _playerHp-=Damage;
+        Debug.Log(_playerHp);
     }
-
 }

@@ -19,6 +19,8 @@ public class BossEnemy : MonoBehaviour
 
     [SerializeField, Label("çUåÇä‘äu")] private float _enemyAttackSpan;
 
+    [SerializeField] private EnemyAttack _enemyAttack;
+
 
     void Awake()
     {
@@ -34,6 +36,7 @@ public class BossEnemy : MonoBehaviour
                     _enemyMoveSpeed= _enemyState._stageEnemyDate[i]._enemySpeed;
                     _enemyWeekPointDamage= _enemyState._stageEnemyDate[i]._weekPointDamage;
                     _enemyAttackSpan= _enemyState._stageEnemyDate[i]._attackSpan;
+                    _enemyAttack.SetAttackDamage(_enemyState._stageEnemyDate[i]._enemyPower);
                     break;
                 }
             }
