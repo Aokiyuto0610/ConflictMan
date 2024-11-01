@@ -11,6 +11,7 @@ TagManager:
   - Wall
   - Enemy
   - Conflict
+  - Hp
   layers:
   - Default
   - TransparentFX

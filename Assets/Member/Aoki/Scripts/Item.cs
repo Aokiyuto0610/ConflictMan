@@ -14,8 +14,7 @@ public class Item : MonoBehaviour
             switch (itemType)
             {
                 case ItemType.Heal:
-                    // Healメソッドを呼び出す
-                    other.GetComponent<HpManager>().Heal();
+                    other.GetComponent<HpManager_aoki>().Heal();
                     break;
             }
             Destroy(gameObject);

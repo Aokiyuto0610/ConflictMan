@@ -22,7 +22,7 @@ public class ObjSelect : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         StartCoroutine(Click());
-        Debug.Log("aiu");
+        Debug.Log("‘I‘ð‚³‚ê‚½‚æ");
     }
 
     private IEnumerator Click()
