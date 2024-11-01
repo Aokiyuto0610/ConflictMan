@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using Cysharp.Threading.Tasks;
 
 public class BossEnemy : MonoBehaviour
 {
@@ -19,7 +20,19 @@ public class BossEnemy : MonoBehaviour
 
     [SerializeField, Label("攻撃間隔")] private float _enemyAttackSpan;
 
+    //span計測用
+    private float _attackSpanTime = 0;
+
+    //アタック中か
+    private bool _attacking=false;
+
     [SerializeField] private EnemyAttack _enemyAttack;
+
+    [SerializeField] private GameObject _enemySp;
+
+    [SerializeField] private GameObject _enemyAttackObj;
+
+    [SerializeField] Animator _enemyAnimator;
 
 
     void Awake()
@@ -35,14 +48,32 @@ public class BossEnemy : MonoBehaviour
                     _enemyPower = _enemyState._stageEnemyDate[i]._enemyPower;
                     _enemyMoveSpeed= _enemyState._stageEnemyDate[i]._enemySpeed;
                     _enemyWeekPointDamage= _enemyState._stageEnemyDate[i]._weekPointDamage;
-                    _enemyAttackSpan= _enemyState._stageEnemyDate[i]._attackSpan;
+                    _enemyAttackSpan= _enemyState._stageEnemyDate[i]._attackSpan+1;
                     _enemyAttack.SetAttackDamage(_enemyState._stageEnemyDate[i]._enemyPower);
                     break;
                 }
             }
         }
+
+        //nullチェック
+        if(_enemyAnimator == null)
+        {
+            Debug.LogError("Animatorがない");
+        }
     }
 
+    private async void Update()
+    {
+        _attackSpanTime += Time.deltaTime;
+        if(_attackSpanTime >= 0.1)
+        {
+            await EnemyAttackMove(1);
+            _attackSpanTime = 0;
+        }
+
+        //移動仮
+        this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x+0.001f, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+    }
 
 
     //衝突したオブジェクトの判定
@@ -104,10 +135,13 @@ public class BossEnemy : MonoBehaviour
                     WeekPointDamage(ColDamage);
                     return ;
                 }
-                //通常ダメージ処理
-                _objSt._afterDamage = true;
-                UsuallyDamage(ColDamage);
-                return ;
+                else
+                {
+                    //通常ダメージ処理
+                    _objSt._afterDamage = true;
+                    UsuallyDamage(ColDamage);
+                    return ;
+                }
             }
         }
         //Debug.Log("抜けた");
@@ -117,20 +151,70 @@ public class BossEnemy : MonoBehaviour
     /// 弱点ダメージ処理
     /// </summary>
     /// <param name="_colDamage">通常ダメージ数値</param>
-    void WeekPointDamage(int _colDamage)
+    async void WeekPointDamage(int _colDamage)
     {
         int _weekDamage= Mathf.CeilToInt(_colDamage * 1.5f);
         Debug.Log("弱点ダメージ：" + _weekDamage);
         _enemyHp -= _weekDamage;
+        if (_enemyHp <= 0)
+        {
+            await EnemySlain();
+        }
     }
 
     /// <summary>
     /// 通常ダメージ処理
     /// </summary>
     /// <param name="_colDamage">ダメージ数値</param>
-    void UsuallyDamage(int _colDamage)
+    async void UsuallyDamage(int _colDamage)
     {
         Debug.Log("通常ダメージ："+_colDamage);
         _enemyHp -= _colDamage;
+        if (_enemyHp <= 0)
+        {
+            await EnemySlain();
+        }
     }
+
+    /// <summary>
+    /// Deth処理
+    /// </summary>
+    /// <returns></returns>
+    async UniTask EnemySlain()
+    {
+        for(int i=0; i < 2; i++)
+        {
+            _enemySp.SetActive(false);
+            await UniTask.Delay(100);
+            _enemySp.SetActive(true);
+            await UniTask.Delay(100);
+        }
+        this.gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// アタック
+    /// </summary>
+    /// <param name="speed"></param>
+    /// <returns></returns>
+    [Button]
+    async UniTask EnemyAttackMove(int speed=1)
+    {
+        if (!_attacking)
+        {
+            _attacking = true;
+            _enemyAttackObj.SetActive(true);
+            _enemyAnimator.SetFloat("AttackSpeed", speed);
+            _enemyAnimator.SetTrigger("Attack");
+            await UniTask.Delay(1000 / speed);
+            _enemyAttackObj.SetActive(false);
+            _enemyAnimator.Play("Idle");
+            _attacking = false;
+        }
+        else
+        {
+            return;
+        }
+    }
+
 }
