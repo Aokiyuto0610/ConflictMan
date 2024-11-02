@@ -16,10 +16,10 @@ public class HpAnimation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameObject.name == Hp)
-        {
-            anim.Setbool("blAnim", true);
-        }
+        //if(gameObject.name == Hp)
+        //{
+        //    anim.Setbool("blAnim", true);
+        //}
 
     }
 }
