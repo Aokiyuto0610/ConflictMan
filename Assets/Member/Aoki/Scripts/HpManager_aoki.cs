@@ -11,7 +11,7 @@ public class HpManager_aoki : MonoBehaviour
     private int currenthp;
     [SerializeField]
     private Transform playerTransform;
-    [Tooltip("HpImage‚ª“G‚ÌUŒ‚‚ª“–‚½‚é‚æ‚¤‚É‚È‚é‹——£")]
+    [Tooltip("HpObj‚ª“G‚ÌUŒ‚‚ª“–‚½‚é‚æ‚¤‚É‚È‚é‹——£")]
     [SerializeField]
     private float safeDistance = 0.5f;
     private Quaternion _rotation;
