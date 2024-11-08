@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Member/kondo/Scene/GameScene.unity
     guid: b212baf6e3971f845a498fe7989b1426
+  - enabled: 1
+    path: Assets/Member/Seki/TestResult.unity
+    guid: a41d3e9f402870148945df0f08e70f0a
   m_configObjects: {}
