@@ -6,7 +6,6 @@ using System;
 
 public class EnemyState : MonoBehaviour
 {
-
     //ダメージ情報
     [Serializable]
     public class SetDamageClass
@@ -26,6 +25,9 @@ public class EnemyState : MonoBehaviour
     {
         [Label("Stage番号")]
         public int _stageNum = 1;
+
+        [Label("そのステージで何体目か")] 
+        public int _enemyNum;
 
         [Label("タグ指定"),Tag]
         public string _enemyTag;
@@ -58,4 +60,30 @@ public class EnemyState : MonoBehaviour
     [Label("反射した回数に応じた変化数値")] public int _reflectionMagnification = 20;
 
     [Label("折り返し地点のタグ"), Tag] public string _turnPointTag;
+
+    [Label("このゲーム上に存在する敵数")] public int _enemyTotal;
+
+    [Label("倒された敵数")] public int _enemySlainNum = 0;
+
+    [Label("リザルトScene"), Scene] public string _resultScene;
+
+    private void Start()
+    {
+        Debug.Log(_stageEnemyDate.Length);
+        _enemyTotal=_stageEnemyDate.Length;
+    }
+
+    //敵が倒された際に呼び出し
+    public void EnemySlain()
+    {
+        //討伐数増加
+        _enemySlainNum++;
+
+        //全て討伐できたか
+        if (_enemySlainNum >= _enemyTotal)
+        {
+            //リザルトに遷移
+            FadeManager.Instance.LoadScene(_resultScene, 1f);
+        }
+    }
 }

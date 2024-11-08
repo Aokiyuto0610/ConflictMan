@@ -1614,7 +1614,7 @@ MonoBehaviour:
     _enemyPower: 10
     _enemySpeed: 5
     _weekPointDamage: 2
-    _attackSpan: 5
+    _attackSpan: 3
   _reflectionMagnification: 20
   _turnPointTag: Wall
 --- !u!4 &2016844696

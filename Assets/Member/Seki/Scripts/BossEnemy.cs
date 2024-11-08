@@ -69,10 +69,10 @@ public class BossEnemy : MonoBehaviour
         */
     }
 
-    private async void Update()
+    async void Update()
     {
         _attackSpanTime += Time.deltaTime;
-        if(_attackSpanTime >= 0.1)
+        if(_attackSpanTime >= _enemyAttackSpan)
         {
             await EnemyAttackMove(1);
             _attackSpanTime = 0;
@@ -196,6 +196,7 @@ public class BossEnemy : MonoBehaviour
             _enemySp.SetActive(true);
             await UniTask.Delay(100);
         }
+        _enemyState.EnemySlain();
         this.gameObject.SetActive(false);
     }
 
