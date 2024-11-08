@@ -4,11 +4,13 @@ using UnityEngine;
 using NaughtyAttributes;
 using Cysharp.Threading.Tasks;
 
-public class BossEnemy : MonoBehaviour
+public class EnemyCommon : MonoBehaviour
 {
     [SerializeField, Label("EnemyState")] EnemyState _enemyState;
 
     [SerializeField, Label("何ステージ目のオブジェクトか")] private int _enemyAssignment=1;
+
+    [SerializeField, Label("ステージ中何体目か")] private int _enemyNum;
 
     [SerializeField,Label("HP")] private int _enemyHp;
 
@@ -45,17 +47,23 @@ public class BossEnemy : MonoBehaviour
         //データ格納
         for (int i=0;i<_enemyState._stageEnemyDate.Length;i++)
         {
+            //ステージナンバー一致
             if (_enemyState._stageEnemyDate[i]._stageNum == _enemyAssignment)
             {
+                //タグ一致
                 if (_enemyState._stageEnemyDate[i]._enemyTag == this.gameObject.tag)
                 {
-                    _enemyHp = _enemyState._stageEnemyDate[i]._enemyHp;
-                    _enemyPower = _enemyState._stageEnemyDate[i]._enemyPower;
-                    _enemyMove._moveSpeed= _enemyState._stageEnemyDate[i]._enemySpeed;
-                    _enemyWeekPointDamage= _enemyState._stageEnemyDate[i]._weekPointDamage;
-                    _enemyAttackSpan= _enemyState._stageEnemyDate[i]._attackSpan+1;
-                    _enemyAttack.SetAttackDamage(_enemyState._stageEnemyDate[i]._enemyPower);
-                    break;
+                    //ナンバー一致
+                    if (_enemyState._stageEnemyDate[i]._enemyNum == _enemyNum ||this.gameObject.tag=="BossEnemy" )
+                    {
+                        _enemyHp = _enemyState._stageEnemyDate[i]._enemyHp;
+                        _enemyPower = _enemyState._stageEnemyDate[i]._enemyPower;
+                        _enemyMove._moveSpeed = _enemyState._stageEnemyDate[i]._enemySpeed;
+                        _enemyWeekPointDamage = _enemyState._stageEnemyDate[i]._weekPointDamage;
+                        _enemyAttackSpan = _enemyState._stageEnemyDate[i]._attackSpan + 1;
+                        _enemyAttack.SetAttackDamage(_enemyState._stageEnemyDate[i]._enemyPower);
+                        break;
+                    }
                 }
             }
         }
