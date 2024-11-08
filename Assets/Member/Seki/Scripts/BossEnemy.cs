@@ -32,13 +32,18 @@ public class BossEnemy : MonoBehaviour
 
     [SerializeField] private GameObject _enemyAttackObj;
 
+    [SerializeField] private EnemyMove _enemyMove;
+
     [SerializeField] Animator _enemyAnimator;
 
 
     void Awake()
     {
+        //開発時用
+        Application.targetFrameRate = 60;
+
         //データ格納
-        for(int i=0;i<_enemyState._stageEnemyDate.Length;i++)
+        for (int i=0;i<_enemyState._stageEnemyDate.Length;i++)
         {
             if (_enemyState._stageEnemyDate[i]._stageNum == _enemyAssignment)
             {
@@ -46,7 +51,7 @@ public class BossEnemy : MonoBehaviour
                 {
                     _enemyHp = _enemyState._stageEnemyDate[i]._enemyHp;
                     _enemyPower = _enemyState._stageEnemyDate[i]._enemyPower;
-                    _enemyMoveSpeed= _enemyState._stageEnemyDate[i]._enemySpeed;
+                    _enemyMove._moveSpeed= _enemyState._stageEnemyDate[i]._enemySpeed;
                     _enemyWeekPointDamage= _enemyState._stageEnemyDate[i]._weekPointDamage;
                     _enemyAttackSpan= _enemyState._stageEnemyDate[i]._attackSpan+1;
                     _enemyAttack.SetAttackDamage(_enemyState._stageEnemyDate[i]._enemyPower);
@@ -56,10 +61,12 @@ public class BossEnemy : MonoBehaviour
         }
 
         //nullチェック
+        /*
         if(_enemyAnimator == null)
         {
             Debug.LogError("Animatorがない");
         }
+        */
     }
 
     private async void Update()
@@ -72,7 +79,7 @@ public class BossEnemy : MonoBehaviour
         }
 
         //移動仮
-        this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x+0.001f, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+        //this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x+0.005f, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
     }
 
 

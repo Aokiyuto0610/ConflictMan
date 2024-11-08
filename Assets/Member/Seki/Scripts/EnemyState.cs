@@ -36,7 +36,7 @@ public class EnemyState : MonoBehaviour
         [Label("攻撃力")]
         public int _enemyPower = 1;
 
-        [Label("移動スピード"), Range(0.1f, 100f)] 
+        [Label("移動スピード"), Range(0.1f, 99f)] 
         public float _enemySpeed = 1;
 
         [Label("弱点倍率")]
@@ -56,4 +56,6 @@ public class EnemyState : MonoBehaviour
     [Label("エネミーステータス設定")]public StageEnemyDate[] _stageEnemyDate;
 
     [Label("反射した回数に応じた変化数値")] public int _reflectionMagnification = 20;
+
+    [Label("折り返し地点のタグ"), Tag] public string _turnPointTag;
 }

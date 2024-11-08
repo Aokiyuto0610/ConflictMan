@@ -39,6 +39,6 @@ public class PlayerTest : MonoBehaviour
 
         //デバッグ用、上を書いたらコメントアウト
         _playerHp-=Damage;
-        Debug.Log(_playerHp);
+        Debug.Log("PlayerHP"+_playerHp);
     }
 }
