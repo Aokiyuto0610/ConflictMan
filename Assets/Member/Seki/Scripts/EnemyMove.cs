@@ -11,7 +11,7 @@ public class EnemyMove : MonoBehaviour
 
     [SerializeField] private GameObject _parentObj;
 
-    [SerializeField] private GameObject _attackCol;
+    [SerializeField] private GameObject _renderObj;
 
     // Start is called before the first frame update
     void Start()
@@ -39,12 +39,12 @@ public class EnemyMove : MonoBehaviour
             if (_isTurn)
             {
                 _isTurn = false;
-                _parentObj.transform.rotation = Quaternion.Euler(_parentObj.transform.rotation.x, 180, _parentObj.transform.rotation.z);
+                _renderObj.transform.rotation = Quaternion.Euler(_parentObj.transform.rotation.x, 180, _parentObj.transform.rotation.z);
             }
             else if (!_isTurn)
             {
                 _isTurn = true;
-                _parentObj.transform.rotation = Quaternion.Euler(_parentObj.transform.rotation.x, 0, _parentObj.transform.rotation.z);
+                _renderObj.transform.rotation = Quaternion.Euler(_parentObj.transform.rotation.x, 0, _parentObj.transform.rotation.z);
             }
             else
             {

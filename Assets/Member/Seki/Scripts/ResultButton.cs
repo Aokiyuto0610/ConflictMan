@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class ResultButton : MonoBehaviour
 {
-    [SerializeField, Scene] string ResultScene;
+    [SerializeField, Scene] string NextScene;
 
     public void OnClick()
     {
-        FadeManager.Instance.LoadScene(ResultScene, 1f);
+        FadeManager.Instance.LoadScene(NextScene, 1f);
     }
 }
