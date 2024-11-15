@@ -12,11 +12,12 @@ TagManager:
   - Enemy
   - Conflict
   - Hp
+  - Renga
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - hp
   - Water
   - UI
   - 
