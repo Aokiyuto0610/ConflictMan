@@ -38,6 +38,8 @@ public class EnemyCommon : MonoBehaviour
 
     [SerializeField] Animator _enemyAnimator;
 
+    [SerializeField] EnemyHpBar _hpBar;
+
 
     void Awake()
     {
@@ -56,12 +58,14 @@ public class EnemyCommon : MonoBehaviour
                     //ナンバー一致
                     if (_enemyState._stageEnemyDate[i]._enemyNum == _enemyNum ||this.gameObject.tag=="BossEnemy" )
                     {
+                        //格納等
                         _enemyHp = _enemyState._stageEnemyDate[i]._enemyHp;
                         _enemyPower = _enemyState._stageEnemyDate[i]._enemyPower;
                         _enemyMove._moveSpeed = _enemyState._stageEnemyDate[i]._enemySpeed;
                         _enemyWeekPointDamage = _enemyState._stageEnemyDate[i]._weekPointDamage;
                         _enemyAttackSpan = _enemyState._stageEnemyDate[i]._attackSpan + 1;
                         _enemyAttack.SetAttackDamage(_enemyState._stageEnemyDate[i]._enemyPower);
+                        _hpBar.SetEnemyHp(_enemyHp);
                         break;
                     }
                 }
@@ -168,9 +172,14 @@ public class EnemyCommon : MonoBehaviour
     /// <param name="_colDamage">通常ダメージ数値</param>
     async void WeekPointDamage(int _colDamage)
     {
+        //通常ダメージを1.5倍で切り上げた数値を格納
         int _weekDamage= Mathf.CeilToInt(_colDamage * 1.5f);
         Debug.Log("弱点ダメージ：" + _weekDamage);
+        //処理
         _enemyHp -= _weekDamage;
+        //HPバー処理
+        _hpBar.SetNowHp(_enemyHp);
+        //Deth処理
         if (_enemyHp <= 0)
         {
             await EnemySlain();
@@ -185,6 +194,9 @@ public class EnemyCommon : MonoBehaviour
     {
         Debug.Log("通常ダメージ："+_colDamage);
         _enemyHp -= _colDamage;
+        //HPバー処理
+        _hpBar.SetNowHp(_enemyHp);
+
         if (_enemyHp <= 0)
         {
             await EnemySlain();
