@@ -6,15 +6,19 @@ public class PlayerController : MonoBehaviour
 {
     public HpManager_aoki _hpmg;
     public float invincibleDuration = 1.5f;
-    private float speed = 0.3f;
+    [SerializeField] private float speed = 0.3f;
     private bool isInvincible = false;
-    private SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
+    private bool isOnFloor = false;
+    [SerializeField] private float timeOnFloor = 0f;
+    [SerializeField] private const float tuchFloor = 0.5f;
+
 
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-
     }
 
     // Update is called once per frame
@@ -32,6 +36,23 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.position = position;
+
+        if(isOnFloor)
+        {
+            timeOnFloor += Time.deltaTime;
+            if(timeOnFloor >= tuchFloor)
+            {
+                float zRotation = transform.rotation.eulerAngles.z;
+                if(zRotation > 1f &&zRotation < 359f)
+                {
+                    transform.rotation = Quaternion.Euler(0, 0, 0);
+                }
+            }
+        }
+        else
+        {
+            timeOnFloor = 0f;
+        }
     }
 
     //–³“Gˆ—
@@ -61,6 +82,21 @@ public class PlayerController : MonoBehaviour
         isInvincible = false;
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if(other.gameObject.CompareTag("Floor"))
+        {
+            isOnFloor = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if(other.gameObject.CompareTag("Floor"))
+        {
+            isOnFloor = false;
+        }
+    }
 }
 
 
