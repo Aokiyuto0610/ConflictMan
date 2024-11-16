@@ -5,7 +5,7 @@ using UnityEngine;
 public class ButtonTest : MonoBehaviour
 {
 
-    public void Titel()
+    private void OnClickTitel()
     {
         FadeManager.Instance.LoadScene("Title", 1.0F);
     }
