@@ -917,72 +917,74 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2016844694
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2016844696}
-  - component: {fileID: 2016844695}
-  m_Layer: 0
-  m_Name: EnemyStatusManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2016844695
+--- !u!114 &2016844695 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 2708908555290264409, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+  m_PrefabInstance: {fileID: 197685307751821083}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2016844694}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d3ac600b66364948a2f27f499a98415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _notEnemyAttackTag:
-  - Ground
-  - Wall
-  _notPlayerAttackTag:
-  - 
-  _setDamageClasses:
-  - _tag: Player
-    _damage: 4
-  _stageEnemyDate:
-  - _stageNum: 1
-    _enemyNum: 1
-    _enemyTag: BossEnemy
-    _enemyHp: 20
-    _enemyPower: 10
-    _enemySpeed: 5
-    _weekPointDamage: 2
-    _attackSpan: 3
-  _reflectionMagnification: 20
-  _turnPointTag: Wall
-  _enemyTotal: 0
-  _enemySlainNum: 0
-  _resultScene: TestResult
---- !u!4 &2016844696
-Transform:
+--- !u!1001 &197685307751821083
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2016844694}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.10405505, y: -3.3909056, z: -0.023232987}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4702294821010142141, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.10405505
+      objectReference: {fileID: 0}
+    - target: {fileID: 4702294821010142141, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.3909056
+      objectReference: {fileID: 0}
+    - target: {fileID: 4702294821010142141, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.023232987
+      objectReference: {fileID: 0}
+    - target: {fileID: 4702294821010142141, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4702294821010142141, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4702294821010142141, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4702294821010142141, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4702294821010142141, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4702294821010142141, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4702294821010142141, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613594203847291917, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: m_Name
+      value: EnemyStatusManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
 --- !u!1001 &8317158550060605884
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1096,7 +1098,7 @@ SceneRoots:
   - {fileID: 8317158550060605884}
   - {fileID: 357840918}
   - {fileID: 819722873}
-  - {fileID: 2016844696}
+  - {fileID: 197685307751821083}
   - {fileID: 1907416800}
   - {fileID: 173595047}
   - {fileID: 886500903}

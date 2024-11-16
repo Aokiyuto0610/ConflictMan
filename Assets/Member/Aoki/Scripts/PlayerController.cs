@@ -55,32 +55,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //–³“Gˆ—
-    public void PlayerTakeDamage(int damage)
-    {
-        if (!isInvincible)
-        {
-            StartCoroutine(ActivateInvincibility());
-            Debug.Log("–³“G");
+    ////–³“Gˆ—
+    //public void PlayerTakeDamage(int damage)
+    //{
+    //    if (!isInvincible)
+    //    {
+    //        StartCoroutine(ActivateInvincibility());
+    //        Debug.Log("–³“G");
 
-            //_hpmg.TakeDamage();
-        }
-    }
+    //        //_hpmg.TakeDamage();
+    //    }
+    //}
 
-    private IEnumerator ActivateInvincibility()
-    {
-        isInvincible = true;
+    //private IEnumerator ActivateInvincibility()
+    //{
+    //    isInvincible = true;
 
-        float blinkInterval = 0.2f;
-        for (float i = 0; i < invincibleDuration; i += blinkInterval)
-        {
-            spriteRenderer.enabled = !spriteRenderer.enabled;
-            yield return new WaitForSeconds(blinkInterval);
-        }
-        spriteRenderer.enabled = true;
+    //    float blinkInterval = 0.2f;
+    //    for (float i = 0; i < invincibleDuration; i += blinkInterval)
+    //    {
+    //        spriteRenderer.enabled = !spriteRenderer.enabled;
+    //        yield return new WaitForSeconds(blinkInterval);
+    //    }
+    //    spriteRenderer.enabled = true;
 
-        isInvincible = false;
-    }
+    //    isInvincible = false;
+    //}
 
     private void OnCollisionEnter2D(Collision2D other)
     {

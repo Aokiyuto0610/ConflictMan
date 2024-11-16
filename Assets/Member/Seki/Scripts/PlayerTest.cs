@@ -36,9 +36,43 @@ public class PlayerTest : MonoBehaviour
         /*
             プレイヤーのHPを削る処理
          */
+        PlayerTakeDamage(Damage);
 
         //デバッグ用、上を書いたらコメントアウト
         _playerHp-=Damage;
         Debug.Log("PlayerHP"+_playerHp);
     }
+
+    //青木追記
+    private bool isInvincible = false;
+    public float invincibleDuration = 1.5f;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
+    //無敵処理
+    public void PlayerTakeDamage(int damage)
+    {
+        if (!isInvincible)
+        {
+            StartCoroutine(ActivateInvincibility());
+            Debug.Log("無敵");
+
+            //_hpmg.TakeDamage();
+        }
+    }
+
+    private IEnumerator ActivateInvincibility()
+    {
+        isInvincible = true;
+
+        float blinkInterval = 0.2f;
+        for (float i = 0; i < invincibleDuration; i += blinkInterval)
+        {
+            spriteRenderer.enabled = !spriteRenderer.enabled;
+            yield return new WaitForSeconds(blinkInterval);
+        }
+        spriteRenderer.enabled = true;
+
+        isInvincible = false;
+    }
+
 }

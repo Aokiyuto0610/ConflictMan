@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5613594203847291917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4702294821010142141}
+  - component: {fileID: 2708908555290264409}
+  m_Layer: 0
+  m_Name: EnemyStatusManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4702294821010142141
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5613594203847291917}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.10405505, y: -3.3909056, z: -0.023232987}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2708908555290264409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5613594203847291917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d3ac600b66364948a2f27f499a98415, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _notEnemyAttackTag:
+  - Ground
+  - Wall
+  _notPlayerAttackTag:
+  - 
+  _setDamageClasses:
+  - _tag: Player
+    _damage: 4
+  _stageEnemyDate:
+  - _stageNum: 1
+    _enemyNum: 1
+    _enemyTag: BossEnemy
+    _enemyHp: 20
+    _enemyPower: 10
+    _enemySpeed: 5
+    _weekPointDamage: 2
+    _attackSpan: 3
+  _reflectionMagnification: 20
+  _turnPointTag: Wall
+  _enemyTotal: 0
+  _enemySlainNum: 0
+  _resultScene: TestResult

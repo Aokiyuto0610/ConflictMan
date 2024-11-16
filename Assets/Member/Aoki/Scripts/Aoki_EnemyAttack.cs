@@ -14,7 +14,7 @@ public class Aoki_EnemyAttack : MonoBehaviour
             PlayerController player = collision.GetComponent<PlayerController>();
             if (player != null)
             {
-                player.PlayerTakeDamage(damage);
+                //player.PlayerTakeDamage(damage);
                 Debug.Log("’É‚¢");
             }
         }
