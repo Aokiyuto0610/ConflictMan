@@ -965,3 +965,4 @@ MonoBehaviour:
   _moveSpeed: 0
   _parentObj: {fileID: 1873339170877648787}
   _renderObj: {fileID: 1363315890390905696}
+  _hpBarObj: {fileID: 3465301652596951256}

@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &14854503 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3465301652596951256, guid: 6d9571251e036c047a5b108114c043c9, type: 3}
+  m_PrefabInstance: {fileID: 8317158550060605884}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &173595044
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,6 +568,8 @@ MonoBehaviour:
   _afterDamage: 0
   _reflection: 0
   _playerHp: 9999
+  invincibleDuration: 1.5
+  spriteRenderer: {fileID: 0}
 --- !u!1 &886500901
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,6 +1008,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 5684228514835346223, guid: 6d9571251e036c047a5b108114c043c9, type: 3}
+      propertyPath: _hpBarObj
+      value: 
+      objectReference: {fileID: 14854503}
     - target: {fileID: 6182403277993845112, guid: 6d9571251e036c047a5b108114c043c9, type: 3}
       propertyPath: _enemyState
       value: 
