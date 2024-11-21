@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Title.unity
     guid: 83409db75b8a93440b3fdf8ea68a9ac7
   - enabled: 1
+    path: Assets/Member/kondo/Scene/Rule.unity
+    guid: 7481c28d8b098994f9bc6584ee469ca5
+  - enabled: 1
     path: Assets/Scenes/Stage1.unity
     guid: b944ebbcf5a9fc1488542242585f6ee5
   - enabled: 1

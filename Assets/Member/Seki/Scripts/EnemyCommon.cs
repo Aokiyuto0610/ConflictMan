@@ -115,11 +115,11 @@ public class EnemyCommon : MonoBehaviour
         }
 
         //攻撃済みか、済なら終了
-        if (_objSt._afterDamage)
-        {
-            //Debug.Log("攻撃済");
-            return;
-        }
+        //if (_objSt._afterDamage)
+        //{
+        //    //Debug.Log("攻撃済");
+        //    return;
+        //}
 
         //衝突オブジェクトのタグ取得
         string ColTag = collision.gameObject.tag;
