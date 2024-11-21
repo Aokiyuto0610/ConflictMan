@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float timeOnFloor = 0f;
     [SerializeField] private const float tuchFloor = 0.5f;
 
+    private bool isFacingRight = true;
+
 
     // Start is called before the first frame update
     void Start()
@@ -29,10 +31,18 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             position.x -= speed;
+            if(isFacingRight)
+            {
+                Flip();
+            }
         }
         else if (Input.GetKey(KeyCode.D))
         {
             position.x += speed;
+            if(!isFacingRight)
+            {
+                Flip();
+            }
         }
 
         transform.position = position;
@@ -81,6 +91,14 @@ public class PlayerController : MonoBehaviour
 
     //    isInvincible = false;
     //}
+
+    private void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        Vector3 localScale = transform.localScale;
+        localScale.x *= -1;
+        transform.localScale = localScale;
+    }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
