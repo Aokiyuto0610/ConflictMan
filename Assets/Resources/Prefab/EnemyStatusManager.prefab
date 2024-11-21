@@ -52,6 +52,8 @@ MonoBehaviour:
   _setDamageClasses:
   - _tag: Player
     _damage: 4
+  - _tag: Renga
+    _damage: 20
   _stageEnemyDate:
   - _stageNum: 1
     _enemyNum: 1
@@ -65,4 +67,4 @@ MonoBehaviour:
   _turnPointTag: Wall
   _enemyTotal: 0
   _enemySlainNum: 0
-  _resultScene: TestResult
+  _resultScene: Title

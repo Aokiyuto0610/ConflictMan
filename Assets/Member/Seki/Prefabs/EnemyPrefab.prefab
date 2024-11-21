@@ -188,10 +188,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3355700067749784923}
   - {fileID: 1292977099016971465}
   - {fileID: 2046979586778807159}
   - {fileID: 8536390008469463309}
+  - {fileID: 3355700067749784923}
   m_Father: {fileID: 9177606677062110259}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &167042652972628337
@@ -387,7 +387,7 @@ GameObject:
   - component: {fileID: 1236502903271791739}
   m_Layer: 0
   m_Name: AttackCol
-  m_TagString: Untagged
+  m_TagString: EnemyAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -576,7 +576,7 @@ Transform:
   m_GameObject: {fileID: 3465301652596951256}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: -0.500031, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -75,4 +75,11 @@ public class PlayerTest : MonoBehaviour
         isInvincible = false;
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("EnemyAttack") && !isInvincible)
+        {
+            ReceivedDamage(1);
+        }
+    }
 }

@@ -30,6 +30,6 @@ public class EnemyAttack : MonoBehaviour
         }
         //Debug.Log("アタック");
         PlayerTest player = collision.gameObject.GetComponent<PlayerTest>();
-        player.ReceivedDamage(_attackDamage);
+        //player.ReceivedDamage(_attackDamage);
     }
 }
