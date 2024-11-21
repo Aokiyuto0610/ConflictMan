@@ -19,6 +19,7 @@ public class PlayerTest : MonoBehaviour
     //デバック用
     [SerializeField, OnValueChanged(nameof(OnValueChanged))] private int _playerHp = 9999;
 
+    [SerializeField, Scene] public string _LoseScene;
 
     //デバック用
     private void OnValueChanged()
@@ -41,6 +42,11 @@ public class PlayerTest : MonoBehaviour
         //デバッグ用、上を書いたらコメントアウト
         _playerHp-=Damage;
         Debug.Log("PlayerHP"+_playerHp);
+
+        if(_playerHp <= 0)
+        {
+            FadeManager.Instance.LoadScene(_LoseScene,1f);
+        }
     }
 
     //青木追記
