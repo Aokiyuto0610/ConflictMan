@@ -45,7 +45,7 @@ public class PlayerTest : MonoBehaviour
 
     //Â–Ø’Ç‹L
     private bool isInvincible = false;
-    public float invincibleDuration = 1.5f;
+    public float invincibleDuration;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     //–³“Gˆ—
@@ -64,7 +64,7 @@ public class PlayerTest : MonoBehaviour
     {
         isInvincible = true;
 
-        float blinkInterval = 0.2f;
+        float blinkInterval = 0.1f;
         for (float i = 0; i < invincibleDuration; i += blinkInterval)
         {
             spriteRenderer.enabled = !spriteRenderer.enabled;

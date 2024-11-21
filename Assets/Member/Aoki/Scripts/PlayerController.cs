@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public HpManager_aoki _hpmg;
-    public float invincibleDuration = 1.5f;
+    public float invincibleDuration;
     [SerializeField] private float speed = 0.3f;
     private bool isInvincible = false;
     [SerializeField] private SpriteRenderer spriteRenderer;
