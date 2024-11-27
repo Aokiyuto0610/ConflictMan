@@ -374,11 +374,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8524368334216872815, guid: 9da2746804f78224ea41e6d9335efacd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 5.34
       objectReference: {fileID: 0}
     - target: {fileID: 8524368334216872815, guid: 9da2746804f78224ea41e6d9335efacd, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -0.32
       objectReference: {fileID: 0}
     - target: {fileID: 8524368334216872815, guid: 9da2746804f78224ea41e6d9335efacd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -468,7 +468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5520548596959962739, guid: 26561d44010838743b3d6dcf9531fe08, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.11
+      value: 7.59
       objectReference: {fileID: 0}
     - target: {fileID: 5520548596959962739, guid: 26561d44010838743b3d6dcf9531fe08, type: 3}
       propertyPath: m_LocalPosition.y
@@ -623,7 +623,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2708908555290264409, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
       propertyPath: _setDamageClasses.Array.data[1]._damage
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2708908555290264409, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
       propertyPath: _setDamageClasses.Array.data[2]._damage
@@ -718,11 +718,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 281266466470889603, guid: 9abde556a193bdb4e80d9f9e06cec129, type: 3}
       propertyPath: m_Mass
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 281266466470889603, guid: 9abde556a193bdb4e80d9f9e06cec129, type: 3}
       propertyPath: m_GravityScale
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 434470132414353012, guid: 9abde556a193bdb4e80d9f9e06cec129, type: 3}
       propertyPath: _mii
@@ -1101,7 +1101,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: f170d72e8b7547f469106993d1c3bd81, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

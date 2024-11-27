@@ -277,7 +277,7 @@ MonoBehaviour:
   _afterDamage: 0
   _reflection: 0
   _playerHp: 5
-  _LoseScene: Title
+  _LoseScene: LoseResulut
   invincibleDuration: 1.5
   spriteRenderer: {fileID: 0}
 --- !u!1 &7040503767963842097
