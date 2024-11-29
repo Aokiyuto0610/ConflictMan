@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,10 +11,6 @@ public class ConfliObjMove : MonoBehaviour
     private Vector2 startDirection;
 
     [SerializeField]
-    private float maxLine;
-    [SerializeField]
-    private LineRenderer lineRen;
-    [SerializeField]
     private LayerMask wall;
     [SerializeField]
     private GameObject arrowPrefab;
@@ -24,35 +19,43 @@ public class ConfliObjMove : MonoBehaviour
     [SerializeField]
     private float arrowSpacing;
 
-    private List <GameObject> activeArrows = new List <GameObject>();
-
+    private List<GameObject> arrowPool = new List<GameObject>();
+    private int activeArrowCount;
 
     public bool goFlag;
-    // Start is called before the first frame update
+
     void Start()
     {
         _rb2d = GetComponent<Rigidbody2D>();
         goFlag = false;
+
+        for (int i = 0; i < 5; i++)
+        {
+            GameObject arrow = Instantiate(arrowPrefab, arrowParent);
+            arrow.SetActive(false);
+            arrowPool.Add(arrow);
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (goFlag == true)
+        if (goFlag)
         {
             if (Input.GetMouseButtonDown(0))
             {
                 mouseStartPos = Input.mousePosition;
             }
-            if(Input.GetMouseButton(0))
+
+            if (Input.GetMouseButton(0))
             {
                 mouseEndPos = Input.mousePosition;
-                Vector2 dragVector = (mouseEndPos - mouseStartPos);
+                Vector2 dragVector = mouseEndPos - mouseStartPos;
                 startDirection = -dragVector.normalized;
 
-                float dragDistance = Mathf.Clamp(dragVector.magnitude, 0, maxLine);
+                float dragDistance = dragVector.magnitude / 100f;
                 UpdateArrows(dragDistance);
             }
+
             if (Input.GetMouseButtonUp(0))
             {
                 mouseEndPos = Input.mousePosition;
@@ -63,26 +66,46 @@ public class ConfliObjMove : MonoBehaviour
         }
     }
 
-    private void UpdateArrows(float dragDistance)
+    void UpdateArrows(float dragDistance)
     {
         ClearArrows();
 
-        int arrowCount = Mathf.FloorToInt(dragDistance / arrowSpacing);
-        for(int i = 1; i <= arrowCount; i++)
+        int arrowCount = 0;
+        if (dragDistance >= 5f)
         {
-            Vector2 arrowPosition = (Vector2)transform.position + startDirection * (i * arrowSpacing);
-            GameObject arrow = Instantiate(arrowPrefab, arrowPosition, Quaternion.identity, arrowParent);
-            arrow.transform.right = -startDirection; // –îˆó‚ÌŒü‚«‚ð’²®
-            activeArrows.Add(arrow);
+            arrowCount = 5;
         }
+        else if (dragDistance >= 3f)
+        {
+            arrowCount = 4;
+        }
+        else if (dragDistance >= 1f)
+        {
+            arrowCount = 3;
+        }
+
+        for (int i = 0; i < arrowCount; i++)
+        {
+            if (i < arrowPool.Count)
+            {
+                Vector2 arrowPosition = (Vector2)transform.position + startDirection * ((i + 1) * arrowSpacing);
+                GameObject arrow = arrowPool[i];
+                arrow.transform.position = arrowPosition;
+                arrow.transform.right = -startDirection;
+                arrow.SetActive(true);
+            }
+        }
+
+        activeArrowCount = arrowCount;
     }
 
     void ClearArrows()
     {
-        foreach (var arrow in activeArrows)
+        for (int i = 0; i < activeArrowCount; i++)
         {
-            Destroy(arrow);
+            arrowPool[i].SetActive(false);
         }
-        activeArrows.Clear();
+
+        activeArrowCount = 0;
     }
 }
