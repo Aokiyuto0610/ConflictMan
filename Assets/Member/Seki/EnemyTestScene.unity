@@ -563,6 +563,7 @@ MonoBehaviour:
   _afterDamage: 0
   _reflection: 0
   _playerHp: 9999
+  _LoseScene: 
   invincibleDuration: 1.5
   spriteRenderer: {fileID: 0}
 --- !u!1 &886500901
@@ -1001,12 +1002,16 @@ PrefabInstance:
       objectReference: {fileID: 2016844695}
     - target: {fileID: 575694823483041238, guid: 9da2746804f78224ea41e6d9335efacd, type: 3}
       propertyPath: m_Name
-      value: EnemyPrefab
+      value: BossGoblin
       objectReference: {fileID: 0}
     - target: {fileID: 1921513498394474543, guid: 9da2746804f78224ea41e6d9335efacd, type: 3}
       propertyPath: _enemyState
       value: 
       objectReference: {fileID: 2016844695}
+    - target: {fileID: 6009758778027308211, guid: 9da2746804f78224ea41e6d9335efacd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8524368334216872815, guid: 9da2746804f78224ea41e6d9335efacd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1069,7 +1074,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8524368334216872815, guid: 9da2746804f78224ea41e6d9335efacd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 6.45
       objectReference: {fileID: 0}
     - target: {fileID: 8524368334216872815, guid: 9da2746804f78224ea41e6d9335efacd, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1097,7 +1102,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1517559210}
-  - {fileID: 1019658020560717533}
   - {fileID: 357840918}
   - {fileID: 819722873}
   - {fileID: 197685307751821083}
@@ -1105,3 +1109,4 @@ SceneRoots:
   - {fileID: 173595047}
   - {fileID: 886500903}
   - {fileID: 1990304088}
+  - {fileID: 1019658020560717533}

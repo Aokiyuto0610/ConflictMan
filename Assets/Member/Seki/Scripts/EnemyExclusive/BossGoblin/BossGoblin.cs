@@ -4,7 +4,7 @@ using UnityEngine;
 using NaughtyAttributes;
 using Cysharp.Threading.Tasks;
 
-public class BossGoblin : MonoBehaviour
+public class EnemyCommon : MonoBehaviour
 {
     [SerializeField, Label("EnemyState")] EnemyState _enemyState;
 
@@ -28,13 +28,13 @@ public class BossGoblin : MonoBehaviour
     //アタック中か
     private bool _attacking=false;
 
-    [SerializeField] private EnemyAttack _enemyAttack;
+    [SerializeField] private BossGoblinAttack _enemyAttack;
 
     [SerializeField] private GameObject _enemySp;
 
     [SerializeField] private GameObject _enemyAttackObj;
 
-    [SerializeField] private EnemyMove _enemyMove;
+    [SerializeField] private BossGoblinMove _enemyMove;
 
     [SerializeField] Animator _enemyAnimator;
 
@@ -83,10 +83,11 @@ public class BossGoblin : MonoBehaviour
 
     async void Update()
     {
+        //攻撃スパン計測
         _attackSpanTime += Time.deltaTime;
         if(_attackSpanTime >= _enemyAttackSpan)
         {
-            await EnemyAttackMove(1);
+            await EnemyAttackMove();
             _attackSpanTime = 0;
         }
 
@@ -223,21 +224,48 @@ public class BossGoblin : MonoBehaviour
     /// <summary>
     /// アタック
     /// </summary>
-    /// <param name="speed"></param>
+    /// <param name="AttackType">攻撃種類</param>
+    /// <param name="speed">攻撃スピード倍率</param>
     /// <returns></returns>
-    [Button]
-    async UniTask EnemyAttackMove(int speed=1)
+    async UniTask EnemyAttackMove(int AttackType=1, int speed=1)
     {
+        //アタック中かどうか
         if (!_attacking)
         {
-            _attacking = true;
-            _enemyAttackObj.SetActive(true);
-            _enemyAnimator.SetFloat("AttackSpeed", speed);
-            _enemyAnimator.SetTrigger("Attack");
-            await UniTask.Delay(1000 / speed);
-            _enemyAttackObj.SetActive(false);
-            _enemyAnimator.Play("Idle");
-            _attacking = false;
+            switch (AttackType)
+            {
+                //こん棒攻撃
+                case 1:
+                    //アタック中フラグ
+                    _attacking = true;
+                    //攻撃オブジェクトtrue
+                    _enemyAttackObj.SetActive(true);
+                    //アニメーションスピード格納
+                    _enemyAnimator.SetFloat("AttackSpeed", speed);
+                    //アニメーショントリガー
+                    _enemyAnimator.SetTrigger("Blow");
+                    //アニメーション終了まで待つ
+                    await UniTask.Delay(1000 / speed);
+                    //終了後オブジェクトfalse
+                    _enemyAttackObj.SetActive(false);
+                    //アイドルアニメーション
+                    _enemyAnimator.Play("Idle");
+                    //攻撃終了
+                    _attacking = false;
+                    break;
+            　　//ブーメラン
+                case 2:
+                    _attacking = true;
+                    _enemyAttackObj.SetActive(true);
+                    _enemyAnimator.SetFloat("AttackSpeed", speed);
+                    _enemyAnimator.SetTrigger("Boomerang");
+                    await UniTask.Delay(4000 / speed);
+                    //ブーメランが壁に当たって終了済みだとしても下記は対応済みなので大丈夫
+                    _enemyAttackObj.SetActive(false);
+                    _enemyAnimator.Play("Idle");
+                    _attacking = false;
+                    break;
+            }
         }
         else
         {
@@ -245,4 +273,12 @@ public class BossGoblin : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 外部からアニメーションの操作を行う場合に使用
+    /// </summary>
+    /// <param name="Anim">Anim名</param>
+    public void AnimationReSet(string Anim)
+    {
+        _enemyAnimator.Play(Anim);
+    }
 }
