@@ -38,6 +38,7 @@ public class PlayerTest : MonoBehaviour
             プレイヤーのHPを削る処理
          */
         PlayerTakeDamage(Damage);
+        _afterDamage = false;
 
         //デバッグ用、上を書いたらコメントアウト
         _playerHp-=Damage;
