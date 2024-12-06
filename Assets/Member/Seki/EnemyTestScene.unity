@@ -682,6 +682,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attackDamage: 0
   _enemyState: {fileID: 2016844695}
+  _parentObj: {fileID: 908168303}
+  _boomerangAttack: 0
+  _attacked: 1
 --- !u!1 &1517559206
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,6 +1094,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BossGoblin
       objectReference: {fileID: 0}
+    - target: {fileID: 1224404740839845150, guid: 9da2746804f78224ea41e6d9335efacd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1921513498394474543, guid: 9da2746804f78224ea41e6d9335efacd, type: 3}
       propertyPath: _enemyState
       value: 
@@ -1099,9 +1106,17 @@ PrefabInstance:
       propertyPath: _enemyAttack
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 5465006149586118178, guid: 9da2746804f78224ea41e6d9335efacd, type: 3}
+    - target: {fileID: 2486814649685221862, guid: 9da2746804f78224ea41e6d9335efacd, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3655001779884708034, guid: 9da2746804f78224ea41e6d9335efacd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5465006149586118178, guid: 9da2746804f78224ea41e6d9335efacd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6009758778027308211, guid: 9da2746804f78224ea41e6d9335efacd, type: 3}
       propertyPath: m_Enabled

@@ -1,4 +1,8 @@
 using UnityEngine;
+using DG.Tweening;
+using NaughtyAttributes;
+using Cysharp.Threading.Tasks;
+using Unity.VisualScripting;
 
 public class BossGoblinAttack : MonoBehaviour
 {
@@ -6,7 +10,9 @@ public class BossGoblinAttack : MonoBehaviour
 
     [SerializeField] EnemyState _enemyState;
 
-    private bool _boomerangAttack=false;
+    [SerializeField] private GameObject _parentObj;
+
+    public bool _boomerangAttack=false;
 
     private Vector3 _defaultPos;
 
@@ -14,6 +20,9 @@ public class BossGoblinAttack : MonoBehaviour
 
     //元の場所に戻る用
     private bool _returnPos;
+
+    //攻撃済みか
+    public bool _attacked=false;
 
     private void Awake()
     {
@@ -24,19 +33,7 @@ public class BossGoblinAttack : MonoBehaviour
 
     private void Update()
     {
-        //元の場所に戻る
-        if (_returnPos)
-        {
-            //XPos
-            if (this.transform.position.x > _defaultPos.x)
-            {
-                this.transform.position = new Vector3(this.transform.position.x - 0.1f,this.transform.position.y,this.transform.position.z);
-            }
-            else if(this.transform.position.x < _defaultPos.x)
-            {
-                this.transform.position = new Vector3(this.transform.position.x + 0.1f, this.transform.position.y, this.transform.position.z);
-            }
-        }
+
     }
 
     /// <summary>
@@ -55,8 +52,9 @@ public class BossGoblinAttack : MonoBehaviour
         {
             if (collision.gameObject.tag == "Wall")
             {
-                Debug.Log("ブーメラン壁に衝突");
+                Debug.Log("ブーメラン、壁に衝突");
                 _boomerangAttack = false;
+            　　_returnPos = true;
                 return;
             }
         }
@@ -78,11 +76,34 @@ public class BossGoblinAttack : MonoBehaviour
 
 
     /// <summary>
-    /// ブーメラン攻撃かをセット
+    /// ブーメラン攻撃
     /// </summary>
-    public void BoomerangAttackSet()
+    [Button]
+    public async void BoomerangAttack()
     {
-        _boomerangAttack = true;
+        //位置調整
+        _parentObj.transform.position = new Vector3(_parentObj.transform.position.x, _parentObj.transform.position.y - 1.0f,_parentObj.transform.position.z);
+        await ToBoomerang();
+        await BackBoomerang();
     }
 
+    private UniTask ToBoomerang()
+    {
+        this.gameObject.transform.DOMove(new Vector3(transform.position.x - 5.0f, transform.position.y, transform.position.z), 3.0f);
+        return UniTask.CompletedTask;
+    }
+
+    private UniTask BackBoomerang()
+    {
+        this.transform.DOMove(_defaultPos, 1.0f);
+        return UniTask.CompletedTask;
+    }
+
+    //こん棒攻撃
+    [Button]
+    public void BlowAttackSet()
+    {
+        _boomerangAttack = false;
+        _attacked=true;
+    }
 }
