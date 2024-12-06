@@ -26,8 +26,11 @@ public class BossGoblinAttack : MonoBehaviour
     //元の場所に戻る用
     private bool _returnPos;
 
-    //攻撃済みか
-    public bool _attacked = false;
+    //攻撃中か
+    public bool _attacking = false;
+
+    //右向きか
+    public bool _attackRight=false;
 
 
     private void Update()
@@ -83,14 +86,22 @@ public class BossGoblinAttack : MonoBehaviour
     public async void BoomerangAttack()
     {
         _parentObj.SetActive(true);
+        _attacking = true;
         _boomerangAttack = true;
         //元の位置格納
         _defaultPos = transform.position;
         _defaultRot = transform.rotation;
 
-        //位置調整
-        _parentObj.transform.position = new Vector3(_parentObj.transform.position.x, _parentObj.transform.position.y - 1.0f, _parentObj.transform.position.z);
-        await gameObject.transform.DOMove(new Vector3(-_distance, 0, 0), _toTime).SetRelative().AsyncWaitForCompletion();
+        if (_attackRight)
+        {
+            await gameObject.transform.DOMove(new Vector3(_distance, -1.0f, 0), _toTime).SetRelative().AsyncWaitForCompletion();
+
+        }
+        else
+        {
+            await gameObject.transform.DOMove(new Vector3(-_distance, -1.0f, 0), _toTime).SetRelative().AsyncWaitForCompletion();
+
+        }
         if (_boomerangAttack)
         {
             await BackBoomerang();
@@ -104,6 +115,7 @@ public class BossGoblinAttack : MonoBehaviour
     private async UniTask BackBoomerang()
     {
         await this.transform.DOMove(_defaultPos, _backTime).AsyncWaitForCompletion();
+        _attacking=false;
         _parentObj.SetActive(false);
     }
 
@@ -113,19 +125,19 @@ public class BossGoblinAttack : MonoBehaviour
     {
         //アクティブに
         _parentObj.SetActive(true);
+        _attacking = true;
         //情報格納
         _defaultPos= _parentObj.transform.position;
         _defaultRot= _parentObj.transform.rotation;
         //アタック中
         _boomerangAttack = false;
-        _attacked = true;
         //アタックアニメーション
         await _parentObj.transform.DOLocalRotate(new Vector3(0, 0, -100), 1, RotateMode.LocalAxisAdd).AsyncWaitForCompletion();
         //アタック終了
-        _attacked = false;
         //初期化
         _parentObj.transform.rotation = _defaultRot;
         _parentObj.transform.position = _defaultPos;
+        _attacking = false;
         _parentObj.SetActive(false);
     }
 }

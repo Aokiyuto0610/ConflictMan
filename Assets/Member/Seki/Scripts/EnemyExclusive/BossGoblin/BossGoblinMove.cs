@@ -15,6 +15,8 @@ public class BossGoblinMove : MonoBehaviour
 
     [SerializeField] private GameObject _hpBarObj;
 
+    [SerializeField] BossGoblinAttack _attackSc;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,14 +26,18 @@ public class BossGoblinMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_isTurn)
+        if (!_attackSc._attacking)
         {
-            _parentObj.transform.position = new Vector3(_parentObj.transform.position.x + (_moveSpeed / 100), _parentObj.transform.position.y, _parentObj .transform.position.z);
+            if (_isTurn)
+            {
+                _parentObj.transform.position = new Vector3(_parentObj.transform.position.x + (_moveSpeed / 100), _parentObj.transform.position.y, _parentObj.transform.position.z);
+            }
+            else
+            {
+                _parentObj.transform.position = new Vector3(_parentObj.transform.position.x - (_moveSpeed / 100), _parentObj.transform.position.y, _parentObj.transform.position.z);
+            }
         }
-        else
-        {
-            _parentObj.transform.position = new Vector3(_parentObj.transform.position.x - (_moveSpeed / 100), _parentObj.transform.position.y, _parentObj.transform.position.z);
-        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -41,12 +47,28 @@ public class BossGoblinMove : MonoBehaviour
             if (_isTurn)
             {
                 _isTurn = false;
+                if (_attackSc._attackRight)
+                {
+                    _attackSc._attackRight = false;
+                }
+                else
+                {
+                    _attackSc._attackRight = true;
+                }
                 _renderObj.transform.rotation = Quaternion.Euler(_parentObj.transform.rotation.x, 180, _parentObj.transform.rotation.z);
                 _hpBarObj.transform.rotation = Quaternion.Euler(_hpBarObj.transform.rotation.x, 180, _hpBarObj.transform.rotation.z);
             }
             else if (!_isTurn)
             {
                 _isTurn = true;
+                if (_attackSc._attackRight)
+                {
+                    _attackSc._attackRight = false;
+                }
+                else
+                {
+                    _attackSc._attackRight = true;
+                }
                 _renderObj.transform.rotation = Quaternion.Euler(_parentObj.transform.rotation.x, 0, _parentObj.transform.rotation.z);
                 _hpBarObj.transform.rotation = Quaternion.Euler(_hpBarObj.transform.rotation.x, 180, _hpBarObj.transform.rotation.z);
             }
