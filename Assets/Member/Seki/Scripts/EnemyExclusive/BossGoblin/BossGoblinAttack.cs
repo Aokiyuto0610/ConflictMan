@@ -2,7 +2,6 @@ using UnityEngine;
 using DG.Tweening;
 using NaughtyAttributes;
 using Cysharp.Threading.Tasks;
-using Unity.VisualScripting;
 
 public class BossGoblinAttack : MonoBehaviour
 {
@@ -12,7 +11,7 @@ public class BossGoblinAttack : MonoBehaviour
 
     [SerializeField] private GameObject _parentObj;
 
-    public bool _boomerangAttack=false;
+    public bool _boomerangAttack = false;
 
     private Vector3 _defaultPos;
 
@@ -22,13 +21,13 @@ public class BossGoblinAttack : MonoBehaviour
     private bool _returnPos;
 
     //攻撃済みか
-    public bool _attacked=false;
+    public bool _attacked = false;
 
     private void Awake()
     {
         //元の位置情報を格納
         _defaultPos = transform.position;
-        _defaultRot=transform.rotation;
+        _defaultRot = transform.rotation;
     }
 
     private void Update()
@@ -45,23 +44,25 @@ public class BossGoblinAttack : MonoBehaviour
         _attackDamage = damage;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private async void OnTriggerEnter2D(Collider2D collision)
     {
         //ブーメラン攻撃時に壁に衝突したとき
         if (_boomerangAttack)
         {
             if (collision.gameObject.tag == "Wall")
             {
+                transform.DOKill();
                 Debug.Log("ブーメラン、壁に衝突");
                 _boomerangAttack = false;
-            　　_returnPos = true;
+                _returnPos = true;
+                await BackBoomerang();
                 return;
             }
         }
 
 
         //無効タグか判定
-        for (int i = 0; i <_enemyState._notEnemyAttackTag.Length; i++)
+        for (int i = 0; i < _enemyState._notEnemyAttackTag.Length; i++)
         {
             if (_enemyState._notEnemyAttackTag[i] == collision.tag)
             {
@@ -81,29 +82,48 @@ public class BossGoblinAttack : MonoBehaviour
     [Button]
     public async void BoomerangAttack()
     {
+        _boomerangAttack = true;
+        //元の位置格納
+        _defaultPos = transform.position;
+        _defaultRot = transform.rotation;
+
         //位置調整
-        _parentObj.transform.position = new Vector3(_parentObj.transform.position.x, _parentObj.transform.position.y - 1.0f,_parentObj.transform.position.z);
-        await ToBoomerang();
-        await BackBoomerang();
+        _parentObj.transform.position = new Vector3(_parentObj.transform.position.x, _parentObj.transform.position.y - 1.0f, _parentObj.transform.position.z);
+        await gameObject.transform.DOMove(new Vector3(-5.0f, 0, 0), 3.0f).SetRelative().AsyncWaitForCompletion();
+        if (_boomerangAttack)
+        {
+            await BackBoomerang();
+            _boomerangAttack = false;
+
+        }
     }
 
-    private UniTask ToBoomerang()
-    {
-        this.gameObject.transform.DOMove(new Vector3(transform.position.x - 5.0f, transform.position.y, transform.position.z), 3.0f);
-        return UniTask.CompletedTask;
-    }
 
-    private UniTask BackBoomerang()
+    //ブーメラン帰
+    private async UniTask BackBoomerang()
     {
-        this.transform.DOMove(_defaultPos, 1.0f);
-        return UniTask.CompletedTask;
+        await this.transform.DOMove(_defaultPos, 1.0f).AsyncWaitForCompletion();
     }
 
     //こん棒攻撃
     [Button]
-    public void BlowAttackSet()
+    public async void BlowAttackSet()
     {
+        //アクティブに
+        _parentObj.SetActive(true);
+        //情報格納
+        _defaultPos= transform.position;
+        _defaultRot= transform.rotation;
+        //アタック中
         _boomerangAttack = false;
-        _attacked=true;
+        _attacked = true;
+        //アタックアニメーション
+        await _parentObj.transform.DORotate(new Vector3(0, 0, -100), 1, RotateMode.LocalAxisAdd).AsyncWaitForCompletion();
+        //アタック終了
+        _attacked = false;
+        //初期化
+        transform.position = _defaultPos;
+        transform.rotation = _defaultRot;
+        _parentObj.SetActive(false);
     }
 }
