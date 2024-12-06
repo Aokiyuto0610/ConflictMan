@@ -11,6 +11,12 @@ public class BossGoblinAttack : MonoBehaviour
 
     [SerializeField] private GameObject _parentObj;
 
+    [SerializeField, Label("どのくらい飛ばすか")] float _distance = 5.0f;
+
+    [SerializeField, Label("何秒で飛ばすか")] float _toTime = 3.0f;
+
+    [SerializeField, Label("戻る所要時間")] float _backTime = 1.0f;
+
     public bool _boomerangAttack = false;
 
     private Vector3 _defaultPos;
@@ -23,12 +29,6 @@ public class BossGoblinAttack : MonoBehaviour
     //攻撃済みか
     public bool _attacked = false;
 
-    private void Awake()
-    {
-        //元の位置情報を格納
-        _defaultPos = transform.position;
-        _defaultRot = transform.rotation;
-    }
 
     private void Update()
     {
@@ -82,6 +82,7 @@ public class BossGoblinAttack : MonoBehaviour
     [Button]
     public async void BoomerangAttack()
     {
+        _parentObj.SetActive(true);
         _boomerangAttack = true;
         //元の位置格納
         _defaultPos = transform.position;
@@ -89,7 +90,7 @@ public class BossGoblinAttack : MonoBehaviour
 
         //位置調整
         _parentObj.transform.position = new Vector3(_parentObj.transform.position.x, _parentObj.transform.position.y - 1.0f, _parentObj.transform.position.z);
-        await gameObject.transform.DOMove(new Vector3(-5.0f, 0, 0), 3.0f).SetRelative().AsyncWaitForCompletion();
+        await gameObject.transform.DOMove(new Vector3(-_distance, 0, 0), _toTime).SetRelative().AsyncWaitForCompletion();
         if (_boomerangAttack)
         {
             await BackBoomerang();
@@ -102,7 +103,8 @@ public class BossGoblinAttack : MonoBehaviour
     //ブーメラン帰
     private async UniTask BackBoomerang()
     {
-        await this.transform.DOMove(_defaultPos, 1.0f).AsyncWaitForCompletion();
+        await this.transform.DOMove(_defaultPos, _backTime).AsyncWaitForCompletion();
+        _parentObj.SetActive(false);
     }
 
     //こん棒攻撃
@@ -112,18 +114,18 @@ public class BossGoblinAttack : MonoBehaviour
         //アクティブに
         _parentObj.SetActive(true);
         //情報格納
-        _defaultPos= transform.position;
-        _defaultRot= transform.rotation;
+        _defaultPos= _parentObj.transform.position;
+        _defaultRot= _parentObj.transform.rotation;
         //アタック中
         _boomerangAttack = false;
         _attacked = true;
         //アタックアニメーション
-        await _parentObj.transform.DORotate(new Vector3(0, 0, -100), 1, RotateMode.LocalAxisAdd).AsyncWaitForCompletion();
+        await _parentObj.transform.DOLocalRotate(new Vector3(0, 0, -100), 1, RotateMode.LocalAxisAdd).AsyncWaitForCompletion();
         //アタック終了
         _attacked = false;
         //初期化
-        transform.position = _defaultPos;
-        transform.rotation = _defaultRot;
+        _parentObj.transform.rotation = _defaultRot;
+        _parentObj.transform.position = _defaultPos;
         _parentObj.SetActive(false);
     }
 }
