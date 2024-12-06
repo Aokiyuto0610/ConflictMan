@@ -29,7 +29,7 @@ public class ConfliObjMove : MonoBehaviour
         _rb2d = GetComponent<Rigidbody2D>();
         goFlag = false;
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 10; i++)
         {
             GameObject arrow = Instantiate(arrowPrefab, arrowParent);
             arrow.SetActive(false);
@@ -73,16 +73,25 @@ public class ConfliObjMove : MonoBehaviour
         int arrowCount = 0;
         if (dragDistance >= 5f)
         {
-            arrowCount = 5;
+            arrowCount = 10;
+        }
+        else if (dragDistance >= 4f)
+        {
+            arrowCount = 8;
         }
         else if (dragDistance >= 3f)
+        {
+            arrowCount = 6;
+        }
+        else if (dragDistance >= 2f)
         {
             arrowCount = 4;
         }
         else if (dragDistance >= 1f)
         {
-            arrowCount = 3;
+            arrowCount = 2;
         }
+
 
         for (int i = 0; i < arrowCount; i++)
         {
