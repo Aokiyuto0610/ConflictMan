@@ -1,4 +1,7 @@
 using UnityEngine;
+using DG.Tweening;
+using NaughtyAttributes;
+using Cysharp.Threading.Tasks;
 
 public class BossGoblinAttack : MonoBehaviour
 {
@@ -6,7 +9,15 @@ public class BossGoblinAttack : MonoBehaviour
 
     [SerializeField] EnemyState _enemyState;
 
-    private bool _boomerangAttack=false;
+    [SerializeField] private GameObject _parentObj;
+
+    [SerializeField, Label("どのくらい飛ばすか")] float _distance = 5.0f;
+
+    [SerializeField, Label("何秒で飛ばすか")] float _toTime = 3.0f;
+
+    [SerializeField, Label("戻る所要時間")] float _backTime = 1.0f;
+
+    public bool _boomerangAttack = false;
 
     private Vector3 _defaultPos;
 
@@ -15,28 +26,13 @@ public class BossGoblinAttack : MonoBehaviour
     //元の場所に戻る用
     private bool _returnPos;
 
-    private void Awake()
-    {
-        //元の位置情報を格納
-        _defaultPos = transform.position;
-        _defaultRot=transform.rotation;
-    }
+    //攻撃済みか
+    public bool _attacked = false;
+
 
     private void Update()
     {
-        //元の場所に戻る
-        if (_returnPos)
-        {
-            //XPos
-            if (this.transform.position.x > _defaultPos.x)
-            {
-                this.transform.position = new Vector3(this.transform.position.x - 0.1f,this.transform.position.y,this.transform.position.z);
-            }
-            else if(this.transform.position.x < _defaultPos.x)
-            {
-                this.transform.position = new Vector3(this.transform.position.x + 0.1f, this.transform.position.y, this.transform.position.z);
-            }
-        }
+
     }
 
     /// <summary>
@@ -48,22 +44,25 @@ public class BossGoblinAttack : MonoBehaviour
         _attackDamage = damage;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private async void OnTriggerEnter2D(Collider2D collision)
     {
         //ブーメラン攻撃時に壁に衝突したとき
         if (_boomerangAttack)
         {
             if (collision.gameObject.tag == "Wall")
             {
-                Debug.Log("ブーメラン壁に衝突");
+                transform.DOKill();
+                Debug.Log("ブーメラン、壁に衝突");
                 _boomerangAttack = false;
+                _returnPos = true;
+                await BackBoomerang();
                 return;
             }
         }
 
 
         //無効タグか判定
-        for (int i = 0; i <_enemyState._notEnemyAttackTag.Length; i++)
+        for (int i = 0; i < _enemyState._notEnemyAttackTag.Length; i++)
         {
             if (_enemyState._notEnemyAttackTag[i] == collision.tag)
             {
@@ -78,11 +77,55 @@ public class BossGoblinAttack : MonoBehaviour
 
 
     /// <summary>
-    /// ブーメラン攻撃かをセット
+    /// ブーメラン攻撃
     /// </summary>
-    public void BoomerangAttackSet()
+    [Button]
+    public async void BoomerangAttack()
     {
+        _parentObj.SetActive(true);
         _boomerangAttack = true;
+        //元の位置格納
+        _defaultPos = transform.position;
+        _defaultRot = transform.rotation;
+
+        //位置調整
+        _parentObj.transform.position = new Vector3(_parentObj.transform.position.x, _parentObj.transform.position.y - 1.0f, _parentObj.transform.position.z);
+        await gameObject.transform.DOMove(new Vector3(-_distance, 0, 0), _toTime).SetRelative().AsyncWaitForCompletion();
+        if (_boomerangAttack)
+        {
+            await BackBoomerang();
+            _boomerangAttack = false;
+
+        }
     }
 
+
+    //ブーメラン帰
+    private async UniTask BackBoomerang()
+    {
+        await this.transform.DOMove(_defaultPos, _backTime).AsyncWaitForCompletion();
+        _parentObj.SetActive(false);
+    }
+
+    //こん棒攻撃
+    [Button]
+    public async void BlowAttackSet()
+    {
+        //アクティブに
+        _parentObj.SetActive(true);
+        //情報格納
+        _defaultPos= _parentObj.transform.position;
+        _defaultRot= _parentObj.transform.rotation;
+        //アタック中
+        _boomerangAttack = false;
+        _attacked = true;
+        //アタックアニメーション
+        await _parentObj.transform.DOLocalRotate(new Vector3(0, 0, -100), 1, RotateMode.LocalAxisAdd).AsyncWaitForCompletion();
+        //アタック終了
+        _attacked = false;
+        //初期化
+        _parentObj.transform.rotation = _defaultRot;
+        _parentObj.transform.position = _defaultPos;
+        _parentObj.SetActive(false);
+    }
 }

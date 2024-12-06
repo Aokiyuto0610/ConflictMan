@@ -84,7 +84,7 @@ public class EnemyCommon : MonoBehaviour
     async void Update()
     {
         //UŒ‚ƒXƒpƒ“Œv‘ª
-        _attackSpanTime += Time.deltaTime;
+        //_attackSpanTime += Time.deltaTime;
         if(_attackSpanTime >= _enemyAttackSpan)
         {
             await EnemyAttackMove();
