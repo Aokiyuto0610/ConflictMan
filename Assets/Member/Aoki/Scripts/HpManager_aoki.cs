@@ -5,90 +5,61 @@ using UnityEngine.UI;
 
 public class HpManager_aoki : MonoBehaviour
 {
-    [Tooltip("Hp‚Ì‰æ‘œ")]
-    [SerializeField]
-    private Transform[] Hp;
-    private int currenthp;
-    [SerializeField]
-    private Transform playerTransform;
-    [Tooltip("HpObj‚ª“G‚ÌUŒ‚‚ª“–‚½‚é‚æ‚¤‚É‚È‚é‹——£")]
-    [SerializeField]
-    private float safeDistance = 0.5f;
-    private Quaternion _rotation;
+    [SerializeField] 
+    private int maxHealth;
+    private int currentHealth;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] 
+    private Image[] lifeUI;
+    [SerializeField] 
+    private Sprite fullHeart;
+    [SerializeField] 
+    private Sprite emptyHeart;
+
+    private void Start()
     {
-        currenthp = Hp.Length;
-        UpdateHpDisplay();
-        SetActiveHpCollider();
-        _rotation = transform.rotation;
+        currentHealth = maxHealth;
+        UpdateLifeUI();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        PositionHpPlayer();
-        LockRotation();
-    }
-
-    private void PositionHpPlayer()
-    {
-        Vector3 offset = new Vector3(0, 1.5f, 0);
-        transform.position = playerTransform.position + offset;
-    }
-
-    public void TakeDamage()
-    {
-        if (currenthp > 0)
+        if (collision.CompareTag("EnemyAttack"))
         {
-            currenthp--;
-            UpdateHpDisplay();
-            SetActiveHpCollider();
+            TakeDamage(1);
         }
     }
 
-    public void Heal()
+    private void TakeDamage(int damage)
     {
-        if (currenthp < Hp.Length)
+        currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        UpdateLifeUI();
+
+        if (currentHealth <= 0)
         {
-            currenthp++;
-            UpdateHpDisplay();
-            SetActiveHpCollider();
+            Die();
         }
     }
 
-    private void UpdateHpDisplay()
+    private void UpdateLifeUI()
     {
-        for (int i = 0; i < Hp.Length; i++)
+        for (int i = 0; i < lifeUI.Length; i++)
         {
-            Hp[i].gameObject.SetActive(i < currenthp);
+            if (i < currentHealth)
+            {
+                lifeUI[i].sprite = fullHeart;
+            }
+            else
+            {
+                lifeUI[i].sprite = emptyHeart;
+            }
         }
     }
 
-    private void SetActiveHpCollider()
+    private void Die()
     {
-        foreach (var HpObject in Hp)
-        {
-            HpObject.GetComponent<Collider2D>().enabled = false;
-        }
-
-        if(currenthp > 0)
-        {
-            Hp[currenthp - 1].GetComponent<Collider2D>().enabled = true;
-        }
-    }
-
-    private void LockRotation()
-    {
-        transform.rotation = _rotation;
-    }
-
-    public void TakeDamageIfFarFromPlayer()
-    {
-        if (Vector3.Distance(transform.position, playerTransform.position) > safeDistance)
-        {
-            TakeDamage();
-        }
+        Debug.Log("Player has died!");
     }
 }

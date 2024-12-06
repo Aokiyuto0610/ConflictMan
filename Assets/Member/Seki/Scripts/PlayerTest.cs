@@ -17,7 +17,7 @@ public class PlayerTest : MonoBehaviour
     public int _reflection = 0;
 
     //デバック用
-    [SerializeField, OnValueChanged(nameof(OnValueChanged))] private int _playerHp = 9999;
+    [SerializeField, OnValueChanged(nameof(OnValueChanged))] private int _playerHp;
 
     [SerializeField, Scene] public string _LoseScene;
 

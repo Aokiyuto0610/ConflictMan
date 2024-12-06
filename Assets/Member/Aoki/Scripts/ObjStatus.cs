@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class ObjStatus : MonoBehaviour
 {
-    [SerializeField] public int _bounce;
+    [SerializeField] 
+    public int _bounce;
     public bool moveflag;
     private bool _isGravity = false;
     Rigidbody2D _rb;
-    [SerializeField] public GameObject _mii;
+    [SerializeField] 
+    public GameObject _mii;
 
     // Start is called before the first frame update
     void Start()

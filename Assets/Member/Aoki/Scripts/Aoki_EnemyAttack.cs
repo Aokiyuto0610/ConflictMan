@@ -20,15 +20,15 @@ public class Aoki_EnemyAttack : MonoBehaviour
         }
 
 
-        if (collision.CompareTag("Player"))
-        {
-            hpManager.TakeDamage();
-            Debug.Log("ƒvƒŒƒCƒ„[‚ÉUŒ‚");
-        }
-        else if (collision.CompareTag("Hp"))
-        {
-            hpManager.TakeDamageIfFarFromPlayer();
-            Debug.Log("Hp‚ÉUŒ‚");
-        }
+        //if (collision.CompareTag("Player"))
+        //{
+        //    hpManager.TakeDamage();
+        //    Debug.Log("ƒvƒŒƒCƒ„[‚ÉUŒ‚");
+        //}
+        //else if (collision.CompareTag("Hp"))
+        //{
+        //    hpManager.TakeDamageIfFarFromPlayer();
+        //    Debug.Log("Hp‚ÉUŒ‚");
+        //}
     }
 }

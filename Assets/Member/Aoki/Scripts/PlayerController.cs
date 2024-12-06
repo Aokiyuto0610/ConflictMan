@@ -6,26 +6,40 @@ public class PlayerController : MonoBehaviour
 {
     public HpManager_aoki _hpmg;
     public float invincibleDuration;
-    [SerializeField] private float speed = 0.3f;
-    private bool isInvincible = false;
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] 
+    private float speed;
+    [SerializeField] 
+    private SpriteRenderer spriteRenderer;
 
     private bool isOnFloor = false;
-    [SerializeField] private float timeOnFloor = 0f;
-    [SerializeField] private const float tuchFloor = 0.5f;
+    [SerializeField]
+    private float timeOnFloor;
+    [SerializeField]
+    private const float tuchFloor = 0.5f;
 
     private bool isFacingRight = true;
+    private bool isMoving = false;
+    private bool isNaturallMoving = false;
+
+    private Rigidbody2D rb;
+
+    [SerializeField]
+    private float naturalMovement;
 
 
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        isNaturallMoving = rb.velocity.magnitude > naturalMovement;
+        if (isNaturallMoving) return;
+
         Vector2 position = transform.position;
 
         if (Input.GetKey(KeyCode.A))
