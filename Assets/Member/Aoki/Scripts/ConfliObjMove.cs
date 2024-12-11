@@ -19,6 +19,10 @@ public class ConfliObjMove : MonoBehaviour
     [SerializeField]
     private float arrowSpacing;
 
+    [SerializeField]
+    private LayerMask floorlay;
+    private bool canMove = true;
+
     private List<GameObject> arrowPool = new List<GameObject>();
     private int activeArrowCount;
 
@@ -29,7 +33,7 @@ public class ConfliObjMove : MonoBehaviour
         _rb2d = GetComponent<Rigidbody2D>();
         goFlag = false;
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 8; i++)
         {
             GameObject arrow = Instantiate(arrowPrefab, arrowParent);
             arrow.SetActive(false);
@@ -62,6 +66,16 @@ public class ConfliObjMove : MonoBehaviour
                 startDirection = -1 * (mouseEndPos - mouseStartPos).normalized;
                 _rb2d.AddForce(startDirection * speed);
                 ClearArrows();
+
+                canMove = false;
+            }
+            else
+            {
+                // オブジェクトが静止していれば操作を再度有効化
+                if (_rb2d.velocity.magnitude < 0.1f)
+                {
+                    canMove = true;
+                }
             }
         }
     }
@@ -73,21 +87,17 @@ public class ConfliObjMove : MonoBehaviour
         int arrowCount = 0;
         if (dragDistance >= 5f)
         {
-            arrowCount = 10;
+            arrowCount = 8;
         }
         else if (dragDistance >= 4f)
         {
-            arrowCount = 8;
+            arrowCount = 4;
         }
         else if (dragDistance >= 3f)
         {
-            arrowCount = 6;
+            arrowCount = 3;
         }
         else if (dragDistance >= 2f)
-        {
-            arrowCount = 4;
-        }
-        else if (dragDistance >= 1f)
         {
             arrowCount = 2;
         }
@@ -116,5 +126,14 @@ public class ConfliObjMove : MonoBehaviour
         }
 
         activeArrowCount = 0;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (((1 << collision.gameObject.layer) & floorlay) != 0)
+        {
+            Debug.Log("Floorに接触したよ");
+            canMove = true;
+        }
     }
 }

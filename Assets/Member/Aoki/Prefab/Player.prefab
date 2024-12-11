@@ -34,8 +34,8 @@ RectTransform:
   m_GameObject: {fileID: 6821552997997933600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.42, y: 0.42, z: 0.42}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.26, y: 0.26, z: 0.26}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6300379280580151157}
   - {fileID: 4206023654769797506}
@@ -88,7 +88,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0d1b6a3530bf5e445a229d4536f64de0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9ff3074fc08e6bb408430414a5c0b91b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -167,11 +167,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 500
-  maxLine: 10
-  lineRen: {fileID: 0}
   wall:
     serializedVersion: 2
     m_Bits: 0
+  arrowPrefab: {fileID: 0}
+  arrowParent: {fileID: 0}
+  arrowSpacing: 0
+  floorlay:
+    serializedVersion: 2
+    m_Bits: 64
   goFlag: 0
 --- !u!114 &5528426901235540028
 MonoBehaviour:
@@ -190,6 +194,7 @@ MonoBehaviour:
   speed: 0.3
   spriteRenderer: {fileID: 2406851383430263148}
   timeOnFloor: 0
+  naturalMovement: 0
 --- !u!70 &7464672582966290207
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -222,8 +227,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.01, y: -0.4}
-  m_Size: {x: 3, y: 8}
+  m_Offset: {x: 0.01, y: -0.78}
+  m_Size: {x: 3, y: 10}
   m_Direction: 0
 --- !u!70 &2569707989462217156
 CapsuleCollider2D:
@@ -257,8 +262,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.01, y: -0.4}
-  m_Size: {x: 3, y: 8}
+  m_Offset: {x: 0.01, y: -0.78}
+  m_Size: {x: 3, y: 10}
   m_Direction: 0
 --- !u!114 &9119140525625621362
 MonoBehaviour:
@@ -275,6 +280,7 @@ MonoBehaviour:
   _weakness: 0
   _shield: 0
   _afterDamage: 0
+  hearts: []
   _reflection: 0
   _playerHp: 5
   _LoseScene: LoseResulut
@@ -480,9 +486,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1800
-  maxLine: 0
-  lineRen: {fileID: 0}
   wall:
+    serializedVersion: 2
+    m_Bits: 0
+  arrowPrefab: {fileID: 0}
+  arrowParent: {fileID: 0}
+  arrowSpacing: 0
+  floorlay:
     serializedVersion: 2
     m_Bits: 0
   goFlag: 0
@@ -686,9 +696,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1800
-  maxLine: 0
-  lineRen: {fileID: 0}
   wall:
+    serializedVersion: 2
+    m_Bits: 0
+  arrowPrefab: {fileID: 0}
+  arrowParent: {fileID: 0}
+  arrowSpacing: 0
+  floorlay:
     serializedVersion: 2
     m_Bits: 0
   goFlag: 0
@@ -892,9 +906,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1800
-  maxLine: 0
-  lineRen: {fileID: 0}
   wall:
+    serializedVersion: 2
+    m_Bits: 0
+  arrowPrefab: {fileID: 0}
+  arrowParent: {fileID: 0}
+  arrowSpacing: 0
+  floorlay:
     serializedVersion: 2
     m_Bits: 0
   goFlag: 0

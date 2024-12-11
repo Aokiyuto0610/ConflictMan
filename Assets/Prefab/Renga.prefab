@@ -158,11 +158,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2000
-  maxLine: 10
-  lineRen: {fileID: 0}
   wall:
     serializedVersion: 2
     m_Bits: 0
+  arrowPrefab: {fileID: 0}
+  arrowParent: {fileID: 0}
+  arrowSpacing: 0
+  floorlay:
+    serializedVersion: 2
+    m_Bits: 64
   goFlag: 0
 --- !u!58 &8117406749454385662
 CircleCollider2D:

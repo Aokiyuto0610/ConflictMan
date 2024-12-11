@@ -18,23 +18,30 @@ public class ObjSelect : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (currentlySelected == this)
+        if (!move.goFlag) // goFlagが有効な場合は選択できない
         {
-            Deselect();
-            currentlySelected = null;
+            if (currentlySelected == this)
+            {
+                Deselect();
+                currentlySelected = null;
+            }
+            else
+            {
+                if (currentlySelected != null)
+                {
+                    currentlySelected.Deselect();
+                }
+
+                currentlySelected = this;
+                Select();
+            }
+
+            Debug.Log("選択されたよ");
         }
         else
         {
-            if (currentlySelected != null)
-            {
-                currentlySelected.Deselect();
-            }
-
-            currentlySelected = this;
-            Select();
+            Debug.Log("飛行中のため選択できません");
         }
-
-        Debug.Log("選択されたよ");
     }
 
     private void Select()
