@@ -23,9 +23,14 @@ public class ConfliObjMove : MonoBehaviour
     private LayerMask floorlay;
     private bool canMove = true;
 
+    [SerializeField]
+    private float maxDrag;
+
     private Queue<GameObject> arrowPool = new Queue<GameObject>();
     private List<GameObject> activeArrows = new List<GameObject>();
     public bool goFlag;
+
+    private static ConfliObjMove SelectedObject;
 
     //[SerializeField] 
     //private Material arrowMaterial; // シェーダー適用済みマテリアル
@@ -67,7 +72,7 @@ public class ConfliObjMove : MonoBehaviour
             Vector2 dragVector = mouseEndPos - mouseStartPos;
             startDirection = -dragVector.normalized;
 
-            float dragDistance = dragVector.magnitude / 100f;
+            float dragDistance = Mathf.Min(dragVector.magnitude / 100f, maxDrag);
             UpdateArrows(dragDistance);
         }
 
@@ -77,13 +82,16 @@ public class ConfliObjMove : MonoBehaviour
             startDirection = -1 * (mouseEndPos - mouseStartPos).normalized;
             _rb2d.AddForce(startDirection * speed, ForceMode2D.Impulse);
             ClearArrows();
-
             canMove = false;
         }
 
         if (_rb2d.velocity.magnitude < 0.1f)
         {
-            canMove = true;
+            if (!canMove)
+            {
+                ClearArrows();
+                canMove = true;
+            }
         }
     }
 
@@ -91,17 +99,26 @@ public class ConfliObjMove : MonoBehaviour
     {
         ClearArrows();
 
-        int arrowCount = Mathf.Clamp(Mathf.FloorToInt(dragDistance), 1, maxArrows);
-        string startColorCode = "#FFF2CC";
-        string endColorCode = "#FF0000";
+        int arrowCount = Mathf.FloorToInt((dragDistance / maxDrag) * maxArrows);
+        arrowCount = Mathf.Clamp(arrowCount, 1, maxArrows);
+        string startColorCode = "#92D050"; // 開始色
+        string middleColorCode = "#FF6600"; // 中間色
+        string endColorCode = "#FF0000"; // 終了色
 
         Color startColor;
+        Color middleColor;
         Color endColor;
 
         if (!ColorUtility.TryParseHtmlString(startColorCode, out startColor))
         {
             Debug.LogError($"Invalid color code: {startColorCode}");
             startColor = Color.red;
+        }
+
+        if (!ColorUtility.TryParseHtmlString(middleColorCode, out middleColor))
+        {
+            Debug.LogError($"Invalid color code: {middleColorCode}");
+            middleColor = Color.yellow;
         }
 
         if (!ColorUtility.TryParseHtmlString(endColorCode, out endColor))
@@ -115,7 +132,7 @@ public class ConfliObjMove : MonoBehaviour
             GameObject arrow = GetArrowFromPool();
             if (arrow != null)
             {
-                Vector2 arrowPosition = (Vector2)transform.position + new Vector2(0, 0) + startDirection * ((i + 1) * arrowSpacing);
+                Vector2 arrowPosition = (Vector2)transform.position + startDirection * ((i + 1) * arrowSpacing);
                 arrow.transform.position = arrowPosition;
 
                 float angle = Mathf.Atan2(startDirection.y, startDirection.x) * Mathf.Rad2Deg;
@@ -125,7 +142,16 @@ public class ConfliObjMove : MonoBehaviour
                 activeArrows.Add(arrow);
 
                 float t = arrowCount > 1 ? (float)i / (arrowCount - 1) : 0;
-                Color gradientColor = Color.Lerp(startColor, endColor, t);
+
+                Color gradientColor;
+                if (t < 0.5f)
+                {
+                    gradientColor = Color.Lerp(startColor, middleColor, t * 2);
+                }
+                else
+                {
+                    gradientColor = Color.Lerp(middleColor, endColor, (t - 0.5f) * 2);
+                }
 
                 SpriteRenderer sr = arrow.GetComponent<SpriteRenderer>();
                 if (sr != null)
@@ -135,7 +161,6 @@ public class ConfliObjMove : MonoBehaviour
             }
         }
     }
-
 
     void ClearArrows()
     {
@@ -165,7 +190,29 @@ public class ConfliObjMove : MonoBehaviour
         if (((1 << collision.gameObject.layer) & floorlay) != 0)
         {
             Debug.Log("Floorに接触したよ");
+            ClearArrows();
             canMove = true;
         }
+    }
+
+    private void SelkectThisObject()
+    {
+        if(SelectedObject != null && SelectedObject != this)
+        {
+            SelectedObject.DeselectObject();
+        }
+
+        SelectedObject = this;
+    }
+
+    private void DeselectObject()
+    {
+        ClearArrows();
+    }
+
+    private bool IsmouseOverThisObject(Vector2 mousePosition)
+    {
+        Collider2D collider = GetComponent<Collider2D>();
+        return collider != null && collider.OverlapPoint(mousePosition);
     }
 }

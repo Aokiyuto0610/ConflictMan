@@ -18,7 +18,7 @@ public class ObjSelect : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!move.goFlag) // goFlag‚ª—LŒø‚Èê‡‚Í‘I‘ğ‚Å‚«‚È‚¢
+        if (!move.goFlag)
         {
             if (currentlySelected == this)
             {

@@ -166,16 +166,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a81ec20430ae9d44aa7ba67fe9bc678a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 500
-  wall:
-    serializedVersion: 2
-    m_Bits: 0
+  speed: 20
   arrowPrefab: {fileID: 0}
   arrowParent: {fileID: 0}
-  arrowSpacing: 0
+  arrowSpacing: 0.5
+  maxArrows: 8
   floorlay:
     serializedVersion: 2
     m_Bits: 64
+  maxDrag: 5
   goFlag: 0
 --- !u!114 &5528426901235540028
 MonoBehaviour:
@@ -280,7 +279,8 @@ MonoBehaviour:
   _weakness: 0
   _shield: 0
   _afterDamage: 0
-  hearts: []
+  hearts:
+  - {fileID: 0}
   _reflection: 0
   _playerHp: 5
   _LoseScene: LoseResulut
@@ -486,15 +486,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1800
-  wall:
-    serializedVersion: 2
-    m_Bits: 0
   arrowPrefab: {fileID: 0}
   arrowParent: {fileID: 0}
   arrowSpacing: 0
+  maxArrows: 0
   floorlay:
     serializedVersion: 2
     m_Bits: 0
+  maxDrag: 0
   goFlag: 0
 --- !u!1 &8169218287145437672
 GameObject:
@@ -696,15 +695,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1800
-  wall:
-    serializedVersion: 2
-    m_Bits: 0
   arrowPrefab: {fileID: 0}
   arrowParent: {fileID: 0}
   arrowSpacing: 0
+  maxArrows: 0
   floorlay:
     serializedVersion: 2
     m_Bits: 0
+  maxDrag: 0
   goFlag: 0
 --- !u!1 &8724679275720513324
 GameObject:
@@ -906,13 +904,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1800
-  wall:
-    serializedVersion: 2
-    m_Bits: 0
   arrowPrefab: {fileID: 0}
   arrowParent: {fileID: 0}
   arrowSpacing: 0
+  maxArrows: 0
   floorlay:
     serializedVersion: 2
     m_Bits: 0
+  maxDrag: 0
   goFlag: 0
