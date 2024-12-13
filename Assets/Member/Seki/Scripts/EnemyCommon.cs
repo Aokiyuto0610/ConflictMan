@@ -63,7 +63,7 @@ public class BossGoblin : MonoBehaviour
                         _enemyPower = _enemyState._stageEnemyDate[i]._enemyPower;
                         _enemyMove._moveSpeed = _enemyState._stageEnemyDate[i]._enemySpeed;
                         _enemyWeekPointDamage = _enemyState._stageEnemyDate[i]._weekPointDamage;
-                        _enemyAttackSpan = _enemyState._stageEnemyDate[i]._attackSpan + 1;
+                        //_enemyAttackSpan = _enemyState._stageEnemyDate[i]._attackSpan + 1;
                         _enemyAttack.SetAttackDamage(_enemyState._stageEnemyDate[i]._enemyPower);
                         _hpBar.SetEnemyHp(_enemyHp);
                         break;

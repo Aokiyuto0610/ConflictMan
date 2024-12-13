@@ -83,7 +83,7 @@ public class BossGoblinAttack : MonoBehaviour
     /// ブーメラン攻撃
     /// </summary>
     [Button]
-    public async void BoomerangAttack()
+    public async UniTask BoomerangAttack()
     {
         _parentObj.SetActive(true);
         _attacking = true;
@@ -121,7 +121,7 @@ public class BossGoblinAttack : MonoBehaviour
 
     //こん棒攻撃
     [Button]
-    public async void BlowAttackSet()
+    public async UniTask BlowAttackSet()
     {
         //アクティブに
         _parentObj.SetActive(true);
