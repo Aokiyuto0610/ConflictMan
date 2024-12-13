@@ -11,8 +11,6 @@ public class ConfliObjMove : MonoBehaviour
     private Vector2 startDirection;
 
     [SerializeField]
-    private LayerMask wall;
-    [SerializeField]
     private GameObject arrowPrefab;
     [SerializeField]
     private Transform arrowParent;
@@ -20,63 +18,72 @@ public class ConfliObjMove : MonoBehaviour
     private float arrowSpacing;
 
     [SerializeField]
+    private int maxArrows;
+    [SerializeField]
     private LayerMask floorlay;
     private bool canMove = true;
 
-    private List<GameObject> arrowPool = new List<GameObject>();
-    private int activeArrowCount;
-
+    private Queue<GameObject> arrowPool = new Queue<GameObject>();
+    private List<GameObject> activeArrows = new List<GameObject>();
     public bool goFlag;
+
+    //[SerializeField] 
+    //private Material arrowMaterial; // シェーダー適用済みマテリアル
+    //[SerializeField] 
+    //private Texture2D gradientTexture; // グラデーション用テクスチャ
+
 
     void Start()
     {
+
+        //if (arrowMaterial != null && gradientTexture != null)
+        //{
+        //    arrowMaterial.SetTexture("_GradientTex", gradientTexture);
+        //}
+
         _rb2d = GetComponent<Rigidbody2D>();
         goFlag = false;
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < maxArrows; i++)
         {
             GameObject arrow = Instantiate(arrowPrefab, arrowParent);
             arrow.SetActive(false);
-            arrowPool.Add(arrow);
+            arrowPool.Enqueue(arrow);
         }
     }
 
     void Update()
     {
-        if (goFlag)
+        if (!goFlag) return;
+
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                mouseStartPos = Input.mousePosition;
-            }
+            mouseStartPos = Input.mousePosition;
+        }
 
-            if (Input.GetMouseButton(0))
-            {
-                mouseEndPos = Input.mousePosition;
-                Vector2 dragVector = mouseEndPos - mouseStartPos;
-                startDirection = -dragVector.normalized;
+        if (Input.GetMouseButton(0))
+        {
+            mouseEndPos = Input.mousePosition;
+            Vector2 dragVector = mouseEndPos - mouseStartPos;
+            startDirection = -dragVector.normalized;
 
-                float dragDistance = dragVector.magnitude / 100f;
-                UpdateArrows(dragDistance);
-            }
+            float dragDistance = dragVector.magnitude / 100f;
+            UpdateArrows(dragDistance);
+        }
 
-            if (Input.GetMouseButtonUp(0))
-            {
-                mouseEndPos = Input.mousePosition;
-                startDirection = -1 * (mouseEndPos - mouseStartPos).normalized;
-                _rb2d.AddForce(startDirection * speed);
-                ClearArrows();
+        if (Input.GetMouseButtonUp(0))
+        {
+            mouseEndPos = Input.mousePosition;
+            startDirection = -1 * (mouseEndPos - mouseStartPos).normalized;
+            _rb2d.AddForce(startDirection * speed, ForceMode2D.Impulse);
+            ClearArrows();
 
-                canMove = false;
-            }
-            else
-            {
-                // オブジェクトが静止していれば操作を再度有効化
-                if (_rb2d.velocity.magnitude < 0.1f)
-                {
-                    canMove = true;
-                }
-            }
+            canMove = false;
+        }
+
+        if (_rb2d.velocity.magnitude < 0.1f)
+        {
+            canMove = true;
         }
     }
 
@@ -84,48 +91,73 @@ public class ConfliObjMove : MonoBehaviour
     {
         ClearArrows();
 
-        int arrowCount = 0;
-        if (dragDistance >= 5f)
+        int arrowCount = Mathf.Clamp(Mathf.FloorToInt(dragDistance), 1, maxArrows);
+        string startColorCode = "#FFF2CC";
+        string endColorCode = "#FF0000";
+
+        Color startColor;
+        Color endColor;
+
+        if (!ColorUtility.TryParseHtmlString(startColorCode, out startColor))
         {
-            arrowCount = 8;
-        }
-        else if (dragDistance >= 4f)
-        {
-            arrowCount = 4;
-        }
-        else if (dragDistance >= 3f)
-        {
-            arrowCount = 3;
-        }
-        else if (dragDistance >= 2f)
-        {
-            arrowCount = 2;
+            Debug.LogError($"Invalid color code: {startColorCode}");
+            startColor = Color.red;
         }
 
+        if (!ColorUtility.TryParseHtmlString(endColorCode, out endColor))
+        {
+            Debug.LogError($"Invalid color code: {endColorCode}");
+            endColor = Color.green;
+        }
 
         for (int i = 0; i < arrowCount; i++)
         {
-            if (i < arrowPool.Count)
+            GameObject arrow = GetArrowFromPool();
+            if (arrow != null)
             {
-                Vector2 arrowPosition = (Vector2)transform.position + startDirection * ((i + 1) * arrowSpacing);
-                GameObject arrow = arrowPool[i];
+                Vector2 arrowPosition = (Vector2)transform.position + new Vector2(0, 0) + startDirection * ((i + 1) * arrowSpacing);
                 arrow.transform.position = arrowPosition;
-                arrow.transform.right = -startDirection;
+
+                float angle = Mathf.Atan2(startDirection.y, startDirection.x) * Mathf.Rad2Deg;
+                arrow.transform.rotation = Quaternion.Euler(0, 0, angle - 90);
+
                 arrow.SetActive(true);
+                activeArrows.Add(arrow);
+
+                float t = arrowCount > 1 ? (float)i / (arrowCount - 1) : 0;
+                Color gradientColor = Color.Lerp(startColor, endColor, t);
+
+                SpriteRenderer sr = arrow.GetComponent<SpriteRenderer>();
+                if (sr != null)
+                {
+                    sr.color = gradientColor;
+                }
             }
         }
-
-        activeArrowCount = arrowCount;
     }
+
 
     void ClearArrows()
     {
-        for (int i = 0; i < activeArrowCount; i++)
+        foreach (var arrow in activeArrows)
         {
-            arrowPool[i].SetActive(false);
+            arrow.SetActive(false);
+            arrowPool.Enqueue(arrow);
         }
+        activeArrows.Clear();
+    }
 
-        activeArrowCount = 0;
+    GameObject GetArrowFromPool()
+    {
+        if (arrowPool.Count > 0)
+        {
+            return arrowPool.Dequeue();
+        }
+        else
+        {
+            Debug.LogWarning("Arrow pool is empty!");
+            return null;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
