@@ -572,9 +572,10 @@ MonoBehaviour:
   _weakness: 0
   _shield: 0
   _afterDamage: 0
+  hearts: []
   _reflection: 0
   _playerHp: 9999
-  _LoseScene: 
+  _LoseScene: Title
   invincibleDuration: 1.5
   spriteRenderer: {fileID: 0}
 --- !u!1 &886500901
@@ -646,12 +647,12 @@ MonoBehaviour:
   _enemyPower: 0
   _enemyMoveSpeed: 0
   _enemyWeekPointDamage: 0
-  _enemyAttackSpan: 0
+  _enemyAttackSpan: []
+  _attackType: 
   _enemyAttack: {fileID: 1179917198}
   _enemySp: {fileID: 2119954178}
   _enemyAttackObj: {fileID: 908168303}
   _enemyMove: {fileID: 480593106}
-  _enemyAnimator: {fileID: 0}
   _hpBar: {fileID: 1680573323}
 --- !u!1 &908168303 stripped
 GameObject:
@@ -682,7 +683,8 @@ MonoBehaviour:
   _toTime: 3
   _backTime: 1
   _boomerangAttack: 0
-  _attacked: 1
+  _attacking: 0
+  _attackRight: 0
 --- !u!1 &1517559206
 GameObject:
   m_ObjectHideFlags: 0
@@ -1027,6 +1029,50 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2708908555290264409, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: _stageEnemyDate.Array.data[0]._attackSpan.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708908555290264409, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: _stageEnemyDate.Array.data[0]._attackType.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708908555290264409, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: _stageEnemyDate.Array.data[0]._attackSpan.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708908555290264409, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: _stageEnemyDate.Array.data[0]._attackSpan.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708908555290264409, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: _stageEnemyDate.Array.data[0]._attackSpan.Array.data[2]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708908555290264409, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: _stageEnemyDate.Array.data[0]._attackSpan.Array.data[3]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708908555290264409, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: _stageEnemyDate.Array.data[0]._attackSpan.Array.data[4]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708908555290264409, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: _stageEnemyDate.Array.data[0]._attackType.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708908555290264409, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: _stageEnemyDate.Array.data[0]._attackType.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708908555290264409, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: _stageEnemyDate.Array.data[0]._attackType.Array.data[2]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708908555290264409, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
+      propertyPath: _stageEnemyDate.Array.data[0]._attackType.Array.data[3]
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4702294821010142141, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.10405505
@@ -1106,7 +1152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2486814649685221862, guid: 9da2746804f78224ea41e6d9335efacd, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3655001779884708034, guid: 9da2746804f78224ea41e6d9335efacd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1116,6 +1162,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6009758778027308211, guid: 9da2746804f78224ea41e6d9335efacd, type: 3}
+      propertyPath: _attackSc
+      value: 
+      objectReference: {fileID: 1179917198}
     - target: {fileID: 6009758778027308211, guid: 9da2746804f78224ea41e6d9335efacd, type: 3}
       propertyPath: m_Enabled
       value: 1

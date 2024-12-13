@@ -8,25 +8,27 @@ public class EnemyCommon : MonoBehaviour
 {
     [SerializeField, Label("EnemyState")] EnemyState _enemyState;
 
-    [SerializeField, Label("何ステージ目のオブジェクトか")] private int _enemyAssignment=1;
+    [SerializeField, Label("何ステージ目のオブジェクトか")] private int _enemyAssignment = 1;
 
     [SerializeField, Label("ステージ中何体目か")] private int _enemyNum;
 
-    [SerializeField,Label("HP")] private int _enemyHp;
+    [SerializeField, Label("HP")] private int _enemyHp;
 
     [SerializeField, Label("攻撃力")] private int _enemyPower;
 
     [SerializeField, Label("移動スピード")] private float _enemyMoveSpeed;
 
-    [SerializeField, Label("弱点倍率")] private float _enemyWeekPointDamage=1.5f;
+    [SerializeField, Label("弱点倍率")] private float _enemyWeekPointDamage = 1.5f;
 
-    [SerializeField, Label("攻撃間隔")] private float _enemyAttackSpan;
+    [SerializeField, Label("攻撃間隔")] private float[] _enemyAttackSpan;
+
+    [SerializeField, Label("アタック順")] private int[] _attackType;
 
     //span計測用
     private float _attackSpanTime = 0;
 
     //アタック中か
-    private bool _attacking=false;
+    private bool _attacking = false;
 
     [SerializeField] private BossGoblinAttack _enemyAttack;
 
@@ -36,9 +38,9 @@ public class EnemyCommon : MonoBehaviour
 
     [SerializeField] private BossGoblinMove _enemyMove;
 
-    [SerializeField] Animator _enemyAnimator;
-
     [SerializeField] EnemyHpBar _hpBar;
+
+    private int _attackCount = 0;
 
 
     void Awake()
@@ -47,7 +49,7 @@ public class EnemyCommon : MonoBehaviour
         Application.targetFrameRate = 60;
 
         //データ格納
-        for (int i=0;i<_enemyState._stageEnemyDate.Length;i++)
+        for (int i = 0; i < _enemyState._stageEnemyDate.Length; i++)
         {
             //ステージナンバー一致
             if (_enemyState._stageEnemyDate[i]._stageNum == _enemyAssignment)
@@ -56,14 +58,24 @@ public class EnemyCommon : MonoBehaviour
                 if (_enemyState._stageEnemyDate[i]._enemyTag == this.gameObject.tag)
                 {
                     //ナンバー一致
-                    if (_enemyState._stageEnemyDate[i]._enemyNum == _enemyNum ||this.gameObject.tag=="BossEnemy" )
+                    if (_enemyState._stageEnemyDate[i]._enemyNum == _enemyNum || this.gameObject.tag == "BossEnemy")
                     {
                         //格納等
                         _enemyHp = _enemyState._stageEnemyDate[i]._enemyHp;
                         _enemyPower = _enemyState._stageEnemyDate[i]._enemyPower;
                         _enemyMove._moveSpeed = _enemyState._stageEnemyDate[i]._enemySpeed;
                         _enemyWeekPointDamage = _enemyState._stageEnemyDate[i]._weekPointDamage;
-                        _enemyAttackSpan = _enemyState._stageEnemyDate[i]._attackSpan + 1;
+                        //_enemyAttackSpan = _enemyState._stageEnemyDate[i]._attackSpan + 1;
+                        for(int j=0;j< _enemyState._stageEnemyDate[i]._attackSpan.Length; j++)
+                        {
+                            Debug.Log("フブキングダムに納税");
+                            _enemyAttackSpan[j] = _enemyState._stageEnemyDate[i]._attackSpan[j];
+                            Debug.Log(_enemyAttackSpan[j]);
+                        }
+                        for (int k = 0; k < _enemyState._stageEnemyDate[i]._attackType.Length; k++)
+                        {
+                            _attackType[k] = _enemyState._stageEnemyDate[i]._attackType[k];
+                        }
                         _enemyAttack.SetAttackDamage(_enemyState._stageEnemyDate[i]._enemyPower);
                         _hpBar.SetEnemyHp(_enemyHp);
                         break;
@@ -83,16 +95,18 @@ public class EnemyCommon : MonoBehaviour
 
     async void Update()
     {
-        //攻撃スパン計測
-        //_attackSpanTime += Time.deltaTime;
-        if(_attackSpanTime >= _enemyAttackSpan)
-        {
-            await EnemyAttackMove();
-            _attackSpanTime = 0;
-        }
+        _attackSpanTime += Time.deltaTime;
 
-        //移動仮
-        //this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x+0.005f, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+        if (_attackSpanTime >= _enemyAttackSpan[_attackCount])
+        {
+            _attackSpanTime -= _enemyAttackSpan[_attackCount];
+            await EnemyAttackMove(_attackType[_attackCount]);
+            _attackCount++;
+            if (_attackCount == _enemyAttackSpan.Length)
+            {
+                _attackCount = 0;
+            }
+        }
     }
 
 
@@ -111,16 +125,8 @@ public class EnemyCommon : MonoBehaviour
         }
         else
         {
-            //Debug.Log("取得できなかった");
             return;
         }
-
-        //攻撃済みか、済なら終了
-        //if (_objSt._afterDamage)
-        //{
-        //    //Debug.Log("攻撃済");
-        //    return;
-        //}
 
         //衝突オブジェクトのタグ取得
         string ColTag = collision.gameObject.tag;
@@ -140,7 +146,6 @@ public class EnemyCommon : MonoBehaviour
                         return;
                     }
                 }
-                //Debug.Log("無効化オブジェクトじゃないよ～");
 
                 //ダメージ計算
                 int ColDamage = _enemyState._setDamageClasses[j]._damage;
@@ -153,18 +158,17 @@ public class EnemyCommon : MonoBehaviour
                     //弱点ダメージ処理
                     _objSt._afterDamage = true;
                     WeekPointDamage(ColDamage);
-                    return ;
+                    return;
                 }
                 else
                 {
                     //通常ダメージ処理
                     _objSt._afterDamage = true;
                     UsuallyDamage(ColDamage);
-                    return ;
+                    return;
                 }
             }
         }
-        //Debug.Log("抜けた");
     }
 
     /// <summary>
@@ -174,7 +178,7 @@ public class EnemyCommon : MonoBehaviour
     async void WeekPointDamage(int _colDamage)
     {
         //通常ダメージを1.5倍で切り上げた数値を格納
-        int _weekDamage= Mathf.CeilToInt(_colDamage * 1.5f);
+        int _weekDamage = Mathf.CeilToInt(_colDamage * 1.5f);
         Debug.Log("弱点ダメージ：" + _weekDamage);
         //処理
         _enemyHp -= _weekDamage;
@@ -193,7 +197,7 @@ public class EnemyCommon : MonoBehaviour
     /// <param name="_colDamage">ダメージ数値</param>
     async void UsuallyDamage(int _colDamage)
     {
-        Debug.Log("通常ダメージ："+_colDamage);
+        Debug.Log("通常ダメージ：" + _colDamage);
         _enemyHp -= _colDamage;
         //HPバー処理
         _hpBar.SetNowHp(_enemyHp);
@@ -210,7 +214,7 @@ public class EnemyCommon : MonoBehaviour
     /// <returns></returns>
     async UniTask EnemySlain()
     {
-        for(int i=0; i < 2; i++)
+        for (int i = 0; i < 2; i++)
         {
             _enemySp.SetActive(false);
             await UniTask.Delay(100);
@@ -227,7 +231,7 @@ public class EnemyCommon : MonoBehaviour
     /// <param name="AttackType">攻撃種類</param>
     /// <param name="speed">攻撃スピード倍率</param>
     /// <returns></returns>
-    async UniTask EnemyAttackMove(int AttackType=1, int speed=1)
+    async UniTask EnemyAttackMove(int AttackType = 1, int speed = 1)
     {
         //アタック中かどうか
         if (!_attacking)
@@ -238,31 +242,17 @@ public class EnemyCommon : MonoBehaviour
                 case 1:
                     //アタック中フラグ
                     _attacking = true;
-                    //攻撃オブジェクトtrue
-                    _enemyAttackObj.SetActive(true);
-                    //アニメーションスピード格納
-                    _enemyAnimator.SetFloat("AttackSpeed", speed);
-                    //アニメーショントリガー
-                    _enemyAnimator.SetTrigger("Blow");
-                    //アニメーション終了まで待つ
-                    await UniTask.Delay(1000 / speed);
-                    //終了後オブジェクトfalse
-                    _enemyAttackObj.SetActive(false);
-                    //アイドルアニメーション
-                    _enemyAnimator.Play("Idle");
+                    //アタックwait
+                    await _enemyAttack.BlowAttackSet();
                     //攻撃終了
                     _attacking = false;
                     break;
-            　　//ブーメラン
+                //ブーメラン
                 case 2:
                     _attacking = true;
-                    _enemyAttackObj.SetActive(true);
-                    _enemyAnimator.SetFloat("AttackSpeed", speed);
-                    _enemyAnimator.SetTrigger("Boomerang");
-                    await UniTask.Delay(4000 / speed);
-                    //ブーメランが壁に当たって終了済みだとしても下記は対応済みなので大丈夫
-                    _enemyAttackObj.SetActive(false);
-                    _enemyAnimator.Play("Idle");
+
+                    await _enemyAttack.BoomerangAttack();
+
                     _attacking = false;
                     break;
             }
@@ -271,14 +261,5 @@ public class EnemyCommon : MonoBehaviour
         {
             return;
         }
-    }
-
-    /// <summary>
-    /// 外部からアニメーションの操作を行う場合に使用
-    /// </summary>
-    /// <param name="Anim">Anim名</param>
-    public void AnimationReSet(string Anim)
-    {
-        _enemyAnimator.Play(Anim);
     }
 }
