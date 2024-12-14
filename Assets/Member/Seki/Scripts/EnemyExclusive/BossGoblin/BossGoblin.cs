@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 using Cysharp.Threading.Tasks;
+using System;
 
 public class EnemyCommon : MonoBehaviour
 {
@@ -66,16 +67,6 @@ public class EnemyCommon : MonoBehaviour
                         _enemyMove._moveSpeed = _enemyState._stageEnemyDate[i]._enemySpeed;
                         _enemyWeekPointDamage = _enemyState._stageEnemyDate[i]._weekPointDamage;
                         //_enemyAttackSpan = _enemyState._stageEnemyDate[i]._attackSpan + 1;
-                        for(int j=0;j< _enemyState._stageEnemyDate[i]._attackSpan.Length; j++)
-                        {
-                            Debug.Log("フブキングダムに納税");
-                            _enemyAttackSpan[j] = _enemyState._stageEnemyDate[i]._attackSpan[j];
-                            Debug.Log(_enemyAttackSpan[j]);
-                        }
-                        for (int k = 0; k < _enemyState._stageEnemyDate[i]._attackType.Length; k++)
-                        {
-                            _attackType[k] = _enemyState._stageEnemyDate[i]._attackType[k];
-                        }
                         _enemyAttack.SetAttackDamage(_enemyState._stageEnemyDate[i]._enemyPower);
                         _hpBar.SetEnemyHp(_enemyHp);
                         break;
@@ -83,14 +74,6 @@ public class EnemyCommon : MonoBehaviour
                 }
             }
         }
-
-        //nullチェック
-        /*
-        if(_enemyAnimator == null)
-        {
-            Debug.LogError("Animatorがない");
-        }
-        */
     }
 
     async void Update()
