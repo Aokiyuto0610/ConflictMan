@@ -244,7 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55a6ab394fb8f1c4dafedd04e5af5a95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fade: {fileID: 1285916769}
+  _fade: {fileID: 0}
 --- !u!4 &466190296
 Transform:
   m_ObjectHideFlags: 0
@@ -462,7 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b21767776df1e242943f2665212198f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_image: {fileID: 1285916770}
+  _image: {fileID: 0}
 --- !u!114 &1285916770
 MonoBehaviour:
   m_ObjectHideFlags: 0
