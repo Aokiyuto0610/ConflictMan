@@ -647,8 +647,12 @@ MonoBehaviour:
   _enemyPower: 0
   _enemyMoveSpeed: 0
   _enemyWeekPointDamage: 0
-  _enemyAttackSpan: []
-  _attackType: 
+  _enemyAttackSpan:
+  - 2
+  - 2
+  - 3
+  - 1
+  _attackType: 01000000020000000100000002000000
   _enemyAttack: {fileID: 1179917198}
   _enemySp: {fileID: 2119954178}
   _enemyAttackObj: {fileID: 908168303}
