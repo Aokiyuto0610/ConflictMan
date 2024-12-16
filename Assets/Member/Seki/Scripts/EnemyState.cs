@@ -43,12 +43,6 @@ public class EnemyState : MonoBehaviour
 
         [Label("ã“_”{—¦")]
         public float _weekPointDamage=1;
-
-        [Label("UŒ‚ŠÔŠu")]
-        public@float[] _attackSpan;
-
-        [Label("UŒ‚‡")]
-        public int[] _attackType;
     }
 
 
