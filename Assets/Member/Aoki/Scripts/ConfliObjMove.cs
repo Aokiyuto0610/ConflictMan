@@ -28,26 +28,21 @@ public class ConfliObjMove : MonoBehaviour
 
     private Queue<GameObject> arrowPool = new Queue<GameObject>();
     private List<GameObject> activeArrows = new List<GameObject>();
-    public bool goFlag;
+    private bool isDragging = false; // 引っ張り状態かどうかを管理
 
-    private static ConfliObjMove SelectedObject;
+    [Header("Arrow Colors")]
+    [SerializeField]
+    private Color startColor = Color.red; // 先端
+    [SerializeField]
+    private Color middleColor = Color.yellow; // 中間
+    [SerializeField]
+    private Color endColor = Color.green; // 末端
 
-    //[SerializeField] 
-    //private Material arrowMaterial; // シェーダー適用済みマテリアル
-    //[SerializeField] 
-    //private Texture2D gradientTexture; // グラデーション用テクスチャ
-
+    public bool isSelected { get; private set; } // 選択状態を管理
 
     void Start()
     {
-
-        //if (arrowMaterial != null && gradientTexture != null)
-        //{
-        //    arrowMaterial.SetTexture("_GradientTex", gradientTexture);
-        //}
-
         _rb2d = GetComponent<Rigidbody2D>();
-        goFlag = false;
 
         for (int i = 0; i < maxArrows; i++)
         {
@@ -59,39 +54,61 @@ public class ConfliObjMove : MonoBehaviour
 
     void Update()
     {
-        if (!goFlag) return;
+        if (!isSelected || !canMove) return;
 
         if (Input.GetMouseButtonDown(0))
         {
-            mouseStartPos = Input.mousePosition;
-        }
-
-        if (Input.GetMouseButton(0))
-        {
-            mouseEndPos = Input.mousePosition;
-            Vector2 dragVector = mouseEndPos - mouseStartPos;
-            startDirection = -dragVector.normalized;
-
-            float dragDistance = Mathf.Min(dragVector.magnitude / 100f, maxDrag);
-            UpdateArrows(dragDistance);
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            mouseEndPos = Input.mousePosition;
-            startDirection = -1 * (mouseEndPos - mouseStartPos).normalized;
-            _rb2d.AddForce(startDirection * speed, ForceMode2D.Impulse);
-            ClearArrows();
-            canMove = false;
-        }
-
-        if (_rb2d.velocity.magnitude < 0.1f)
-        {
-            if (!canMove)
+            if (!isDragging)
             {
-                ClearArrows();
-                canMove = true;
+                // 引っ張り開始
+                isDragging = true;
+                mouseStartPos = Input.mousePosition;
             }
+        }
+
+        if (isDragging)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                mouseEndPos = Input.mousePosition;
+                Vector2 dragVector = mouseEndPos - mouseStartPos;
+                startDirection = -dragVector.normalized;
+
+                float dragDistance = Mathf.Min(dragVector.magnitude / 100f, maxDrag);
+                UpdateArrows(dragDistance);
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                // 引っ張り終了
+                mouseEndPos = Input.mousePosition;
+                startDirection = -1 * (mouseEndPos - mouseStartPos).normalized;
+                _rb2d.AddForce(startDirection * speed, ForceMode2D.Impulse);
+                ClearArrows();
+
+                isDragging = false;
+                canMove = false;
+            }
+        }
+
+        if (_rb2d.velocity.magnitude < 0.1f && !canMove)
+        {
+            canMove = true;
+        }
+    }
+
+    public void SetSelected(bool selected)
+    {
+        isSelected = selected;
+
+        if (selected)
+        {
+            canMove = true; // 再選択時に動かせるように
+        }
+        else
+        {
+            ClearArrows();
+            isDragging = false; // 選択解除時に引っ張りをリセット
         }
     }
 
@@ -101,6 +118,8 @@ public class ConfliObjMove : MonoBehaviour
 
         int arrowCount = Mathf.FloorToInt((dragDistance / maxDrag) * maxArrows);
         arrowCount = Mathf.Clamp(arrowCount, 1, maxArrows);
+
+        // カラーコードを指定
         string startColorCode = "#92D050"; // 開始色
         string middleColorCode = "#FF6600"; // 中間色
         string endColorCode = "#FF0000"; // 終了色
@@ -109,22 +128,23 @@ public class ConfliObjMove : MonoBehaviour
         Color middleColor;
         Color endColor;
 
+        // カラーコードをColorに変換
         if (!ColorUtility.TryParseHtmlString(startColorCode, out startColor))
         {
             Debug.LogError($"Invalid color code: {startColorCode}");
-            startColor = Color.red;
+            startColor = Color.red; // デフォルト色
         }
 
         if (!ColorUtility.TryParseHtmlString(middleColorCode, out middleColor))
         {
             Debug.LogError($"Invalid color code: {middleColorCode}");
-            middleColor = Color.yellow;
+            middleColor = Color.yellow; // デフォルト色
         }
 
         if (!ColorUtility.TryParseHtmlString(endColorCode, out endColor))
         {
             Debug.LogError($"Invalid color code: {endColorCode}");
-            endColor = Color.green;
+            endColor = Color.green; // デフォルト色
         }
 
         for (int i = 0; i < arrowCount; i++)
@@ -141,6 +161,7 @@ public class ConfliObjMove : MonoBehaviour
                 arrow.SetActive(true);
                 activeArrows.Add(arrow);
 
+                // 進行度に応じたカラーを計算
                 float t = arrowCount > 1 ? (float)i / (arrowCount - 1) : 0;
 
                 Color gradientColor;
@@ -153,6 +174,7 @@ public class ConfliObjMove : MonoBehaviour
                     gradientColor = Color.Lerp(middleColor, endColor, (t - 0.5f) * 2);
                 }
 
+                // SpriteRendererにカラーを設定
                 SpriteRenderer sr = arrow.GetComponent<SpriteRenderer>();
                 if (sr != null)
                 {
@@ -183,36 +205,5 @@ public class ConfliObjMove : MonoBehaviour
             Debug.LogWarning("Arrow pool is empty!");
             return null;
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (((1 << collision.gameObject.layer) & floorlay) != 0)
-        {
-            Debug.Log("Floorに接触したよ");
-            ClearArrows();
-            canMove = true;
-        }
-    }
-
-    private void SelkectThisObject()
-    {
-        if(SelectedObject != null && SelectedObject != this)
-        {
-            SelectedObject.DeselectObject();
-        }
-
-        SelectedObject = this;
-    }
-
-    private void DeselectObject()
-    {
-        ClearArrows();
-    }
-
-    private bool IsmouseOverThisObject(Vector2 mousePosition)
-    {
-        Collider2D collider = GetComponent<Collider2D>();
-        return collider != null && collider.OverlapPoint(mousePosition);
     }
 }

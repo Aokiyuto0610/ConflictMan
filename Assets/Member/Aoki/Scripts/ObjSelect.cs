@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,56 +6,44 @@ public class ObjSelect : MonoBehaviour, IPointerClickHandler
     [SerializeField] private ConfliObjMove move;
 
     private static ObjSelect currentlySelected;
-
-    private void Start()
-    {
-        if (currentlySelected == this)
-        {
-            currentlySelected = null;
-        }
-    }
+    private int clickCount = 0;
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!move.goFlag)
+        if (currentlySelected == this)
         {
-            if (currentlySelected == this)
-            {
-                Deselect();
-                currentlySelected = null;
-            }
-            else
-            {
-                if (currentlySelected != null)
-                {
-                    currentlySelected.Deselect();
-                }
+            clickCount++;
 
-                currentlySelected = this;
-                Select();
+            if (clickCount >= 2)
+            {
+                // 2回目のクリックで引っ張り状態を有効化
+                move.SetSelected(true);
+                Debug.Log($"{gameObject.name} が引っ張り状態になりました");
+                clickCount = 0; // クリックカウントをリセット
             }
-
-            Debug.Log("選択されたよ");
         }
         else
         {
-            Debug.Log("飛行中のため選択できません");
+            if (currentlySelected != null)
+            {
+                currentlySelected.Deselect();
+            }
+
+            currentlySelected = this;
+            Select();
+            clickCount = 1; // 選択時に1回目のクリックとしてカウント
         }
     }
 
     private void Select()
     {
-        StartCoroutine(Click());
+        move.SetSelected(true); // 1回目のクリックで選択状態に
+        Debug.Log($"{gameObject.name} が選択されました");
     }
 
     private void Deselect()
     {
-        move.goFlag = false;
-    }
-
-    private IEnumerator Click()
-    {
-        yield return new WaitForSeconds(0.5f);
-        move.goFlag = true;
+        move.SetSelected(false); // 選択解除時に
+        Debug.Log($"{gameObject.name} の選択が解除されました");
     }
 }
