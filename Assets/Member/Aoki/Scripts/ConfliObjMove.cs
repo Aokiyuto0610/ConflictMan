@@ -23,6 +23,11 @@ public class ConfliObjMove : MonoBehaviour
     private LayerMask floorlay;
     private bool canMove = true;
 
+    public bool CanMove
+    {
+        get { return canMove; }
+    }
+
     [SerializeField]
     private float maxDrag;
 
