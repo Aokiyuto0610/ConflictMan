@@ -54,6 +54,12 @@ public class BGMSoundData
     public enum BGM // ƒ‰ƒxƒ‹
     {
         Title,
+        Stage1,
+        Stage2,
+        Stage3,
+        Boss,
+        Win,
+        Lose
     }
 
     public BGM bgm;
@@ -65,9 +71,10 @@ public class BGMSoundData
 [System.Serializable]
 public class SESoundData
 {
-    public enum SE
+    public enum SE // ƒ‰ƒxƒ‹ 
     {
-        // ƒ‰ƒxƒ‹
+        Button,
+        Damege,
     }
 
     public SE se;
