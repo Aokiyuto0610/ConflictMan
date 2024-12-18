@@ -32,6 +32,13 @@ public class BossGoblinAttack : MonoBehaviour
     //右向きか
     public bool _attackRight=false;
 
+    [SerializeField] GameObject _bodySp;
+
+    [SerializeField] BossGoblinMove _move;
+
+    private void Start()
+    {
+    }
 
     private void Update()
     {
@@ -92,21 +99,21 @@ public class BossGoblinAttack : MonoBehaviour
         _defaultPos = transform.position;
         _defaultRot = transform.rotation;
 
+        _bodySp.transform.DOLocalRotate(new Vector3(0, 0, 20), 0.5f, RotateMode.LocalAxisAdd).AsyncWaitForCompletion();
         if (_attackRight)
         {
+            gameObject.transform.DOLocalRotate(new Vector3(0, 0, -700), _toTime, RotateMode.LocalAxisAdd).AsyncWaitForCompletion();
             await gameObject.transform.DOMove(new Vector3(_distance, -1.0f, 0), _toTime).SetRelative().AsyncWaitForCompletion();
-
         }
         else
         {
+            gameObject.transform.DOLocalRotate(new Vector3(0, 0, -700), _toTime, RotateMode.LocalAxisAdd).AsyncWaitForCompletion();
             await gameObject.transform.DOMove(new Vector3(-_distance, -1.0f, 0), _toTime).SetRelative().AsyncWaitForCompletion();
-
         }
         if (_boomerangAttack)
         {
             await BackBoomerang();
             _boomerangAttack = false;
-
         }
     }
 
@@ -114,8 +121,13 @@ public class BossGoblinAttack : MonoBehaviour
     //ブーメラン帰
     private async UniTask BackBoomerang()
     {
+        //_bodySp.transform.DOLocalRotate(new Vector3(0, 0, -20), 0.5f, RotateMode.LocalAxisAdd).AsyncWaitForCompletion();
+        gameObject.transform.DOLocalRotate(new Vector3(0, 0, 700), _toTime, RotateMode.LocalAxisAdd).AsyncWaitForCompletion();
         await this.transform.DOMove(_defaultPos, _backTime).AsyncWaitForCompletion();
+        transform.DOKill();
         _attacking=false;
+        transform.position = _defaultPos;
+        transform.rotation = _defaultRot;
         _parentObj.SetActive(false);
     }
 
@@ -132,7 +144,11 @@ public class BossGoblinAttack : MonoBehaviour
         //アタック中
         _boomerangAttack = false;
         //アタックアニメーション
+        _bodySp.transform.DOKill();
+        _move.MoveReset();
+        _bodySp.transform.DOLocalRotate(new Vector3(0, 0, 20), 1f, RotateMode.LocalAxisAdd).AsyncWaitForCompletion();
         await _parentObj.transform.DOLocalRotate(new Vector3(0, 0, -100), 1, RotateMode.LocalAxisAdd).AsyncWaitForCompletion();
+        _bodySp.transform.Rotate(0, 0, -20);
         //アタック終了
         //初期化
         _parentObj.transform.rotation = _defaultRot;
