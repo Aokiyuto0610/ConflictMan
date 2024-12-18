@@ -31,19 +31,19 @@ public class ObjSelect : MonoBehaviour, IPointerClickHandler
 
             currentlySelected = this;
             Select();
-            clickCount = 1; // 選択時に1回目のクリックとしてカウント
+            clickCount = 1;
         }
     }
 
     private void Select()
     {
-        move.SetSelected(true); // 1回目のクリックで選択状態に
+        move.SetSelected(true);
         Debug.Log($"{gameObject.name} が選択されました");
     }
 
     private void Deselect()
     {
-        move.SetSelected(false); // 選択解除時に
+        move.SetSelected(false);
         Debug.Log($"{gameObject.name} の選択が解除されました");
     }
 }

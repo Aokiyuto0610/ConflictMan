@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class ObjStatus : MonoBehaviour
 {
-    [SerializeField] 
+    [SerializeField]
+    private int _initialBounce; // 初期バウンス回数をインスペクターで設定可能
     public int _bounce;
     public bool moveflag;
     private bool _isGravity = false;
     Rigidbody2D _rb;
-    [SerializeField] 
+    [SerializeField]
     public GameObject _mii;
 
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _bounce = _initialBounce; // 初期化時に _initialBounce の値を使用
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(_bounce <= 0 && _isGravity == false)
+        if (_bounce <= 0 && _isGravity == false)
         {
             _isGravity = true;
-            //Vector2 objGravity = new Vector2(0, -10f * 2);
-            //_rb.AddForce(objGravity);
             _rb.GetComponent<Rigidbody2D>().gravityScale = 1;
             _rb.velocity = Vector2.zero;
             Debug.Log(_isGravity);
@@ -38,27 +38,25 @@ public class ObjStatus : MonoBehaviour
         {
             _bounce--;
         }
-        if(other.gameObject.CompareTag("Floor"))
+        if (other.gameObject.CompareTag("Floor"))
         {
             if (_bounce <= -1 && _isGravity == true)
             {
-                _bounce = 3;
+                _bounce = _initialBounce; // 初期値にリセット
                 _rb.velocity = Vector2.zero;
                 _rb.GetComponent<Rigidbody2D>().gravityScale = 0;
                 _isGravity = false;
-                //this.transform.rotation = Quaternion.Euler(0, 0, 0);
                 _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                 DefaultRotation();
             }
-
         }
         if (other.gameObject.CompareTag("Enemy"))
         {
             _bounce = 0;
         }
-        if(other.gameObject.CompareTag("Conflict"))
+        if (other.gameObject.CompareTag("Conflict"))
         {
-            if(moveflag == true)
+            if (moveflag == true)
             {
 
             }

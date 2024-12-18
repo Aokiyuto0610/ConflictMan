@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private const float tuchFloor = 0.5f;
 
     private bool isFacingRight = true;
-    private bool isMoving = false;
+    //private bool isMoving = false;
     private bool isNaturallMoving = false;
 
     private Rigidbody2D rb;
