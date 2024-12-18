@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
+
 
 public class BossGoblinMove : MonoBehaviour
 {
@@ -17,10 +20,18 @@ public class BossGoblinMove : MonoBehaviour
 
     [SerializeField] BossGoblinAttack _attackSc;
 
+    [SerializeField] private GameObject _bodySp;
+
+    [SerializeField] public Quaternion _defaultrot;
+
+    [SerializeField]private bool _isRot=true;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        _defaultrot = _bodySp.transform.localRotation;
+        Firstrot();
     }
 
     // Update is called once per frame
@@ -28,6 +39,11 @@ public class BossGoblinMove : MonoBehaviour
     {
         if (!_attackSc._attacking)
         {
+            if (_isRot)
+            {
+                _isRot = false;
+                Firstrot();
+            }
             if (_isTurn)
             {
                 _parentObj.transform.position = new Vector3(_parentObj.transform.position.x + (_moveSpeed / 100), _parentObj.transform.position.y, _parentObj.transform.position.z);
@@ -37,7 +53,11 @@ public class BossGoblinMove : MonoBehaviour
                 _parentObj.transform.position = new Vector3(_parentObj.transform.position.x - (_moveSpeed / 100), _parentObj.transform.position.y, _parentObj.transform.position.z);
             }
         }
-
+        else
+        {
+            _isRot=true;
+            _bodySp.transform.localRotation= _defaultrot;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -77,5 +97,37 @@ public class BossGoblinMove : MonoBehaviour
                 Debug.Log("ƒoƒO");
             }
         }
+    }
+
+    private async void Firstrot()
+    {
+        await _bodySp.transform.DOLocalRotate(new Vector3(0, 0, -10), 0.5f, RotateMode.LocalAxisAdd).AsyncWaitForCompletion();
+        if (!_attackSc._attacking)
+        {
+            Purasurot();
+        }
+    }
+
+    private async void mainasurot()
+    {
+        await _bodySp.transform.DOLocalRotate(new Vector3(0, 0, -20), 0.5f, RotateMode.LocalAxisAdd).AsyncWaitForCompletion();
+        if (!_attackSc._attacking)
+        {
+            Purasurot();
+        }
+    }
+
+    private async void Purasurot()
+    { 
+        await _bodySp.transform.DOLocalRotate(new Vector3(0, 0, 20), 0.5f, RotateMode.LocalAxisAdd).AsyncWaitForCompletion();
+        if (!_attackSc._attacking)
+        {
+            mainasurot();
+        }
+    }
+
+    public void MoveReset()
+    {
+        _bodySp.transform.localRotation = _defaultrot;
     }
 }

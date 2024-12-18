@@ -43,6 +43,32 @@ public class EnemyState : MonoBehaviour
 
         [Label("ã“_”{—¦")]
         public float _weekPointDamage=1;
+
+        [Label("UŒ‚Š´Šo")]
+        float[] _enemyAttackSpan;
+
+        [Label("UŒ‚í—Ş")]
+        int[] _enemyAttackType;
+
+        public float GetEnemyAttackSpan(int i)
+        {
+            return _enemyAttackSpan[i];
+        }
+
+        public int GetEnemyAttackSpanLegth()
+        {
+            return _enemyAttackSpan.Length;
+        }
+
+        public int GetEnemyAttackType(int i)
+        { 
+            return _enemyAttackType[i];
+        }
+
+        public int GetEnemyAttackTypeLegth()
+        {
+            return _enemyAttackType.Length;
+        }
     }
 
 
