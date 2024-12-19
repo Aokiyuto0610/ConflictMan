@@ -30,14 +30,25 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlayBGM(BGMSoundData.BGM bgm)
+public void PlayBGM(BGMSoundData.BGM bgm)
+{
+
+    //Â–Ø’Ç‹L
+    // Ä¶’†‚ÌBGM‚ª‚ ‚ê‚Î’âŽ~
+    if (bgmAudioSource.isPlaying)
     {
-        BGMSoundData data = bgmSoundDatas.Find(data => data.bgm == bgm);
+        bgmAudioSource.Stop();
+    }
+
+    // V‚µ‚¢BGM‚ðÝ’è‚µ‚ÄÄ¶
+    BGMSoundData data = bgmSoundDatas.Find(data => data.bgm == bgm);
+    if (data != null)
+    {
         bgmAudioSource.clip = data.audioClip;
         bgmAudioSource.volume = data.volume * bgmMasterVolume * masterVolume;
         bgmAudioSource.Play();
     }
-
+}
 
     public void PlaySE(SESoundData.SE se)
     {

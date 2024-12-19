@@ -5,106 +5,58 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public HpManager_aoki _hpmg;
-    //public float invincibleDuration;
-    [SerializeField] 
-    private float speed;
-    [SerializeField] 
-    private SpriteRenderer spriteRenderer;
+    [SerializeField] private float speed;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     private bool isOnFloor = false;
-    [SerializeField]
-    private float timeOnFloor;
-    [SerializeField]
-    private const float tuchFloor = 0.5f;
-
     private bool isFacingRight = true;
-    //private bool isMoving = false;
-    private bool isNaturallMoving = false;
 
     private Rigidbody2D rb;
-
-    [SerializeField]
-    private float naturalMovement;
-
+    private Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        isNaturallMoving = rb.velocity.magnitude > naturalMovement;
-        if (isNaturallMoving) return;
+        HandleMovement();
+    }
 
+    private void HandleMovement()
+    {
         Vector2 position = transform.position;
 
-        if (Input.GetKey(KeyCode.A))
+        // 横方向の入力取得
+        float inputX = Input.GetAxisRaw("Horizontal");
+
+        // アニメーションの状態を設定
+        anim.SetBool("PlayerMove", inputX != 0);
+
+        if (inputX < 0)
         {
-            position.x -= speed;
-            if(isFacingRight)
+            position.x -= speed * Time.deltaTime;
+            if (isFacingRight)
             {
                 Flip();
             }
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (inputX > 0)
         {
-            position.x += speed;
-            if(!isFacingRight)
+            position.x += speed * Time.deltaTime;
+            if (!isFacingRight)
             {
                 Flip();
             }
         }
 
         transform.position = position;
-
-        if(isOnFloor)
-        {
-            timeOnFloor += Time.deltaTime;
-            if(timeOnFloor >= tuchFloor)
-            {
-                float zRotation = transform.rotation.eulerAngles.z;
-                if(zRotation > 1f &&zRotation < 359f)
-                {
-                    transform.rotation = Quaternion.Euler(0, 0, 0);
-                }
-            }
-        }
-        else
-        {
-            timeOnFloor = 0f;
-        }
     }
-
-    ////無敵処理
-    //public void PlayerTakeDamage(int damage)
-    //{
-    //    if (!isInvincible)
-    //    {
-    //        StartCoroutine(ActivateInvincibility());
-    //        Debug.Log("無敵");
-
-    //        //_hpmg.TakeDamage();
-    //    }
-    //}
-
-    //private IEnumerator ActivateInvincibility()
-    //{
-    //    isInvincible = true;
-
-    //    float blinkInterval = 0.2f;
-    //    for (float i = 0; i < invincibleDuration; i += blinkInterval)
-    //    {
-    //        spriteRenderer.enabled = !spriteRenderer.enabled;
-    //        yield return new WaitForSeconds(blinkInterval);
-    //    }
-    //    spriteRenderer.enabled = true;
-
-    //    isInvincible = false;
-    //}
 
     private void Flip()
     {
@@ -116,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.gameObject.CompareTag("Floor"))
+        if (other.gameObject.CompareTag("Floor"))
         {
             isOnFloor = true;
         }
@@ -124,11 +76,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if(other.gameObject.CompareTag("Floor"))
+        if (other.gameObject.CompareTag("Floor"))
         {
             isOnFloor = false;
         }
     }
 }
-
-

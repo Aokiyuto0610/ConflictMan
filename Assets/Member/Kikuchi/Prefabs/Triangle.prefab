@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4246158480635463684}
   - component: {fileID: 5621918774436752263}
   - component: {fileID: 6961055855209201022}
+  - component: {fileID: 5633196963725918352}
   m_Layer: 0
   m_Name: Triangle
   m_TagString: Conflict
@@ -172,3 +173,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5633196963725918352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2588921358504260226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c27469f953f6ebe4eb0ffc72b28ca6a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weakness: 0
+  _shield: 0
+  _afterDamage: 0
+  hearts: []
+  _reflection: 0
+  _playerHp: 10000
+  _LoseScene: Title
+  invincibleDuration: 0
+  spriteRenderer: {fileID: 0}

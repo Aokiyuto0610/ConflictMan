@@ -15,6 +15,7 @@ TagManager:
   - Renga
   - EnemyAttack
   - Needle
+  - NeeMau
   layers:
   - Default
   - TransparentFX
