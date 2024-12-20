@@ -1043,7 +1043,10 @@ MonoBehaviour:
   floorlay:
     serializedVersion: 2
     m_Bits: 0
-  goFlag: 0
+  maxDrag: 0
+  startColor: {r: 1, g: 0, b: 0, a: 1}
+  middleColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  endColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &1382399961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1056,6 +1059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49137666f6cf56444a3c7de1c0d3dc60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _initialBounce: 0
   _bounce: 0
   moveflag: 0
   _mii: {fileID: 0}
@@ -1610,7 +1614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5520548596959962739, guid: 26561d44010838743b3d6dcf9531fe08, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.28
+      value: -3.43
       objectReference: {fileID: 0}
     - target: {fileID: 5520548596959962739, guid: 26561d44010838743b3d6dcf9531fe08, type: 3}
       propertyPath: m_LocalPosition.z
