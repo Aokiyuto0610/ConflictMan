@@ -684,7 +684,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2708908555290264409, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
       propertyPath: _stageEnemyDate.Array.data[0]._enemyHp
-      value: 200
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 2708908555290264409, guid: 9134628d35454f347848392c4f06e4f1, type: 3}
       propertyPath: _setDamageClasses.Array.data[0]._damage
