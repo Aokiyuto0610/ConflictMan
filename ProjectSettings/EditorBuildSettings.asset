@@ -21,9 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Stage1.unity
     guid: b944ebbcf5a9fc1488542242585f6ee5
   - enabled: 1
-    path: Assets/Scenes/WinResulut.unity
+    path: Assets/Scenes/WinResult.unity
     guid: 70f0393f0f8d60e45b09df2957ddfd8d
   - enabled: 1
-    path: Assets/Scenes/LoseResulut.unity
+    path: Assets/Scenes/LoseResult.unity
     guid: ddce4e1746595ef40807e6f8c6ec0ad7
   m_configObjects: {}
