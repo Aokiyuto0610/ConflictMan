@@ -139,6 +139,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2580090772909389639, guid: da7a41c97dd4af04dba7a9502068a9af, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2691201001487240656, guid: da7a41c97dd4af04dba7a9502068a9af, type: 3}
       propertyPath: _enemyState
       value: 
@@ -693,6 +697,10 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 6200000, guid: 3023b50764cba564f952dbdc8c2efa45, type: 2}
+    - target: {fileID: 5550831403760218587, guid: 26561d44010838743b3d6dcf9531fe08, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6232945272718767904, guid: 26561d44010838743b3d6dcf9531fe08, type: 3}
       propertyPath: m_Name
       value: Renga
@@ -1670,7 +1678,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9119140525625621362, guid: 9abde556a193bdb4e80d9f9e06cec129, type: 3}
       propertyPath: _LoseScene
-      value: LoseResulut
+      value: LoseResult
       objectReference: {fileID: 0}
     - target: {fileID: 9119140525625621362, guid: 9abde556a193bdb4e80d9f9e06cec129, type: 3}
       propertyPath: spriteRenderer
