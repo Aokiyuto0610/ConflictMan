@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 4851850055799157883}
   - component: {fileID: 2126438505276661836}
   - component: {fileID: 3844545980245579023}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Glound
   m_TagString: Floor
   m_Icon: {fileID: 0}

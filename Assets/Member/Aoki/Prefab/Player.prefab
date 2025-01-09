@@ -115,7 +115,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -141,8 +141,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialBounce: 0
   _bounce: 2
-  moveflag: 0
-  _mii: {fileID: 6821552997997933600}
 --- !u!114 &3328539686253769312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,8 +193,6 @@ MonoBehaviour:
   _hpmg: {fileID: 0}
   speed: 0.3
   spriteRenderer: {fileID: 2406851383430263148}
-  timeOnFloor: 0
-  naturalMovement: 0
 --- !u!70 &7464672582966290207
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -229,8 +225,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.01, y: -1.9}
-  m_Size: {x: 6.5, y: 18}
+  m_Offset: {x: 0.01, y: 0}
+  m_Size: {x: 9, y: 22}
   m_Direction: 0
 --- !u!70 &2569707989462217156
 CapsuleCollider2D:
@@ -264,8 +260,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.01, y: -1.9}
-  m_Size: {x: 6.5, y: 18}
+  m_Offset: {x: 0.01, y: 0}
+  m_Size: {x: 9, y: 22}
   m_Direction: 0
 --- !u!114 &9119140525625621362
 MonoBehaviour:
@@ -286,7 +282,7 @@ MonoBehaviour:
   - {fileID: 0}
   _reflection: 0
   _playerHp: 5
-  _LoseScene: LoseResulut
+  _LoseScene: Title
   invincibleDuration: 1.5
   spriteRenderer: {fileID: 0}
 --- !u!95 &4870748337655028265
@@ -496,8 +492,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialBounce: 0
   _bounce: 2
-  moveflag: 0
-  _mii: {fileID: 0}
 --- !u!114 &4364820789588498069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -708,8 +702,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialBounce: 0
   _bounce: 2
-  moveflag: 0
-  _mii: {fileID: 0}
 --- !u!114 &1335498822767772896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -920,8 +912,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialBounce: 0
   _bounce: 2
-  moveflag: 0
-  _mii: {fileID: 0}
 --- !u!114 &1645994091279447717
 MonoBehaviour:
   m_ObjectHideFlags: 0

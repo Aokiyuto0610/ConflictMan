@@ -1,26 +1,36 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ObjSelect : MonoBehaviour, IPointerClickHandler
+public class ObjSelect : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] private ConfliObjMove move;
 
     private static ObjSelect currentlySelected;
-    private int clickCount = 0;
+    private bool isHolding = false;
+    private float holdTime = 0f;
+    private float requiredHoldDuration = 0.001f;
 
-    public void OnPointerClick(PointerEventData eventData)
+    private void Update()
+    {
+        if (isHolding)
+        {
+            holdTime += Time.deltaTime;
+
+            if (holdTime >= requiredHoldDuration)
+            {
+                move.SetSelected(true);
+                Debug.Log($"{gameObject.name} が引っ張り状態になりました");
+                isHolding = false;
+            }
+        }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
     {
         if (currentlySelected == this)
         {
-            clickCount++;
-
-            if (clickCount >= 2)
-            {
-                // 2回目のクリックで引っ張り状態を有効化
-                move.SetSelected(true);
-                Debug.Log($"{gameObject.name} が引っ張り状態になりました");
-                clickCount = 0; // クリックカウントをリセット
-            }
+            isHolding = true;
+            holdTime = 0f;
         }
         else
         {
@@ -31,7 +41,19 @@ public class ObjSelect : MonoBehaviour, IPointerClickHandler
 
             currentlySelected = this;
             Select();
-            clickCount = 1;
+            isHolding = true;
+            holdTime = 0f;
+        }
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        isHolding = false;
+
+        if (holdTime < requiredHoldDuration)
+        {
+            move.SetSelected(false);
+            Debug.Log($"{gameObject.name} の選択が解除されました");
         }
     }
 

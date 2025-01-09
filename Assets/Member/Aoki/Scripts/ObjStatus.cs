@@ -1,75 +1,87 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjStatus : MonoBehaviour
 {
     [SerializeField]
-    private int _initialBounce; // 初期バウンス回数をインスペクターで設定可能
+    private int _initialBounce;
     public int _bounce;
-    public bool moveflag;
+    private bool _isSelected = false;
+    private bool _isOnFloor = false;
     private bool _isGravity = false;
-    Rigidbody2D _rb;
-    [SerializeField]
-    public GameObject _mii;
+    private Rigidbody2D _rb;
 
-    // Start is called before the first frame update
+    private float _floorContactTime = 0f;
+    private const float ResetBounceThreshold = 0.3f;
+
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _bounce = _initialBounce; // 初期化時に _initialBounce の値を使用
+        _bounce = _initialBounce;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (_bounce <= 0 && _isGravity == false)
+        if (_isOnFloor && !_isSelected)
         {
-            _isGravity = true;
-            _rb.GetComponent<Rigidbody2D>().gravityScale = 1;
-            _rb.velocity = Vector2.zero;
-            Debug.Log(_isGravity);
+            _rb.gravityScale = 1;
+            _floorContactTime += Time.deltaTime;
+
+            if (_floorContactTime >= ResetBounceThreshold)
+            {
+                _bounce = _initialBounce;
+                Debug.Log("Bounce count reset after staying on Floor for 0.5 seconds.");
+            }
+        }
+        else
+        {
+            _floorContactTime = 0f;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Floor"))
+        if (other.gameObject.CompareTag("Wall") || other.gameObject.CompareTag("Enemy"))
         {
             _bounce--;
+
+            if (_bounce <= 0 && !_isGravity)
+            {
+                _isGravity = true;
+                _rb.gravityScale = 1;
+                _rb.velocity = Vector2.zero;
+                Debug.Log("Object starts falling due to bounce limit reached.");
+            }
         }
+
         if (other.gameObject.CompareTag("Floor"))
         {
-            if (_bounce <= -1 && _isGravity == true)
+            _isOnFloor = true;
+
+            if (_bounce <= -1 && _isGravity)
             {
-                _bounce = _initialBounce; // 初期値にリセット
+                _bounce = _initialBounce;
                 _rb.velocity = Vector2.zero;
-                _rb.GetComponent<Rigidbody2D>().gravityScale = 0;
+                _rb.gravityScale = 0;
                 _isGravity = false;
                 _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                 DefaultRotation();
+                Debug.Log("Object reset after hitting the floor.");
             }
         }
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            _bounce = 0;
-        }
-        if (other.gameObject.CompareTag("Conflict"))
-        {
-            if (moveflag == true)
-            {
+    }
 
-            }
-            else
-            {
-
-            }
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Floor"))
+        {
+            _isOnFloor = false;
+            _floorContactTime = 0f; // 離れたときに接触時間をリセット
         }
     }
 
     public void DefaultRotation()
     {
         _rb.constraints = RigidbodyConstraints2D.None;
-        Debug.Log("向きが...");
+        Debug.Log("Object rotation reset.");
     }
 }
