@@ -128,23 +128,20 @@ public class PlayerTest : MonoBehaviour
         }
     }
 
-
-    /// <summary>
-    /// 攻撃開始時に呼び出し
-    /// </summary>
-    public void StartAttack()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        _afterDamage = true;
-        Debug.Log("攻撃開始: _afterDamage = true");
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            _afterDamage = false; // Floorに触れたのでfalse
+            Debug.Log("a");
+        }
     }
 
-    /// <summary>
-    /// 地面接地時に呼び出し
-    /// </summary>
-    public void Landed()
+    private void OnCollisionExit2D(Collision2D collision)
     {
-        _afterDamage = false;
-        Debug.Log("地面接地: _afterDamage = false");
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            _afterDamage = true; // Floorから離れたのでtrue
+        }
     }
-
 }
