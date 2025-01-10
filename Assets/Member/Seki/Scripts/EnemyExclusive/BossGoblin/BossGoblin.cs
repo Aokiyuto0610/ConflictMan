@@ -5,7 +5,7 @@ using NaughtyAttributes;
 using Cysharp.Threading.Tasks;
 using System;
 
-public class EnemyCommon : MonoBehaviour
+public class BossGoblin : MonoBehaviour
 {
     [SerializeField, Label("EnemyState")] EnemyState _enemyState;
 
@@ -95,7 +95,7 @@ public class EnemyCommon : MonoBehaviour
         }
     }
 
-
+    /*
     //衝突したオブジェクトの判定
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -156,12 +156,13 @@ public class EnemyCommon : MonoBehaviour
             }
         }
     }
+    */
 
     /// <summary>
     /// 弱点ダメージ処理
     /// </summary>
     /// <param name="_colDamage">通常ダメージ数値</param>
-    async void WeekPointDamage(int _colDamage)
+    public async void WeekPointDamage(int _colDamage)
     {
         //通常ダメージを1.5倍で切り上げた数値を格納
         int _weekDamage = Mathf.CeilToInt(_colDamage * 1.5f);
@@ -181,7 +182,7 @@ public class EnemyCommon : MonoBehaviour
     /// 通常ダメージ処理
     /// </summary>
     /// <param name="_colDamage">ダメージ数値</param>
-    async void UsuallyDamage(int _colDamage)
+    public async void UsuallyDamage(int _colDamage)
     {
         Debug.Log("通常ダメージ：" + _colDamage);
         _enemyHp -= _colDamage;

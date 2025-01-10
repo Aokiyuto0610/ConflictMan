@@ -4,7 +4,7 @@ using UnityEngine;
 using NaughtyAttributes;
 using Cysharp.Threading.Tasks;
 
-public class BossGoblin : MonoBehaviour
+public class EnemyCommon : MonoBehaviour
 {
     [SerializeField, Label("EnemyState")] EnemyState _enemyState;
 
