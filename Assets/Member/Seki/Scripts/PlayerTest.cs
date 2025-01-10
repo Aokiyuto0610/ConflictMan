@@ -24,6 +24,13 @@ public class PlayerTest : MonoBehaviour
 
     [SerializeField, Scene] public string _LoseScene;
 
+
+    private void Start()
+    {
+        // プレイヤーHPとハートの初期同期
+        UpdateHeartDisplay();
+    }
+
     //デバック用
     private void OnValueChanged()
     {
@@ -121,9 +128,23 @@ public class PlayerTest : MonoBehaviour
         }
     }
 
-    private void Start()
+
+    /// <summary>
+    /// 攻撃開始時に呼び出し
+    /// </summary>
+    public void StartAttack()
     {
-        // プレイヤーHPとハートの初期同期
-        UpdateHeartDisplay();
+        _afterDamage = true;
+        Debug.Log("攻撃開始: _afterDamage = true");
     }
+
+    /// <summary>
+    /// 地面接地時に呼び出し
+    /// </summary>
+    public void Landed()
+    {
+        _afterDamage = false;
+        Debug.Log("地面接地: _afterDamage = false");
+    }
+
 }
