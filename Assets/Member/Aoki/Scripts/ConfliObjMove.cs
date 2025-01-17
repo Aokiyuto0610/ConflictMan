@@ -4,7 +4,9 @@ using UnityEngine;
 public class ConfliObjMove : MonoBehaviour
 {
     [SerializeField]
-    private float speed;
+    private float minSpeed = 5f; // 最小スピード
+    [SerializeField]
+    private float maxSpeed = 20f; // 最大スピード
     private Rigidbody2D _rb2d;
     private Vector2 mouseStartPos;
     private Vector2 mouseEndPos;
@@ -33,17 +35,17 @@ public class ConfliObjMove : MonoBehaviour
 
     private Queue<GameObject> arrowPool = new Queue<GameObject>();
     private List<GameObject> activeArrows = new List<GameObject>();
-    private bool isDragging = false; // 引っ張り状態かどうかを管理
+    private bool isDragging = false;
 
     [Header("Arrow Colors")]
     [SerializeField]
-    private Color startColor = Color.red; // 先端
+    private Color startColor = Color.red;
     [SerializeField]
-    private Color middleColor = Color.yellow; // 中間
+    private Color middleColor = Color.yellow;
     [SerializeField]
-    private Color endColor = Color.green; // 末端
+    private Color endColor = Color.green;
 
-    public bool isSelected { get; private set; } // 選択状態を管理
+    public bool isSelected { get; private set; }
 
     void Start()
     {
@@ -65,7 +67,6 @@ public class ConfliObjMove : MonoBehaviour
         {
             if (!isDragging)
             {
-                // 引っ張り開始
                 isDragging = true;
                 mouseStartPos = Input.mousePosition;
             }
@@ -85,9 +86,14 @@ public class ConfliObjMove : MonoBehaviour
 
             if (Input.GetMouseButtonUp(0))
             {
-                // 引っ張り終了
                 mouseEndPos = Input.mousePosition;
-                startDirection = -1 * (mouseEndPos - mouseStartPos).normalized;
+                Vector2 dragVector = mouseEndPos - mouseStartPos;
+                float dragDistance = Mathf.Min(dragVector.magnitude / 100f, maxDrag);
+
+                // スピードを計算
+                float speed = Mathf.Lerp(minSpeed, maxSpeed, dragDistance / maxDrag);
+
+                startDirection = -1 * dragVector.normalized;
                 _rb2d.AddForce(startDirection * speed, ForceMode2D.Impulse);
                 ClearArrows();
 
@@ -108,12 +114,12 @@ public class ConfliObjMove : MonoBehaviour
 
         if (selected)
         {
-            canMove = true; // 再選択時に動かせるように
+            canMove = true;
         }
         else
         {
             ClearArrows();
-            isDragging = false; // 選択解除時に引っ張りをリセット
+            isDragging = false;
         }
     }
 
@@ -123,34 +129,6 @@ public class ConfliObjMove : MonoBehaviour
 
         int arrowCount = Mathf.FloorToInt((dragDistance / maxDrag) * maxArrows);
         arrowCount = Mathf.Clamp(arrowCount, 1, maxArrows);
-
-        // カラーコードを指定
-        string startColorCode = "#92D050"; // 開始色
-        string middleColorCode = "#FF6600"; // 中間色
-        string endColorCode = "#FF0000"; // 終了色
-
-        Color startColor;
-        Color middleColor;
-        Color endColor;
-
-        // カラーコードをColorに変換
-        if (!ColorUtility.TryParseHtmlString(startColorCode, out startColor))
-        {
-            Debug.LogError($"Invalid color code: {startColorCode}");
-            startColor = Color.red; // デフォルト色
-        }
-
-        if (!ColorUtility.TryParseHtmlString(middleColorCode, out middleColor))
-        {
-            Debug.LogError($"Invalid color code: {middleColorCode}");
-            middleColor = Color.yellow; // デフォルト色
-        }
-
-        if (!ColorUtility.TryParseHtmlString(endColorCode, out endColor))
-        {
-            Debug.LogError($"Invalid color code: {endColorCode}");
-            endColor = Color.green; // デフォルト色
-        }
 
         for (int i = 0; i < arrowCount; i++)
         {
@@ -166,20 +144,11 @@ public class ConfliObjMove : MonoBehaviour
                 arrow.SetActive(true);
                 activeArrows.Add(arrow);
 
-                // 進行度に応じたカラーを計算
                 float t = arrowCount > 1 ? (float)i / (arrowCount - 1) : 0;
+                Color gradientColor = t < 0.5f
+                    ? Color.Lerp(startColor, middleColor, t * 2)
+                    : Color.Lerp(middleColor, endColor, (t - 0.5f) * 2);
 
-                Color gradientColor;
-                if (t < 0.5f)
-                {
-                    gradientColor = Color.Lerp(startColor, middleColor, t * 2);
-                }
-                else
-                {
-                    gradientColor = Color.Lerp(middleColor, endColor, (t - 0.5f) * 2);
-                }
-
-                // SpriteRendererにカラーを設定
                 SpriteRenderer sr = arrow.GetComponent<SpriteRenderer>();
                 if (sr != null)
                 {

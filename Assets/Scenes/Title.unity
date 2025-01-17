@@ -242,6 +242,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1802379020565527598, guid: f56232611e031c64e892b7262a72593a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2717053782597808393, guid: f56232611e031c64e892b7262a72593a, type: 3}
       propertyPath: m_Name
       value: TitleCanvas
@@ -329,6 +333,10 @@ PrefabInstance:
     - target: {fileID: 4351137050262479066, guid: f56232611e031c64e892b7262a72593a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4465778538241100887, guid: f56232611e031c64e892b7262a72593a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -245
       objectReference: {fileID: 0}
     - target: {fileID: 6765829129938656695, guid: f56232611e031c64e892b7262a72593a, type: 3}
       propertyPath: SceneName
