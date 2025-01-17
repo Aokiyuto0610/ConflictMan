@@ -432,7 +432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4339558572339937647}
   m_Layer: 0
-  m_Name: BossGoblin 1
+  m_Name: BossGoblin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -618,7 +618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30efa7d9c471f1445a3786c306f52d41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _manager: {fileID: 0}
+  _manager: {fileID: 4457317176094465770}
   _barScale: {fileID: 9187834088831971752}
   _barColor: {fileID: 2221444154398270939}
   _colorChange: 0600000003000000
