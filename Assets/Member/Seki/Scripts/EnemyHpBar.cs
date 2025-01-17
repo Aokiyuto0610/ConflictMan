@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyHpBar : MonoBehaviour
 {
     //HP取得元
-    [SerializeField] EnemyCommon _manager;
+    [SerializeField] BossGoblin _manager;
 
     //変更するスケール
     [SerializeField] Transform _barScale;
