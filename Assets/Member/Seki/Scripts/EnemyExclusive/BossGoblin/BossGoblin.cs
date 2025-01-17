@@ -5,7 +5,7 @@ using NaughtyAttributes;
 using Cysharp.Threading.Tasks;
 using System;
 
-public class EnemyCommon : MonoBehaviour
+public class BossGoblin : MonoBehaviour
 {
     [SerializeField, Label("EnemyState")] EnemyState _enemyState;
 
@@ -95,9 +95,7 @@ public class EnemyCommon : MonoBehaviour
         }
     }
 
-
-    //衝突したオブジェクトの判定
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log("衝突");
 
@@ -156,6 +154,8 @@ public class EnemyCommon : MonoBehaviour
             }
         }
     }
+
+
 
     /// <summary>
     /// 弱点ダメージ処理
