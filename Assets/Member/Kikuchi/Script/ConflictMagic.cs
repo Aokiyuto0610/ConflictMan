@@ -14,6 +14,7 @@ public class ConflictMagicBase : MonoBehaviour
         other.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         ConflictMagicCast();
+        SoundManager.Instance.PlaySE(SESoundData.SE.Action);
     }
 
     protected virtual void Update()

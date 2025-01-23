@@ -96,6 +96,8 @@ public class ConfliObjMove : MonoBehaviour
                 startDirection = -1 * dragVector.normalized;
                 _rb2d.AddForce(startDirection * speed, ForceMode2D.Impulse);
                 ClearArrows();
+                SoundManager.Instance.PlaySE(SESoundData.SE.Shot);
+
 
                 isDragging = false;
                 canMove = false;
