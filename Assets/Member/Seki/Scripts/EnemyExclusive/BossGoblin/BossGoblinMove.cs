@@ -67,28 +67,14 @@ public class BossGoblinMove : MonoBehaviour
             if (_isTurn)
             {
                 _isTurn = false;
-                if (_attackSc._attackRight)
-                {
-                    _attackSc._attackRight = false;
-                }
-                else
-                {
-                    _attackSc._attackRight = true;
-                }
+                _attackSc._attackRight = false;
                 _renderObj.transform.rotation = Quaternion.Euler(_parentObj.transform.rotation.x, 180, _parentObj.transform.rotation.z);
                 _hpBarObj.transform.rotation = Quaternion.Euler(_hpBarObj.transform.rotation.x, 180, _hpBarObj.transform.rotation.z);
             }
             else if (!_isTurn)
             {
                 _isTurn = true;
-                if (_attackSc._attackRight)
-                {
-                    _attackSc._attackRight = false;
-                }
-                else
-                {
-                    _attackSc._attackRight = true;
-                }
+                _attackSc._attackRight=true;
                 _renderObj.transform.rotation = Quaternion.Euler(_parentObj.transform.rotation.x, 0, _parentObj.transform.rotation.z);
                 _hpBarObj.transform.rotation = Quaternion.Euler(_hpBarObj.transform.rotation.x, 180, _hpBarObj.transform.rotation.z);
             }
