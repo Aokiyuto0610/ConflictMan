@@ -16,6 +16,9 @@ public class PlayerTest : MonoBehaviour
     [SerializeField, Label("ハート")]
     private List<GameObject> hearts;
 
+    [SerializeField, Label("Floorと接近中")] private bool _isOnFloor =false;
+
+
     //反射回数、停止時に初期化！
     public int _reflection = 0;
 
@@ -24,6 +27,20 @@ public class PlayerTest : MonoBehaviour
 
     [SerializeField, Scene] public string _LoseScene;
 
+
+    private void Start()
+    {
+        // プレイヤーHPとハートの初期同期
+        UpdateHeartDisplay();
+    }
+
+    private void Update()
+    {
+        if(!_isOnFloor)
+        {
+            PerformAttack();
+        }
+    }
     //デバック用
     private void OnValueChanged()
     {
@@ -108,6 +125,18 @@ public class PlayerTest : MonoBehaviour
         {
             ReceivedDamage(1);
         }
+        else if (other.CompareTag("Floor"))
+        {
+            _isOnFloor = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.CompareTag("Floor"))
+        {
+            _isOnFloor = false;
+        }
     }
 
     /// <summary>
@@ -121,9 +150,8 @@ public class PlayerTest : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void PerformAttack()
     {
-        // プレイヤーHPとハートの初期同期
-        UpdateHeartDisplay();
+
     }
 }
