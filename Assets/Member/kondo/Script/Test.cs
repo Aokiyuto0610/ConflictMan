@@ -15,6 +15,8 @@ public class Test : MonoBehaviour
         GetComponent<Button>().onClick.AddListener(() =>
         {
             SceneManager.LoadScene(SceneName);
+            SoundManager.Instance.PlaySE(SESoundData.SE.Button);
+
         });
 
     }

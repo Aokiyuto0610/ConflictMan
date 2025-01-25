@@ -24,10 +24,10 @@ public class SceneBGMManager : MonoBehaviour
             case "Stage1":
                 SoundManager.Instance.PlayBGM(BGMSoundData.BGM.Boss);
                 break;
-            case "WinResulut":
+            case "WinResult":
                 SoundManager.Instance.PlayBGM(BGMSoundData.BGM.Win);
                 break;
-            case "LossResulut":
+            case "LoseResult":
                 SoundManager.Instance.PlayBGM(BGMSoundData.BGM.Lose);
                 break;
             default:

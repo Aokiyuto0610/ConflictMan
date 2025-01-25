@@ -246,6 +246,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2133276770882703038, guid: f56232611e031c64e892b7262a72593a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2717053782597808393, guid: f56232611e031c64e892b7262a72593a, type: 3}
       propertyPath: m_Name
       value: TitleCanvas
@@ -436,6 +440,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &959874289 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6080365043315502859, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+  m_PrefabInstance: {fileID: 4074427573073837553}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1188754925
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,6 +610,102 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: seAudioSource
+      value: 
+      objectReference: {fileID: 959874289}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: seMasterVolume
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: seSoundDatas.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: seSoundDatas.Array.data[0].se
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: seSoundDatas.Array.data[1].se
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: seSoundDatas.Array.data[2].se
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: seSoundDatas.Array.data[3].se
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: seSoundDatas.Array.data[4].se
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: bgmSoundDatas.Array.data[1].bgm
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: bgmSoundDatas.Array.data[2].bgm
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: seSoundDatas.Array.data[0].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: seSoundDatas.Array.data[1].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: seSoundDatas.Array.data[2].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: seSoundDatas.Array.data[3].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: seSoundDatas.Array.data[4].volume
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: bgmSoundDatas.Array.data[0].volume
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: bgmSoundDatas.Array.data[1].volume
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: bgmSoundDatas.Array.data[2].volume
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: bgmSoundDatas.Array.data[3].volume
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: seSoundDatas.Array.data[0].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 506b7f5e94a023643b0272f838490b45, type: 3}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: seSoundDatas.Array.data[1].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5db09404132ef8140817516f63c640a8, type: 3}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: seSoundDatas.Array.data[2].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: a3edd8aa148043e46968ea3ed10ed402, type: 3}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: seSoundDatas.Array.data[3].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ed8eece172dd94e8da8c604e0a8065, type: 3}
+    - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: seSoundDatas.Array.data[4].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 0e131fb31ec80194fa52c43fe5766b54, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

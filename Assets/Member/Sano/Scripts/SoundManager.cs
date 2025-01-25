@@ -86,6 +86,9 @@ public class SESoundData
     {
         Button,
         Damege,
+        Shot,
+        Action,
+        Walltuch
     }
 
     public SE se;

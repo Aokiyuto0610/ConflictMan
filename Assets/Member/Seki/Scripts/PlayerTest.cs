@@ -65,6 +65,7 @@ public class PlayerTest : MonoBehaviour
 
             _playerHp -= Damage;
             UpdateHeartDisplay(); // ハート表示を更新
+            SoundManager.Instance.PlaySE(SESoundData.SE.Damege);
 
             Debug.Log("PlayerHP: " + _playerHp);
 
