@@ -573,6 +573,7 @@ MonoBehaviour:
   _shield: 0
   _afterDamage: 0
   hearts: []
+  _isOnFloor: 0
   _reflection: 0
   _playerHp: 9999
   _LoseScene: Title
@@ -727,6 +728,14 @@ PrefabInstance:
       propertyPath: _manager
       value: 
       objectReference: {fileID: 135213400}
+    - target: {fileID: 8087731944978813568, guid: b4027deb4169c0548894f1aab0f42144, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087731944978813568, guid: b4027deb4169c0548894f1aab0f42144, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
