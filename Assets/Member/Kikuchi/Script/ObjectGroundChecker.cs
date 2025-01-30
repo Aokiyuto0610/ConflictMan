@@ -35,7 +35,6 @@ public class ObjectGroundChecker: MonoBehaviour
         if(other.gameObject.tag == groundTag)
         {
             isGrounded = true;
-            Debug.LogWarning("接地");
         }
     }
 
@@ -49,7 +48,6 @@ public class ObjectGroundChecker: MonoBehaviour
         if(other.gameObject.tag == groundTag)
         {
             isGrounded = false;
-            Debug.LogWarning("離れた");
         }
     }
 }
