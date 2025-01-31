@@ -26,6 +26,8 @@ public class BossGoblinMove : MonoBehaviour
 
     [SerializeField]private bool _isRot=true;
 
+    [SerializeField] private ShadowMove _shadow;
+
 
     // Start is called before the first frame update
     void Start()
@@ -69,14 +71,14 @@ public class BossGoblinMove : MonoBehaviour
                 _isTurn = false;
                 _attackSc._attackRight = false;
                 _renderObj.transform.rotation = Quaternion.Euler(_parentObj.transform.rotation.x, 180, _parentObj.transform.rotation.z);
-                _hpBarObj.transform.rotation = Quaternion.Euler(_hpBarObj.transform.rotation.x, 180, _hpBarObj.transform.rotation.z);
+                //_hpBarObj.transform.rotation = Quaternion.Euler(_hpBarObj.transform.rotation.x, 180, _hpBarObj.transform.rotation.z);
             }
             else if (!_isTurn)
             {
                 _isTurn = true;
                 _attackSc._attackRight=true;
                 _renderObj.transform.rotation = Quaternion.Euler(_parentObj.transform.rotation.x, 0, _parentObj.transform.rotation.z);
-                _hpBarObj.transform.rotation = Quaternion.Euler(_hpBarObj.transform.rotation.x, 180, _hpBarObj.transform.rotation.z);
+                //_hpBarObj.transform.rotation = Quaternion.Euler(_hpBarObj.transform.rotation.x, 180, _hpBarObj.transform.rotation.z);
             }
             else
             {
