@@ -46,7 +46,7 @@ public class BossGoblin : MonoBehaviour
 
     void Awake()
     {
-        //開発時用
+        //フレーム固定
         Application.targetFrameRate = 60;
 
         //データ格納
