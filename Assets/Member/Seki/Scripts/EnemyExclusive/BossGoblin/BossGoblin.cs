@@ -126,7 +126,7 @@ public class BossGoblin : MonoBehaviour
                 {
                     if (ColTag == _enemyState._notPlayerAttackTag[i])
                     {
-                        Debug.Log("ダメージ無効化オブジェクトです");
+                        //Debug.Log("ダメージ無効化オブジェクトです");
                         return;
                     }
                 }
@@ -135,14 +135,14 @@ public class BossGoblin : MonoBehaviour
                 ObjectGroundChecker _groundCheck=collision.gameObject.GetComponent<ObjectGroundChecker>();
                 if (_groundCheck.IsGrounded)
                 {
-                    Debug.Log("接地オブジェクトです");
+                    //Debug.Log("接地オブジェクトです");
                     return ;
                 }
 
                 //ダメージ計算
                 int ColDamage = _enemyState._setDamageClasses[j]._damage;
                 ColDamage = (_enemyState._reflectionMagnification * _objSt._reflection) + ColDamage;
-                Debug.Log("反射回数" + _objSt._reflection);
+                //Debug.Log("反射回数" + _objSt._reflection);
 
                 //弱点判定がオンになっているか
                 if (_objSt._weakness)
@@ -173,7 +173,7 @@ public class BossGoblin : MonoBehaviour
     {
         //通常ダメージを1.5倍で切り上げた数値を格納
         int _weekDamage = Mathf.CeilToInt(_colDamage * 1.5f);
-        Debug.Log("弱点ダメージ：" + _weekDamage);
+        //Debug.Log("弱点ダメージ：" + _weekDamage);
         //処理
         _enemyHp -= _weekDamage;
         //HPバー処理
@@ -191,7 +191,7 @@ public class BossGoblin : MonoBehaviour
     /// <param name="_colDamage">ダメージ数値</param>
     async void UsuallyDamage(int _colDamage)
     {
-        Debug.Log("通常ダメージ：" + _colDamage);
+        //Debug.Log("通常ダメージ：" + _colDamage);
         _enemyHp -= _colDamage;
         //HPバー処理
         _hpBar.SetNowHp(_enemyHp);
