@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +16,7 @@ public class ObjStatus : MonoBehaviour
     private const float ResetBounceThreshold = 0.3f;
 
     [SerializeField]
-    private Text bounceText;
+    private TextMeshProUGUI bounceText;
 
 
     void Start()
