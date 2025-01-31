@@ -198,6 +198,7 @@ GameObject:
   - component: {fileID: 1680210089055149377}
   - component: {fileID: 5550831403760218587}
   - component: {fileID: 4111842900549502245}
+  - component: {fileID: 1770531412194021103}
   m_Layer: 0
   m_Name: Renga
   m_TagString: Renga
@@ -443,6 +444,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1770531412194021103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6232945272718767904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 913a648f0d8bdd3419829fa1ada02586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7786887488447011646
 GameObject:
   m_ObjectHideFlags: 0
