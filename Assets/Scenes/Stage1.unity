@@ -683,6 +683,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1132284102640204677, guid: 26561d44010838743b3d6dcf9531fe08, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1680210089055149377, guid: 26561d44010838743b3d6dcf9531fe08, type: 3}
       propertyPath: speed
       value: 40
@@ -1216,17 +1220,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1269114939 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4039909792564970161, guid: 9abde556a193bdb4e80d9f9e06cec129, type: 3}
-  m_PrefabInstance: {fileID: 1567025627}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1326109897
 GameObject:
   m_ObjectHideFlags: 0
@@ -1907,6 +1900,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2406851383430263148, guid: 9abde556a193bdb4e80d9f9e06cec129, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2406851383430263148, guid: 9abde556a193bdb4e80d9f9e06cec129, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
@@ -2045,7 +2042,7 @@ PrefabInstance:
     - target: {fileID: 8799978464774786100, guid: 9abde556a193bdb4e80d9f9e06cec129, type: 3}
       propertyPath: bounceText
       value: 
-      objectReference: {fileID: 1269114939}
+      objectReference: {fileID: 0}
     - target: {fileID: 8799978464774786100, guid: 9abde556a193bdb4e80d9f9e06cec129, type: 3}
       propertyPath: _initialBounce
       value: 2
@@ -2439,7 +2436,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 64bb0c2c522ae834383791f7d7f3f3a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2578,7 +2575,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialBounce: 4
   _bounce: 4
-  bounceText: {fileID: 1925068561}
+  bounceText: {fileID: 0}
 --- !u!114 &1780967989
 MonoBehaviour:
   m_ObjectHideFlags: 0
