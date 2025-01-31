@@ -90,6 +90,8 @@ public class EnemyState : MonoBehaviour
 
     [Label("リザルトScene"), Scene] public string _resultScene;
 
+    [Label("スタート済")] public bool _gameStart = false;
+
     private void Start()
     {
         Debug.Log(_stageEnemyDate.Length);
