@@ -131,6 +131,14 @@ public class BossGoblin : MonoBehaviour
                     }
                 }
 
+                //アタックオブジェクトが接地しているかどうか
+                ObjectGroundChecker _groundCheck=collision.gameObject.GetComponent<ObjectGroundChecker>();
+                if (_groundCheck.IsGrounded)
+                {
+                    Debug.Log("接地オブジェクトです");
+                    return ;
+                }
+
                 //ダメージ計算
                 int ColDamage = _enemyState._setDamageClasses[j]._damage;
                 ColDamage = (_enemyState._reflectionMagnification * _objSt._reflection) + ColDamage;
