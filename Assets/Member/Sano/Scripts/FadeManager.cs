@@ -42,6 +42,8 @@ public class FadeManager : MonoBehaviour
     /// <summary>フェード色</summary>
     public Color fadeColor = Color.black;
 
+    public EnemyState enemyState;
+
 
     public void Awake()
     {
@@ -108,6 +110,8 @@ public class FadeManager : MonoBehaviour
         }
 
         this.isFading = false;
+
+        this.enemyState._gameStart = true;
     }
 
     // FadeManager.Instance.LoadScene(遷移先のscene名);
