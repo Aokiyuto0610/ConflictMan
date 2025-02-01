@@ -17,6 +17,7 @@ TagManager:
   - Needle
   - NeeMau
   - EnemyDamageCol
+  - Clock
   layers:
   - Default
   - TransparentFX
