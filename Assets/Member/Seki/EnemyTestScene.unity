@@ -619,6 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33cb156c4b811a4499e2324d64ec8feb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFading: 0
   fadeColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!4 &886500903
 Transform:
@@ -727,6 +728,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4457317176094465770, guid: b4027deb4169c0548894f1aab0f42144, type: 3}
+      propertyPath: _movingObj
+      value: 
+      objectReference: {fileID: 1960909231}
     - target: {fileID: 4457317176094465770, guid: b4027deb4169c0548894f1aab0f42144, type: 3}
       propertyPath: _enemyState
       value: 
@@ -997,6 +1002,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1960909231 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 544272013176670921, guid: b4027deb4169c0548894f1aab0f42144, type: 3}
+  m_PrefabInstance: {fileID: 937475605}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1990304085
 GameObject:
   m_ObjectHideFlags: 0

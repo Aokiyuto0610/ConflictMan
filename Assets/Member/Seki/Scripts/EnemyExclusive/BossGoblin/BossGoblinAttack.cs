@@ -38,6 +38,7 @@ public class BossGoblinAttack : MonoBehaviour
 
     private void Start()
     {
+        _parentObj.SetActive(false);
     }
 
     
