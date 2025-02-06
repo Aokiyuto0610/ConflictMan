@@ -18,7 +18,6 @@ public class ObjStatus : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI bounceText;
 
-
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -37,7 +36,7 @@ public class ObjStatus : MonoBehaviour
             {
                 _bounce = _initialBounce;
                 UpdateBounceText();
-                Debug.Log("Bounce count reset after staying on Floor for 0.5 seconds.");
+                Debug.Log("<b><i>Bounce count reset after staying on Floor for 0.5 seconds.</i></b>");
             }
         }
         else
@@ -58,7 +57,7 @@ public class ObjStatus : MonoBehaviour
                 _isGravity = true;
                 _rb.gravityScale = 1;
                 _rb.velocity = Vector2.zero;
-                Debug.Log("Object starts falling due to bounce limit reached.");
+                Debug.Log("<b><i>Object starts falling due to bounce limit reached.</i></b>");
             }
         }
 
@@ -75,7 +74,7 @@ public class ObjStatus : MonoBehaviour
                 _rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                 DefaultRotation();
                 UpdateBounceText();
-                Debug.Log("Object reset after hitting the floor.");
+                Debug.Log("<b><i>Object reset after hitting the floor.</i></b>");
             }
         }
     }
@@ -91,15 +90,15 @@ public class ObjStatus : MonoBehaviour
 
     private void UpdateBounceText()
     {
-        if(bounceText != null)
+        if (bounceText != null)
         {
-            bounceText.text = $": {_bounce}";
+            bounceText.text = "<b><i>: " + _bounce + "</i></b>";
         }
     }
 
     public void DefaultRotation()
     {
         _rb.constraints = RigidbodyConstraints2D.None;
-        Debug.Log("Object rotation reset.");
+        Debug.Log("<b><i>Object rotation reset.</i></b>");
     }
 }
