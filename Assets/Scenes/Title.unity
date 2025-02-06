@@ -474,7 +474,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33cb156c4b811a4499e2324d64ec8feb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFading: 0
   fadeColor: {r: 0, g: 0, b: 0, a: 1}
+  enemyState: {fileID: 0}
 --- !u!4 &1188754927
 Transform:
   m_ObjectHideFlags: 0
@@ -608,6 +610,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4117932625072674759, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335003884229072813, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6080365043315502859, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
+      propertyPath: Loop
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8488281238888829308, guid: 56b2d027f9a811a40b9581484fe016d9, type: 3}
