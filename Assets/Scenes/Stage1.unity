@@ -546,7 +546,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFading: 0
   fadeColor: {r: 0, g: 0, b: 0, a: 1}
-  enemyState: {fileID: 0}
+  enemyState: {fileID: 1711379896}
 --- !u!4 &381964074
 Transform:
   m_ObjectHideFlags: 0
