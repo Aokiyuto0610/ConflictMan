@@ -43,6 +43,12 @@ public class BossGoblin : MonoBehaviour
 
     private int _attackCount = 0;
 
+    //スタート用フラグ
+    [SerializeField] bool Started = true;
+
+    //移動用
+    [SerializeField] GameObject _movingObj;
+
 
     void Awake()
     {
@@ -74,11 +80,12 @@ public class BossGoblin : MonoBehaviour
                 }
             }
         }
+        _movingObj.SetActive(false);
     }
 
     async void Update()
     {
-        if (!_attacking)
+        if (!_attacking&&!Started)
         {
             _attackSpanTime += Time.deltaTime;
 
@@ -91,6 +98,19 @@ public class BossGoblin : MonoBehaviour
             if (_attackCount == _enemyAttackSpan.Length)
             {
                 _attackCount = 0;
+            }
+        }
+
+        //一回のみ処理
+        if (Started)
+        {
+            //スタートしたら動く
+            if (_enemyState._gameStart)
+            {
+                //フラグ回収
+                Started = false;
+                //移動開始
+                _movingObj.SetActive(true);
             }
         }
     }
