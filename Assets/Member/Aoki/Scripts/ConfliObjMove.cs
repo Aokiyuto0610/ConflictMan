@@ -39,11 +39,11 @@ public class ConfliObjMove : MonoBehaviour
 
     [Header("Arrow Colors")]
     [SerializeField]
-    private Color startColor = Color.red;
+    private Color startColor = Color.green;
     [SerializeField]
     private Color middleColor = Color.yellow;
     [SerializeField]
-    private Color endColor = Color.green;
+    private Color endColor = Color.red;
 
     public bool isSelected { get; private set; }
 

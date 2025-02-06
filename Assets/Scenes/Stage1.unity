@@ -966,9 +966,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   maxDrag: 1
-  startColor: {r: 1, g: 0, b: 0, a: 1}
-  middleColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  endColor: {r: 0, g: 1, b: 0, a: 1}
+  startColor: {r: 0.5137255, g: 1, b: 0, a: 1}
+  middleColor: {r: 1, g: 1, b: 0, a: 1}
+  endColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &760098495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1188,6 +1188,14 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1680210089055149377, guid: 26561d44010838743b3d6dcf9531fe08, type: 3}
+      propertyPath: endColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1680210089055149377, guid: 26561d44010838743b3d6dcf9531fe08, type: 3}
+      propertyPath: endColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1680210089055149377, guid: 26561d44010838743b3d6dcf9531fe08, type: 3}
       propertyPath: arrowParent
       value: 
       objectReference: {fileID: 1246258290}
@@ -1197,6 +1205,22 @@ PrefabInstance:
       objectReference: {fileID: 1246258288}
     - target: {fileID: 1680210089055149377, guid: 26561d44010838743b3d6dcf9531fe08, type: 3}
       propertyPath: arrowSpacing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1680210089055149377, guid: 26561d44010838743b3d6dcf9531fe08, type: 3}
+      propertyPath: startColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1680210089055149377, guid: 26561d44010838743b3d6dcf9531fe08, type: 3}
+      propertyPath: startColor.r
+      value: 0.5137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 1680210089055149377, guid: 26561d44010838743b3d6dcf9531fe08, type: 3}
+      propertyPath: middleColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1680210089055149377, guid: 26561d44010838743b3d6dcf9531fe08, type: 3}
+      propertyPath: middleColor.g
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4111842900549502245, guid: 26561d44010838743b3d6dcf9531fe08, type: 3}
@@ -2359,15 +2383,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1695548400392793633, guid: 9abde556a193bdb4e80d9f9e06cec129, type: 3}
       propertyPath: endColor.b
-      value: 0.3137255
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1695548400392793633, guid: 9abde556a193bdb4e80d9f9e06cec129, type: 3}
       propertyPath: endColor.g
-      value: 0.8156863
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1695548400392793633, guid: 9abde556a193bdb4e80d9f9e06cec129, type: 3}
       propertyPath: endColor.r
-      value: 0.57254905
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1695548400392793633, guid: 9abde556a193bdb4e80d9f9e06cec129, type: 3}
       propertyPath: arrowParent
@@ -2391,11 +2415,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1695548400392793633, guid: 9abde556a193bdb4e80d9f9e06cec129, type: 3}
       propertyPath: startColor.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1695548400392793633, guid: 9abde556a193bdb4e80d9f9e06cec129, type: 3}
       propertyPath: startColor.r
-      value: 1
+      value: 0.515625
       objectReference: {fileID: 0}
     - target: {fileID: 1695548400392793633, guid: 9abde556a193bdb4e80d9f9e06cec129, type: 3}
       propertyPath: middleColor.b
@@ -2403,7 +2427,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1695548400392793633, guid: 9abde556a193bdb4e80d9f9e06cec129, type: 3}
       propertyPath: middleColor.g
-      value: 0.4
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1695548400392793633, guid: 9abde556a193bdb4e80d9f9e06cec129, type: 3}
+      propertyPath: middleColor.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1695548400392793633, guid: 9abde556a193bdb4e80d9f9e06cec129, type: 3}
       propertyPath: timeBeforeStopDragging
@@ -3246,9 +3274,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   maxDrag: 1
-  startColor: {r: 1, g: 0, b: 0, a: 1}
-  middleColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  endColor: {r: 0, g: 1, b: 0, a: 1}
+  startColor: {r: 0.5137255, g: 1, b: 0, a: 1}
+  middleColor: {r: 1, g: 1, b: 0, a: 1}
+  endColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &1780967988
 MonoBehaviour:
   m_ObjectHideFlags: 0
