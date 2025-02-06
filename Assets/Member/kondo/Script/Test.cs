@@ -14,7 +14,18 @@ public class Test : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+<<<<<<< HEAD
         //SoundManager.Instance.PlaySE(SESoundData.SE.Button);
+=======
+        GetComponent<Button>().onClick.AddListener(() =>
+        { 
+            // ²–ì’Ç‹L
+            FadeManager.Instance.LoadScene("Stage1", 1.0F);
+            SoundManager.Instance.PlaySE(SESoundData.SE.Button);
+
+        });
+
+>>>>>>> origin/Sano
     }
 
     // Update is called once per frame
