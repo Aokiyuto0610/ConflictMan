@@ -740,6 +740,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 9e5a25ce88d3c934b994fd6d0efd5e2a, type: 3}
+    - target: {fileID: 6583053860986174726, guid: f56232611e031c64e892b7262a72593a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1985447007}
+    - target: {fileID: 6583053860986174726, guid: f56232611e031c64e892b7262a72593a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnTitleBackButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583053860986174726, guid: f56232611e031c64e892b7262a72593a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Test, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 6765829129938656695, guid: f56232611e031c64e892b7262a72593a, type: 3}
       propertyPath: SceneName
       value: Stage1
@@ -755,6 +767,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f56232611e031c64e892b7262a72593a, type: 3}
+--- !u!114 &1985447007 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2177479633236131706, guid: f56232611e031c64e892b7262a72593a, type: 3}
+  m_PrefabInstance: {fileID: 1985447006}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19746d741dac42f4a9c393b0866e4613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2042397091
 GameObject:
   m_ObjectHideFlags: 0

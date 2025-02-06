@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
+//using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -11,21 +11,17 @@ public class Test : MonoBehaviour
 {
     public FadeManager manager;
     public string SceneName;
-    // Start is called before the first frame update
     void Start()
     {
-<<<<<<< HEAD
-        //SoundManager.Instance.PlaySE(SESoundData.SE.Button);
-=======
-        GetComponent<Button>().onClick.AddListener(() =>
-        { 
-            // ç≤ñÏí«ãL
-            FadeManager.Instance.LoadScene("Stage1", 1.0F);
-            SoundManager.Instance.PlaySE(SESoundData.SE.Button);
+        ////SoundManager.Instance.PlaySE(SESoundData.SE.Button);
+        //GetComponent<Button>().onClick.AddListener(() =>
+        //{
+        //    // ç≤ñÏí«ãL
+        //    FadeManager.Instance.LoadScene("Stage1", 1.0F);
+        //    SoundManager.Instance.PlaySE(SESoundData.SE.Button);
 
-        });
+        //});
 
->>>>>>> origin/Sano
     }
 
     // Update is called once per frame
@@ -34,9 +30,17 @@ public class Test : MonoBehaviour
 
     }
 
-    public void Start_button()
+    public void OnStart_button()
     {
-        //SceneChangr.scenechangrInstance._fade.SceneFade("Stage1");
+        FadeManager.Instance.LoadScene("Stage1", 1.0F);
         SoundManager.Instance.PlaySE(SESoundData.SE.Button);
+        Debug.Log("aa");
+    }
+
+    public void OnTitleBackButton()
+    {
+        FadeManager.Instance.LoadScene("Title", 1.0F);
+        SoundManager.Instance.PlaySE(SESoundData.SE.Button);
+        Debug.Log("aiu");
     }
 }

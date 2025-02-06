@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19746d741dac42f4a9c393b0866e4613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
   SceneName: Rule
 --- !u!95 &744920334210093401
 Animator:
@@ -627,9 +628,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7656872526361850405}
-        m_TargetAssemblyTypeName: ButtonTrigger, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 6765829129938656695}
+        m_TargetAssemblyTypeName: Test, Assembly-CSharp
+        m_MethodName: Start_button
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -651,6 +652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19746d741dac42f4a9c393b0866e4613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 0}
   SceneName: Tutorial
 --- !u!114 &7382717488394758078
 MonoBehaviour:
