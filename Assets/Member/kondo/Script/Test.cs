@@ -13,8 +13,9 @@ public class Test : MonoBehaviour
     void Start()
     {
         GetComponent<Button>().onClick.AddListener(() =>
-        {
-            SceneManager.LoadScene(SceneName);
+        { 
+            // ²–ì’Ç‹L
+            FadeManager.Instance.LoadScene("Stage1", 1.0F);
             SoundManager.Instance.PlaySE(SESoundData.SE.Button);
 
         });
