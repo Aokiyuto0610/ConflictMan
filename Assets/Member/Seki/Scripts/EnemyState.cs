@@ -96,6 +96,7 @@ public class EnemyState : MonoBehaviour
     {
         Debug.Log(_stageEnemyDate.Length);
         _enemyTotal=_stageEnemyDate.Length;
+        _gameStart = true;
     }
 
     //“G‚ª“|‚³‚ê‚½Û‚ÉŒÄ‚Ño‚µ

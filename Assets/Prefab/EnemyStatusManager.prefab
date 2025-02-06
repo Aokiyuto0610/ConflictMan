@@ -62,9 +62,9 @@ MonoBehaviour:
     _enemyPower: 10
     _enemySpeed: 5
     _weekPointDamage: 2
-    _attackSpan: 3
   _reflectionMagnification: 20
   _turnPointTag: Wall
   _enemyTotal: 0
   _enemySlainNum: 0
   _resultScene: Title
+  _gameStart: 1
