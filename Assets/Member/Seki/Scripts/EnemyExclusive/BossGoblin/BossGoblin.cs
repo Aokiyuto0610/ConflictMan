@@ -151,12 +151,14 @@ public class BossGoblin : MonoBehaviour
                     }
                 }
 
-                //アタックオブジェクトが接地しているかどうか
-                ObjectGroundChecker _groundCheck=collision.gameObject.GetComponent<ObjectGroundChecker>();
-                if (_groundCheck.IsGrounded)
+                if (collision.gameObject.tag != "Needle")
                 {
-                    //Debug.Log("接地オブジェクトです");
-                    return ;
+                    //アタックオブジェクトが接地しているかどうか
+                    ObjectGroundChecker _groundCheck = collision.gameObject.GetComponent<ObjectGroundChecker>();
+                    if (_groundCheck.IsGrounded)
+                    {
+                        return;
+                    }
                 }
 
                 //ダメージ計算
